@@ -1,7 +1,7 @@
 Scheduler.grid.UpcomingTasks = function(config) {
     config = config || {};
     config.exp = new Ext.grid.RowExpander({
-        tpl : new Ext.Template('{summary}{errors}')
+        tpl : new Ext.Template('{summary}{returned}{errors}')
     });
     Ext.applyIf(config,{
 		url: Scheduler.config.connectorUrl,

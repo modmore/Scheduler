@@ -1,6 +1,6 @@
 Scheduler.grid.HistoricalTasks = function(config) {
     config = config || {};
-    config.exp = new Ext.grid.RowExpander({
+    var exp = new Ext.grid.RowExpander({
         tpl : new Ext.Template('<p>{returned}</p> {errors}')
     });
     Ext.applyIf(config,{
@@ -8,7 +8,8 @@ Scheduler.grid.HistoricalTasks = function(config) {
 		baseParams: {
             action: 'mgr/tasks/historical/getlist'
         },
-		columns: [config.exp, {
+        plugins: exp,
+		columns: [exp, {
 			header: _('scheduler.id'),
 			dataIndex: 'id',
 			sortable: true,
