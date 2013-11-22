@@ -15,7 +15,7 @@ if (!($scheduler instanceof Scheduler)) {
     die('Oops, could not get Scheduler class.');
 }
 
-$scheduler->setTask('scheduler', 'sometask', '+125 minutes', dirname(__FILE__).'/randomtask.php', array(
+$scheduler->setTask('scheduler', 'sometask', '+342 minutes', dirname(__FILE__).'/randomtask.php', array(
         'Variable1' => 'Foo',
         'Variable2' => 'Bar',
-    ), 'Just a random task to test setTask and running it.');
+    ), 'Final random task to test setTask and running it.');

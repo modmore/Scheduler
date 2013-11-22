@@ -66,6 +66,7 @@ class Scheduler
                 'jsUrl' => $assetsUrl . 'js/',
                 'cssUrl' => $assetsUrl . 'css/',
                 'connectorUrl' => $assetsUrl . 'connector.php',
+                'hideLogo' => $this->modx->getOption('scheduler.hideLogo', null, false),
             ),
             $config
         );
@@ -94,8 +95,8 @@ class Scheduler
      *  );
      *
      */
-    public function setTask($namespace, $task, $timestamp, $content, array $data = array(), $summary = '', $referenceId = null, $type = sTask::RUN_FILE) {
-        $reference = $namespace . '-' . $task . '-';
+    public function setTask($namespace, $taskName, $timestamp, $content, array $data = array(), $summary = '', $referenceId = null, $type = sTask::RUN_FILE) {
+        $reference = $namespace . '-' . $taskName . '-';
         if (!empty($referenceId)) $reference .= $referenceId;
         else $reference .= md5($this->modx->toJSON($data));
 
@@ -115,7 +116,7 @@ class Scheduler
         $task->set('content', $content);
         $task->set('data', $data);
         $task->set('namespace', $namespace);
-        $task->set('task', $task);
+        $task->set('task', $taskName);
         $task->set('summary', $summary);
 
         return $task->save();
