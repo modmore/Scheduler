@@ -1,0 +1,41 @@
+<?php
+/**
+ * Scheduler
+ *
+ * Copyright 2013 by Mark Hamstra <mark@modmore.com>
+ * 
+ * @package scheduler
+ * @var modX $modx
+ */
+require_once dirname(dirname(dirname(dirname(__FILE__)))).'/config.core.php';
+require_once MODX_CORE_PATH.'config/'.MODX_CONFIG_KEY.'.inc.php';
+require_once MODX_CONNECTORS_PATH.'index.php';
+
+$corePath = $modx->getOption('scheduler.core_path',null,$modx->getOption('core_path').'components/scheduler/');
+require_once $corePath.'model/scheduler/scheduler.class.php';
+$scheduler = new Scheduler($modx);
+
+$limit = (int)$modx->getOption('scheduler.tasks_per_run', null, 1);
+
+/**
+ * Get the tasks we need to run right now.
+ */
+echo time();
+$c = $modx->newQuery('sTask');
+$c->where(array(
+    'status' => sTask::STATUS_PENDING,
+    'AND:executeon:<=' => time(),
+));
+$c->sortby('executeon', 'asc');
+$c->limit($limit);
+
+/**
+ * @var sTask $task
+ */
+echo 'foo';
+foreach ($modx->getIterator('sTask', $c) as $task) {
+    var_dump($task->toArray());
+    $task->run();
+    var_dump($task->toArray());
+}
+echo 'bar';

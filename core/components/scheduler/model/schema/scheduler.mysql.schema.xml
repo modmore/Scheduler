@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="scheduler" baseClass="xPDOSimpleObject" platform="mysql" defaultEngine="MyISAM" version="1.1">
+    <object class="sTask" table="scheduler_task">
+        <field key="reference" dbtype="varchar" precision="128" phptype="string" null="false" />
+        <field key="status" dbtype="tinyint" precision="1" phptype="integer" null="false" attributes="unsigned" default="0" />
+
+        <field key="type" dbtype="varchar" precision="25" phptype="string" null="false" default="file" />
+
+        <field key="executeon" dbtype="int" precision="20" phptype="integer" null="false" attributes="unsigned" default="0" />
+        <field key="content" dbtype="varchar" precision="256" phptype="string" null="false" default="" />
+        <field key="data" dbtype="text" phptype="array" null="true" />
+        <field key="namespace" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
+        <field key="task" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
+        <field key="summary" dbtype="varchar" precision="1024" phptype="string" null="false" default="" />
+
+        <field key="completedon" dbtype="int" precision="20" phptype="integer" null="false" attributes="unsigned" default="0" />
+        <field key="returned" dbtype="text" phptype="string" null="true" />
+        <field key="errors" dbtype="text" phptype="array" null="true" />
+    </object>
+</model>
+
