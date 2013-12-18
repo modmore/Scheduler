@@ -1,28 +1,35 @@
 <?php
 /**
- * Gets a list of sTask objects.
+ * Gets a list of sTaskRun objects.
  */
-class sTaskGetHistoricalListProcessor extends modObjectGetListProcessor {
-    public $classKey = 'sTask';
+class sTaskRunHistoryListProcessor extends modObjectGetListProcessor {
+    public $classKey = 'sTaskRun';
     public $languageTopics = array('scheduler:default');
-    public $defaultSortField = 'executeon';
+    public $defaultSortField = 'executedon';
     public $defaultSortDirection = 'DESC';
 
     /**
-     * Only load variations for current test.
+     * Filter on status and add task data
      *
      * @param xPDOQuery $c
      * @return xPDOQuery
      */
     public function prepareQueryBeforeCount(xPDOQuery $c) {
         $c->where(array(
-            'status:!=' => sTask::STATUS_PENDING,
+            'status:!=' => sTaskRun::STATUS_SCHEDULED,
         ));
+        $c->innerJoin('sTask', 'Task');
+        $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
+        $c->select($this->modx->getSelectColumns('sTask', 'Task', 'task_'));
         return $c;
     }
 
+    /**
+     * @param xPDOObject $object
+     * @return array
+     */
     public function prepareRow(xPDOObject $object) {
-        $array = $object->toArray();
+        $array = $object->toArray('', false, true);
 
         if (!empty($array['errors'])) {
             $errors = array();
@@ -45,4 +52,4 @@ class sTaskGetHistoricalListProcessor extends modObjectGetListProcessor {
         return $array;
     }
 }
-return 'sTaskGetHistoricalListProcessor';
+return 'sTaskRunHistoryListProcessor';

@@ -35,10 +35,10 @@ Scheduler.page.Home = function(config) {
                     xtype: 'scheduler-grid-upcomingtasks'
                 }]
             },{
-                title: _('scheduler.historical'),
+                title: _('scheduler.history'),
                 cls: 'main-wrapper',
                 items: [{
-                    xtype: 'scheduler-grid-historicaltasks'
+                    xtype: 'scheduler-grid-history'
                 }]
             }]
         },Scheduler.attribution()],
