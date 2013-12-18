@@ -5,14 +5,17 @@
 class sProcessorTask extends sTask
 {
     /**
-     * @param array $data
+     * @param sTaskRun $run
      * @return mixed
      */
-    public function _run(array $data = array())
+    public function _run(&$run)
     {
         $action = $this->get('content');
         $path = $this->getOption('core_path') . 'model/modx/processors/';
-        $data['task'] =& $this;
+        $data = array_merge(array (
+            'task' => &$this,
+            'run' => &$run,
+        ), $run->get('data'));
 
         $namespace = $this->_getNamespace();
         if ($namespace && $namespace->name != 'core') {

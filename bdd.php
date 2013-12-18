@@ -12,7 +12,6 @@ $scheduler = $modx->getService('scheduler', 'Scheduler', $path . 'model/schedule
 
 $task = $scheduler->getTask('scheduler', 'random');
 if ($task instanceof sTask) {
-    var_dump($task->toArray());
     $task->schedule('+10 minutes', array(
         'client' => 15
     ));

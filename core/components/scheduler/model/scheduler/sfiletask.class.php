@@ -8,7 +8,7 @@ class sFileTask extends sTask
      * @param sTaskRun $run
      * @return mixed
      */
-    public function _run($run)
+    public function _run(&$run)
     {
         $content = $this->get('content');
 
