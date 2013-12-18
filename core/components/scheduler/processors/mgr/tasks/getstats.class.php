@@ -12,13 +12,15 @@ class getTaskStatsProcessor extends modProcessor {
      */
     public function process()
     {
-        $queued = $this->modx->getCount('sTask', array('status' => sTask::STATUS_PENDING));
-        $pastdue = $this->modx->getCount('sTask', array('status' => sTask::STATUS_PENDING, 'AND:executeon:<' => time()));
-        $completed = $this->modx->getCount('sTask', array('status:!=' => sTask::STATUS_PENDING));
+        $queued = $this->modx->getCount('sTaskRun', array('status' => sTaskRun::STATUS_SCHEDULED));
+        $pastdue = $this->modx->getCount('sTaskRun', array('status' => sTaskRun::STATUS_SCHEDULED, 'AND:timing:<' => time()));
+        $running = $this->modx->getCount('sTaskRun', array('status' => sTaskRun::STATUS_EXECUTING));
+        $completed = $this->modx->getCount('sTaskRun', array('status' => sTaskRun::STATUS_SUCCESS, 'OR:status:=' => sTaskRun::STATUS_FAILURE));
         $stats = array(
-            'scheduler-upcoming-queued' => $queued,
-            'scheduler-upcoming-pastdue' => $pastdue,
-            'scheduler-upcoming-completed' => $completed,
+            'scheduler-upcoming-queued' => (string)$queued,
+            'scheduler-upcoming-pastdue' => (string)$pastdue,
+            'scheduler-upcoming-running' => (string)$running,
+            'scheduler-upcoming-completed' => (string)$completed,
         );
         return $this->modx->toJSON(array('success' => true, 'stats' => $stats));
     }

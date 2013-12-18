@@ -29,7 +29,7 @@ Scheduler.page.Home = function(config) {
                 }
             },
             items: [{
-                title: _('scheduler.upcoming'),
+                title: _('scheduler.tasks'),
                 cls: 'main-wrapper',
                 items: [{
                     xtype: 'scheduler-grid-upcomingtasks'
@@ -50,6 +50,10 @@ Scheduler.page.Home = function(config) {
             xtype: 'tbtext',
             text: '0',
             id: 'scheduler-upcoming-pastdue'
+        }, '&bull;', '<b>' + _('scheduler.running') + ':</b>', {
+            xtype: 'tbtext',
+            text: '0',
+            id: 'scheduler-upcoming-running'
         }, '&bull;', '<b>' + _('scheduler.completed') + ':</b>', {
             xtype: 'tbtext',
             text: '0',

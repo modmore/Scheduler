@@ -20,22 +20,21 @@ $limit = (int)$modx->getOption('scheduler.tasks_per_run', null, 1);
 /**
  * Get the tasks we need to run right now.
  */
-echo time();
-$c = $modx->newQuery('sTask');
+$c = $modx->newQuery('sTaskRun');
 $c->where(array(
-    'status' => sTask::STATUS_PENDING,
-    'AND:executeon:<=' => time(),
+    'status' => sTaskRun::STATUS_SCHEDULED,
+    'AND:timing:<=' => time(),
 ));
-$c->sortby('executeon', 'asc');
+$c->sortby('timing', 'asc');
 $c->limit($limit);
 
 /**
- * @var sTask $task
+ * @var sTaskRun $taskRun
  */
-echo 'foo';
-foreach ($modx->getIterator('sTask', $c) as $task) {
-    var_dump($task->toArray());
-    $task->run();
-    var_dump($task->toArray());
+foreach ($modx->getIterator('sTaskRun', $c) as $taskRun) {
+    $task = $taskRun->getOne('Task');
+    if ($task instanceof sTask) {
+        $task->run($taskRun);
+    }
 }
-echo 'bar';
+echo 'Done';

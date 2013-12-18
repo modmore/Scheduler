@@ -2,6 +2,7 @@
 /**
  * @var modX $modx
  * @var sTask $task
+ * @var sTaskRun $run
  * @var array $scriptProperties
  */
 
@@ -17,5 +18,9 @@ foreach ($scriptProperties as $key => $value) {
 }
 
 $return[] = $task->toJSON();
+
+$run->addError('random_error', array(
+    'random_number' => rand(0, 99999)
+));
 
 return implode('<br>', $return);

@@ -34,7 +34,7 @@ class Scheduler
      * @param \modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = array())
+    public function __construct(modX &$modx, array $config = array())
     {
         $this->modx =& $modx;
 
@@ -76,50 +76,29 @@ class Scheduler
         $modelPath = $this->config['modelPath'];
         $this->modx->addPackage('scheduler', $modelPath);
         $this->modx->loadClass('sTask', $modelPath.'scheduler/');
+        $this->modx->loadClass('sTaskRun', $modelPath.'scheduler/');
     }
 
-
     /**
+     * Gets a task by its ID or namespace and reference
      *
-     *
-     *
-     *  $scheduler->addTask(
-     *      'login', // namespace
-     *      'remindverify', // task
-     *      '+ 1 week', // timestamp (relative)
-     *      'test/random.php', // content
-     *      array(...), // data
-     *      'Performs a random task.', // Summary for the user
-     *      'foo', // reference id (calculated md5 if not set)
-     *      //sTask::RUN_SNIPPET, // To indicate it's a snippet-based task
-     *  );
-     *
+     * @param string|int $namespaceOrId
+     * @param string $reference
+     * @return null|sTask
      */
-    public function setTask($namespace, $taskName, $timestamp, $content, array $data = array(), $summary = '', $referenceId = null, $type = sTask::RUN_FILE) {
-        $reference = $namespace . '-' . $taskName . '-';
-        if (!empty($referenceId)) $reference .= $referenceId;
-        else $reference .= md5($this->modx->toJSON($data));
-
-        /**
-         * @var sTask $task
-         */
-        $task = $this->modx->newObject('sTask');
-        $task->set('reference', $reference);
-        $task->set('status', sTask::STATUS_PENDING);
-        $task->set('type', $type);
-
-        if (!is_numeric($timestamp)) {
-            $timestamp = strtotime($timestamp);
+    public function getTask($namespaceOrId, $reference = '')
+    {
+        if (is_numeric($namespaceOrId) && empty($reference)) {
+            $condition = $namespaceOrId;
         }
-        $task->set('executeon', $timestamp);
-
-        $task->set('content', $content);
-        $task->set('data', $data);
-        $task->set('namespace', $namespace);
-        $task->set('task', $taskName);
-        $task->set('summary', $summary);
-
-        return $task->save();
+        else {
+            $condition = array(
+                'namespace' => $namespaceOrId,
+                'reference' => $reference,
+            );
+        }
+        $task = $this->modx->getObject('sTask', $condition);
+        return $task;
     }
 
     /**

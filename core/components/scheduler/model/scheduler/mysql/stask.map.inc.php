@@ -5,53 +5,21 @@ $xpdo_meta_map['sTask']= array (
   'table' => 'scheduler_task',
   'fields' => 
   array (
-    'reference' => NULL,
-    'status' => 0,
-    'type' => 'file',
-    'executeon' => 0,
+    'class_key' => 'sSnippetTask',
     'content' => '',
-    'data' => NULL,
-    'namespace' => '',
-    'task' => '',
-    'summary' => '',
-    'completedon' => 0,
-    'returned' => NULL,
-    'errors' => NULL,
+    'namespace' => 'core',
+    'reference' => 'Untitled Task',
+    'description' => NULL,
   ),
   'fieldMeta' => 
   array (
-    'reference' => 
+    'class_key' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '128',
       'phptype' => 'string',
       'null' => false,
-    ),
-    'status' => 
-    array (
-      'dbtype' => 'tinyint',
-      'precision' => '1',
-      'phptype' => 'integer',
-      'null' => false,
-      'attributes' => 'unsigned',
-      'default' => 0,
-    ),
-    'type' => 
-    array (
-      'dbtype' => 'varchar',
-      'precision' => '25',
-      'phptype' => 'string',
-      'null' => false,
-      'default' => 'file',
-    ),
-    'executeon' => 
-    array (
-      'dbtype' => 'int',
-      'precision' => '20',
-      'phptype' => 'integer',
-      'null' => false,
-      'attributes' => 'unsigned',
-      'default' => 0,
+      'default' => 'sSnippetTask',
     ),
     'content' => 
     array (
@@ -61,56 +29,38 @@ $xpdo_meta_map['sTask']= array (
       'null' => false,
       'default' => '',
     ),
-    'data' => 
-    array (
-      'dbtype' => 'text',
-      'phptype' => 'array',
-      'null' => true,
-    ),
     'namespace' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '128',
       'phptype' => 'string',
       'null' => false,
-      'default' => '',
+      'default' => 'core',
     ),
-    'task' => 
+    'reference' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '128',
       'phptype' => 'string',
       'null' => false,
-      'default' => '',
+      'default' => 'Untitled Task',
     ),
-    'summary' => 
-    array (
-      'dbtype' => 'varchar',
-      'precision' => '1024',
-      'phptype' => 'string',
-      'null' => false,
-      'default' => '',
-    ),
-    'completedon' => 
-    array (
-      'dbtype' => 'int',
-      'precision' => '20',
-      'phptype' => 'integer',
-      'null' => false,
-      'attributes' => 'unsigned',
-      'default' => 0,
-    ),
-    'returned' => 
+    'description' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
     ),
-    'errors' => 
+  ),
+  'composites' => 
+  array (
+    'Runs' => 
     array (
-      'dbtype' => 'text',
-      'phptype' => 'array',
-      'null' => true,
+      'class' => 'sTaskRun',
+      'local' => 'id',
+      'foreign' => 'task',
+      'cardinality' => 'many',
+      'owner' => 'local',
     ),
   ),
 );

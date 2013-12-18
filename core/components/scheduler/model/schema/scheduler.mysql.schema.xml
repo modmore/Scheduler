@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model package="scheduler" baseClass="xPDOSimpleObject" platform="mysql" defaultEngine="MyISAM" version="1.1">
     <object class="sTask" table="scheduler_task">
-        <field key="reference" dbtype="varchar" precision="128" phptype="string" null="false" />
-        <field key="status" dbtype="tinyint" precision="1" phptype="integer" null="false" attributes="unsigned" default="0" />
-
-        <field key="type" dbtype="varchar" precision="25" phptype="string" null="false" default="file" />
-
-        <field key="executeon" dbtype="int" precision="20" phptype="integer" null="false" attributes="unsigned" default="0" />
+        <!-- automatically load sSnippetTask, sProcessorTask or sFileTask objects -->
+        <field key="class_key" dbtype="varchar" precision="128" phptype="string" null="false" default="sSnippetTask" />
+        <!-- Depending on the class_key, this contains a snippet, file path or processor reference-->
         <field key="content" dbtype="varchar" precision="256" phptype="string" null="false" default="" />
-        <field key="data" dbtype="text" phptype="array" null="true" />
-        <field key="namespace" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
-        <field key="task" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
-        <field key="summary" dbtype="varchar" precision="1024" phptype="string" null="false" default="" />
 
-        <field key="completedon" dbtype="int" precision="20" phptype="integer" null="false" attributes="unsigned" default="0" />
-        <field key="returned" dbtype="text" phptype="string" null="true" />
+        <!-- The key identifiers, used in $scheduler->getTask('namespace','reference'); -->
+        <field key="namespace" dbtype="varchar" precision="128" phptype="string" null="false" default="core" />
+        <field key="reference" dbtype="varchar" precision="128" phptype="string" null="false" default="Untitled Task" />
+
+        <!-- Used in the CMP to explain the user what a task does -->
+        <field key="description" dbtype="text" phptype="string" null="true" />
+
+        <composite alias="Runs" class="sTaskRun" local="id" foreign="task" cardinality="many" owner="local" />
+    </object>
+
+    <object class="sSnippetTask" extends="sTask" />
+    <object class="sProcessorTask" extends="sTask" />
+    <object class="sFileTask" extends="sTask" />
+
+    <object class="sTaskRun" table="scheduler_run">
+        <field key="status" dbtype="tinyint" precision="2" phptype="int" null="false" default="0" />
+        <!-- Reference to the sTask object -->
+        <field key="task" dbtype="int" precision="11" phptype="string" null="false" default="0" />
+        <!-- UNIX (UCT) timestamp on when the task needs to run -->
+        <field key="timing" dbtype="int" precision="20" phptype="int" null="false" default="0" />
+        <!-- Data to pass to the task -->
+        <field key="data" dbtype="text" phptype="array" null="true" />
+
+        <!-- Results from running the task -->
+        <field key="executedon" dbtype="int" precision="20" phptype="int" null="true" />
         <field key="errors" dbtype="text" phptype="array" null="true" />
+        <field key="message" dbtype="text" phptype="string" null="true" />
+
+        <aggregate alias="Task" class="sTask" local="task" foreign="id" cardinality="one" owner="foreign" />
     </object>
 </model>
 

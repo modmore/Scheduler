@@ -44,7 +44,8 @@ $generator->parseSchema($sources['model'] . 'schema/'.PKG_NAME_LOWER.'.mysql.sch
 $modx->addPackage(PKG_NAME_LOWER, $sources['model']);
 
 $objects = array(
-    'sTask'
+    'sTask',
+    'sTaskRun',
 );
 
 foreach ($objects as $object) {

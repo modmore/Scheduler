@@ -16,47 +16,57 @@ Scheduler.grid.HistoricalTasks = function(config) {
 			width: 5,
             hidden: true
 		},{
-			header: _('scheduler.reference'),
-			dataIndex: 'reference',
+			header: _('scheduler.class_key'),
+			dataIndex: 'class_key',
 		    sortable: true,
-			width: 25
+			width: 25,
+            hidden: true
+		},{
+			header: _('scheduler.content'),
+			dataIndex: 'content',
+		    sortable: true,
+			width: 25,
+            hidden: true
 		},{
 			header: _('scheduler.namespace'),
 			dataIndex: 'namespace',
 		    sortable: true,
 			width: 10
 		},{
-			header: _('scheduler.task'),
-			dataIndex: 'task',
+			header: _('scheduler.reference'),
+			dataIndex: 'reference',
 		    sortable: true,
-			width: 10
-		},{
-			header: _('scheduler.executeon'),
-			dataIndex: 'executeon',
-		    sortable: true,
-			width: 15,
-            renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
-		},{
-			header: _('scheduler.completedon'),
-			dataIndex: 'completedon',
-		    sortable: true,
-			width: 15,
-            renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+			width: 25
 		},{
 			header: _('scheduler.status'),
 			dataIndex: 'status',
 		    sortable: false,
 			width: 10,
             renderer: this.statusRenderer
+		},{
+			header: _('scheduler.timing'),
+			dataIndex: 'timing',
+		    sortable: true,
+			width: 15,
+            renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+		},{
+			header: _('scheduler.executedon'),
+			dataIndex: 'executedon',
+		    sortable: true,
+			width: 15,
+            renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
 		}],
         tbar: []
     });
     Scheduler.grid.HistoricalTasks.superclass.constructor.call(this,config);
 };
-Ext.extend(Scheduler.grid.HistoricalTasks,Scheduler.grid.UpcomingTasks,{
+Ext.extend(Scheduler.grid.HistoricalTasks,Scheduler.grid.Tasks,{
     statusRenderer: function(value) {
         var v = _('scheduler.status_' + value);
-        if (value < 1) {
+        if (value == 2) {
+            v = '<span style="color:green;">'+v+'</span>';
+        }
+        if (value == 3) {
             v = '<span style="color:red;">'+v+'</span>';
         }
         return v;

@@ -83,6 +83,7 @@ $manager = $modx->getManager();
 /* Create the tables */
 $objectContainers = array(
     'sTask',
+    'sTaskRun',
 );
 echo "Creating tables...\n";
 
