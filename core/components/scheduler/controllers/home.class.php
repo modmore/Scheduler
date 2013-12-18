@@ -19,6 +19,7 @@ class SchedulerHomeManagerController extends SchedulerManagerController {
         $this->addCss($this->scheduler->config['cssUrl'].'mgr.css');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.tasks.js');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.history.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.future.js');
 
         $this->addLastJavascript($this->scheduler->config['jsUrl'].'mgr/sections/home.js');
     }

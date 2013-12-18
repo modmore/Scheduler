@@ -1,9 +1,10 @@
 <?php
 
 $_lang['scheduler'] = 'Scheduler';
-$_lang['scheduler.description'] = 'Upcoming and historical tasks executed in the background.';
+$_lang['scheduler.menudesc'] = 'Upcoming and historical tasks executed in the background.';
 $_lang['scheduler.upcoming'] = 'Upcoming Tasks';
-$_lang['scheduler.history'] = 'History';
+$_lang['scheduler.future'] = 'Scheduled Runs';
+$_lang['scheduler.history'] = 'Historic Runs';
 $_lang['scheduler.queued'] = 'Queued';
 $_lang['scheduler.pastdue'] = 'Past Due';
 $_lang['scheduler.running'] = 'Running';

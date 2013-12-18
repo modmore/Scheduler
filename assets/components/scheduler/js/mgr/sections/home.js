@@ -35,6 +35,12 @@ Scheduler.page.Home = function(config) {
                     xtype: 'scheduler-grid-upcomingtasks'
                 }]
             },{
+                title: _('scheduler.future'),
+                cls: 'main-wrapper',
+                items: [{
+                    xtype: 'scheduler-grid-future'
+                }]
+            },{
                 title: _('scheduler.history'),
                 cls: 'main-wrapper',
                 items: [{
