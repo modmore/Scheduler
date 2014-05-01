@@ -1,76 +1,41 @@
 Ext.onReady(function() {
     MODx.load({
-        xtype: 'scheduler-page-home',
-        renderTo: 'scheduler-wrapper-div'
+        xtype: 'scheduler-page-home'
+        ,renderTo: 'scheduler-wrapper-div'
     });
-    MODx.config.help_url = 'https://www.modmore.com/extras/scheduler/documentation/';
+    MODx.config.help_url = 'https://www.modmore.com/extras/scheduler/documentation/?embed=1';
 });
 
 Scheduler.page.Home = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        cls: 'container form-with-labels',
-        id: 'scheduler-page-home',
-        border: false,
-        components: [{
-            xtype: 'panel',
-            html: '<h2>' + _('scheduler') + '</h2>',
-            border: false,
-            cls: 'modx-page-header'
-        },{
-            xtype: 'modx-tabs',
-            width: '98%',
-            border: true,
-            defaults: {
-                border: false,
-                autoHeight: true,
-                defaults: {
-                    border: false
-                }
-            },
-            items: [{
-                title: _('scheduler.tasks'),
-                cls: 'main-wrapper',
-                items: [{
-                    xtype: 'scheduler-grid-upcomingtasks'
-                }]
-            },{
-                title: _('scheduler.future'),
-                cls: 'main-wrapper',
-                items: [{
-                    xtype: 'scheduler-grid-future'
-                }]
-            },{
-                title: _('scheduler.history'),
-                cls: 'main-wrapper',
-                items: [{
-                    xtype: 'scheduler-grid-history'
-                }]
-            }]
-        },Scheduler.attribution()],
-        buttons: ['<b>' + _('scheduler.queued') + ':</b>',{
-            xtype: 'tbtext',
-            text: '0',
-            id: 'scheduler-upcoming-queued'
-        }, '&bull;', '<b>' + _('scheduler.pastdue') + ':</b>', {
-            xtype: 'tbtext',
-            text: '0',
-            id: 'scheduler-upcoming-pastdue'
-        }, '&bull;', '<b>' + _('scheduler.running') + ':</b>', {
-            xtype: 'tbtext',
-            text: '0',
-            id: 'scheduler-upcoming-running'
-        }, '&bull;', '<b>' + _('scheduler.completed') + ':</b>', {
-            xtype: 'tbtext',
-            text: '0',
-            id: 'scheduler-upcoming-completed'
+        id: 'scheduler-page-home'
+        ,components: [{
+            xtype: 'scheduler-panel-home'
+        }
+        ,Scheduler.attribution()]
+        ,buttons: ['<b>' + _('scheduler.tbar.queued') + ':</b>',{
+            xtype: 'tbtext'
+            ,text: '0'
+            ,id: 'scheduler-upcoming-queued'
+        }, '&bull;', '<b>' + _('scheduler.tbar.pastdue') + ':</b>', {
+            xtype: 'tbtext'
+            ,text: '0'
+            ,id: 'scheduler-upcoming-pastdue'
+        }, '&bull;', '<b>' + _('scheduler.tbar.running') + ':</b>', {
+            xtype: 'tbtext'
+            ,text: '0'
+            ,id: 'scheduler-upcoming-running'
+        }, '&bull;', '<b>' + _('scheduler.tbar.completed') + ':</b>', {
+            xtype: 'tbtext'
+            ,text: '0'
+            ,id: 'scheduler-upcoming-completed'
         },' ',{
             text: _('help_ex')
             ,handler: MODx.loadHelpPane
             ,id: 'modx-abtn-help'
-        }],
-
-        listeners: {
+        }]
+        ,listeners: {
             render: this.loadStats
         }
     });

@@ -18,5 +18,5 @@ Ext.extend(Scheduler,Ext.Component,{
         };
     }
 });
-Ext.reg('reviews',Scheduler);
+Ext.reg('scheduler', Scheduler);
 Scheduler = new Scheduler();

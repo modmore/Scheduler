@@ -17,6 +17,25 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
     public function prepareQueryBeforeCount(xPDOQuery $c) {
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
 
+        // search
+        $query = $this->getProperty('query');
+        if(!empty($query)) {
+            $c->andCondition(array(
+                'reference:LIKE' => '%'.$query.'%',
+                'OR:description:LIKE' => '%'.$query.'%',
+                'OR:namespace:LIKE' => '%'.$query.'%',
+            ));
+        }
+
+        // filter on class key
+        $classKey = $this->getProperty('class_key');
+        if(!empty($classKey)) {
+            $c->andCondition(array(
+                'class_key' => $classKey,
+            ));
+        }
+
+        // implement runs
         $subc = $this->modx->newQuery('sTaskRun');
         $subc->select($this->modx->getSelectColumns('sTaskRun', 'sTaskRun', '', array('timing')));
         $subc->where(array(

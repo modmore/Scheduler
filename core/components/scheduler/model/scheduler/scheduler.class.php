@@ -38,45 +38,28 @@ class Scheduler
     {
         $this->modx =& $modx;
 
-        $basePath = $this->modx->getOption(
-            'scheduler.core_path',
-            $config,
-            $this->modx->getOption('core_path') . 'components/scheduler/'
-        );
-        $assetsUrl = $this->modx->getOption(
-            'scheduler.assets_url',
-            $config,
-            $this->modx->getOption('assets_url') . 'components/scheduler/'
-        );
-        $assetsPath = $this->modx->getOption(
-            'scheduler.assets_path',
-            $config,
-            $this->modx->getOption('assets_path') . 'components/scheduler/'
-        );
-        $this->config = array_merge(
-            array(
-                'basePath' => $basePath,
-                'corePath' => $basePath,
-                'modelPath' => $basePath . 'model/',
-                'processorsPath' => $basePath . 'processors/',
-                'elementsPath' => $basePath . 'elements/',
-                'templatesPath' => $basePath . 'templates/',
-                'assetsPath' => $assetsPath,
-                'assetsUrl' => $assetsUrl,
-                'jsUrl' => $assetsUrl . 'js/',
-                'cssUrl' => $assetsUrl . 'css/',
-                'connectorUrl' => $assetsUrl . 'connector.php',
-                'hideLogo' => $this->modx->getOption('scheduler.hideLogo', null, false),
-            ),
-            $config
-        );
+        $basePath = $this->modx->getOption('scheduler.core_path', $config, $this->modx->getOption('core_path') . 'components/scheduler/');
+        $assetsUrl = $this->modx->getOption('scheduler.assets_url', $config, $this->modx->getOption('assets_url') . 'components/scheduler/');
+        $assetsPath = $this->modx->getOption('scheduler.assets_path', $config, $this->modx->getOption('assets_path') . 'components/scheduler/');
 
-        //$this->modx->lexicon->load('scheduler:default');
+        $this->config = array_merge(array(
+            'basePath' => $basePath,
+            'corePath' => $basePath,
+            'modelPath' => $basePath . 'model/',
+            'processorsPath' => $basePath . 'processors/',
+            'elementsPath' => $basePath . 'elements/',
+            'templatesPath' => $basePath . 'templates/',
+            'assetsPath' => $assetsPath,
+            'assetsUrl' => $assetsUrl,
+            'jsUrl' => $assetsUrl . 'js/',
+            'cssUrl' => $assetsUrl . 'css/',
+            'connectorUrl' => $assetsUrl . 'connector.php',
+            'hideLogo' => $this->modx->getOption('scheduler.hideLogo', null, false),
+        ), $config);
+        $this->modx->addPackage('scheduler', $this->config['modelPath']);
 
-        $modelPath = $this->config['modelPath'];
-        $this->modx->addPackage('scheduler', $modelPath);
-        $this->modx->loadClass('sTask', $modelPath.'scheduler/');
-        $this->modx->loadClass('sTaskRun', $modelPath.'scheduler/');
+        $this->modx->loadClass('sTask', $this->config['modelPath'].'scheduler/');
+        $this->modx->loadClass('sTaskRun', $this->config['modelPath'].'scheduler/');
     }
 
     /**

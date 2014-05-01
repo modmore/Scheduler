@@ -28,7 +28,7 @@ Scheduler.grid.History = function(config) {
         ],
         plugins: exp,
 		columns: [exp, {
-			header: _('scheduler.id'),
+			header: _('id'),
 			dataIndex: 'id',
 			sortable: true,
 			width: 5,

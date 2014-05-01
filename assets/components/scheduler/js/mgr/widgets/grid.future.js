@@ -11,7 +11,7 @@ Scheduler.grid.Future = function(config) {
         emptyText: _('scheduler.error.noresults'),
         plugins: exp,
 		columns: [exp, {
-			header: _('scheduler.id'),
+			header: _('id'),
 			dataIndex: 'id',
 			sortable: true,
 			width: 5,

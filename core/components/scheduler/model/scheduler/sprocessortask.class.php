@@ -30,7 +30,7 @@ class sProcessorTask extends sTask
             $errors = $response->getFieldErrors();
             /** @var modProcessorResponseError $error */
             foreach ($errors as $error) {
-                $this->addError($error->field, $error->error);
+                $run->addError($error->field, array('message' => $error->error));
             }
         }
         return $response->getMessage();

@@ -73,20 +73,13 @@ class sTask extends xPDOSimpleObject
      * @param sTaskRun $run
      * @return mixed
      */
-    public function _run(&$run)
-    {
-        $snippet = $this->get('content');
-        $data['task'] =& $this;
-        $data['run'] =& $run;
+    protected function _run(&$run) {
 
-        // Check if the snippet exists before running it.
-        // This may fail with OnElementNotFound snippets in 2.3
-        if ($this->xpdo->getCount('modSnippet', array('name' => $snippet)) < 1) {
-            $run->addError('snippet_not_found', array(
-                'snippet' => $snippet
-            ));
-            return false;
-        }
-        return $this->xpdo->runSnippet($snippet, $data);
+        /* This method should be abstract, but because of using xPDO::loadClass() in the main model, it cannot handle it */
+
+        $run->addError('stask_direct_run_failure', array(
+            'message' => 'Not allowed to run the sTask::_run() method directly!',
+        ));
+        return false;
     }
 }

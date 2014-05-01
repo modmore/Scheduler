@@ -17,6 +17,7 @@ abstract class SchedulerManagerController extends modExtraManagerController {
 
         /* Add the main javascript class and our configuration */
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/scheduler.class.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/combos.js');
         $this->addHtml('<script type="text/javascript">
         Ext.onReady(function() {
             Scheduler.config = '.$this->modx->toJSON($this->scheduler->config).';
@@ -54,7 +55,7 @@ abstract class SchedulerManagerController extends modExtraManagerController {
  * The Index Manager Controller is the default one that gets called when no
  * action is present.
  */
-class IndexManagerController extends SchedulerManagerController {
+class ControllersIndexManagerController extends SchedulerManagerController {
     /**
      * Defines the name or path to the default controller to load.
      * @return string

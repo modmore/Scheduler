@@ -15,7 +15,7 @@ $corePath = $modx->getOption('scheduler.core_path',null,$modx->getOption('core_p
 require_once $corePath.'model/scheduler/scheduler.class.php';
 $scheduler = new Scheduler($modx);
 
-$limit = (int)$modx->getOption('scheduler.tasks_per_run', null, 1);
+$limit = (integer) $modx->getOption('scheduler.tasks_per_run', null, 1);
 
 /**
  * Get the tasks we need to run right now.
@@ -37,4 +37,5 @@ foreach ($modx->getIterator('sTaskRun', $c) as $taskRun) {
         $task->run($taskRun);
     }
 }
-echo 'Done';
+
+$modx->log(modX::LOG_LEVEL_INFO, '[Scheduler] Done!');
