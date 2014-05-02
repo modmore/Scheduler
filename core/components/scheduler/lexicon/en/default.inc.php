@@ -4,6 +4,7 @@ $_lang['scheduler'] = "Scheduler";
 $_lang['scheduler.menu_desc'] = "Upcoming and historical tasks executed in the background.";
 $_lang['scheduler.search...'] = "Search...";
 $_lang['scheduler.filter_type...'] = "Filter tasks...";
+$_lang['scheduler.filter_namespace...'] = "Filter namespace...";
 $_lang['scheduler.search_clear'] = "Clear filter";
 
 $_lang['scheduler.tbar.queued'] = "Queued";
@@ -45,6 +46,11 @@ $_lang['scheduler.task_create'] = "Create new task";
 $_lang['scheduler.task_update'] = "Update task";
 $_lang['scheduler.task_remove'] = "Remove task";
 $_lang['scheduler.task_remove_confirm'] = "Are you sure you want to remove \"[[+reference]]\" task?";
+
+$_lang['scheduler.run_create'] = "Schedule new run";
+$_lang['scheduler.run_update'] = "Update scheduled run";
+$_lang['scheduler.run_remove'] = "Remove scheduled run";
+$_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this scheduled run?";
 
 $_lang['scheduler.status_0'] = "Pending";
 $_lang['scheduler.status_1'] = "Executing";
