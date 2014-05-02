@@ -5,7 +5,7 @@
 class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
     public $classKey = 'sTaskRun';
     public $languageTopics = array('scheduler:default');
-    public $defaultSortField = 'timing';
+    public $defaultSortField = 'timing ASC, id';
     public $defaultSortDirection = 'ASC';
 
     /**
@@ -30,7 +30,13 @@ class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
      */
     public function prepareRow(xPDOObject $object) {
         $array = $object->toArray('', false, true);
-        $array['data'] = $this->modx->toJSON($array['data']);
+
+        $dataStr = '';
+        foreach($array['data'] as $key => $value) {
+            $dataStr .= ((!empty($dataStr)) ? ', ': '').$key.': '.$value;
+        }
+        $array['data'] = $dataStr;
+
         return $array;
     }
 }
