@@ -31,11 +31,13 @@ class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
     public function prepareRow(xPDOObject $object) {
         $array = $object->toArray('', false, true);
 
+        // data string
         $dataStr = '';
         foreach($array['data'] as $key => $value) {
             $dataStr .= ((!empty($dataStr)) ? ', ': '').$key.': '.$value;
         }
-        $array['data'] = $dataStr;
+        $array['data_view'] = $dataStr;
+        $array['data'] = $this->modx->toJSON($array['data']);
 
         return $array;
     }

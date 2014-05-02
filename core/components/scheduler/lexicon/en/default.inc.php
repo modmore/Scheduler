@@ -52,6 +52,13 @@ $_lang['scheduler.run_update'] = "Update scheduled run";
 $_lang['scheduler.run_remove'] = "Remove scheduled run";
 $_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this scheduled run?";
 
+$_lang['scheduler.data.add'] = "Add new data property";
+$_lang['scheduler.data.key'] = "Data key";
+$_lang['scheduler.data.value'] = "Data value";
+$_lang['scheduler.data.update'] = "Update data property";
+$_lang['scheduler.data.remove'] = "Remove data property";
+$_lang['scheduler.data.remove_confirm'] = "Are you sure you want to remove this data property?";
+
 $_lang['scheduler.status_0'] = "Pending";
 $_lang['scheduler.status_1'] = "Executing";
 $_lang['scheduler.status_2'] = "Successful";
@@ -60,6 +67,12 @@ $_lang['scheduler.status_3'] = "Failed";
 $_lang['scheduler.class.sFileTask'] = "File based task";
 $_lang['scheduler.class.sSnippetTask'] = "Snippet based task";
 $_lang['scheduler.class.sProcessorTask'] = "Processor based task";
+
+$_lang['scheduler.time.m'] = "Minute(s)";
+$_lang['scheduler.time.h'] = "Hour(s)";
+$_lang['scheduler.time.d'] = "Day(s)";
+$_lang['scheduler.time.mnt'] = "Month(s)";
+$_lang['scheduler.time.y'] = "Year(s)";
 
 $_lang['scheduler.error.noresults'] = "No records found.";
 $_lang['scheduler.error.no-file-content'] = "Please enter a file path for this task.";

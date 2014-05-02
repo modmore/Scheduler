@@ -2,3 +2,5 @@
     list-style-type: disc !important;
     padding-left: 1em !important;
 }
+
+.window-with-grid .x-panel-mc .x-panel-tbar .x-toolbar { background-color: transparent; }

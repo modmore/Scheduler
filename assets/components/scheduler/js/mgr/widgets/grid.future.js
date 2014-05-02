@@ -1,5 +1,9 @@
 Scheduler.grid.Future = function(config) {
     config = config || {};
+    this.exp = new Ext.grid.RowExpander({
+        tpl: new Ext.Template('<p>{task_description}</p> {data}')
+    });
+
     Ext.applyIf(config,{
 		id: 'scheduler-grid-future'
         ,baseParams: { action: 'mgr/runs/future' }
@@ -13,6 +17,7 @@ Scheduler.grid.Future = function(config) {
             ,{ name: 'task_content', type: 'string' }
             ,{ name: 'timing', type: 'date', dateFormat: 'U' }
             ,{ name: 'data', type: 'string' }
+            ,{ name: 'data_view', type: 'string' }
             ,{ name: 'executedon', type: 'date', dateFormat: 'U' }
             ,{ name: 'errors', type: 'string' }
             ,{ name: 'message', type: 'string' }
@@ -56,7 +61,7 @@ Scheduler.grid.Future = function(config) {
             ,hidden: true
 		},{
 			header: _('scheduler.data')
-			,dataIndex: 'data'
+			,dataIndex: 'data_view'
 		    ,sortable: false
 			,width: 25
 		}]
@@ -100,8 +105,7 @@ Scheduler.grid.Future = function(config) {
     Scheduler.grid.Future.superclass.constructor.call(this,config);
 };
 Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
-    exp: new Ext.grid.RowExpander({ tpl : new Ext.Template('<p>{task_description}</p> {data}') })
-    ,search: function(tf,nv,ov) {
+    search: function(tf,nv,ov) {
         var s = this.getStore();
             s.baseParams.query = tf.getValue();
         this.getBottomToolbar().changePage(1);
@@ -116,7 +120,7 @@ Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
     ,searchClear: function(tf,nv,ov) {
         var s = this.getStore();
             s.baseParams.query = '';
-            s.baseParams.class_key = '';
+            s.baseParams.namespace = '';
         this.getBottomToolbar().changePage(1);
         this.refresh();
 
@@ -136,9 +140,9 @@ Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
     ,updateRun: function(btn, e) {
         var w = MODx.load({
 			xtype: 'scheduler-window-run-createupdate'
-            ,isUpdate: true
 			,record: this.menu.record
-			,listeners: {
+            ,isUpdate: true
+            ,listeners: {
 				'success': { fn: this.refresh, scope: this }
 				,'hide': { fn: function() { this.destroy(); }}
 			}
@@ -165,3 +169,96 @@ Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
     }
 });
 Ext.reg('scheduler-grid-future',Scheduler.grid.Future);
+
+// -----------------------
+// Create/update local data grid
+Scheduler.grid.CreateUpdateLocalData = function(config) {
+    config = config || {};
+    this.ident = config.ident || Ext.id();
+
+	Ext.applyIf(config,{
+        id: 'scheduler-grid-future-run-localdata-'+this.ident
+        ,fields: ['key','value']
+        ,emptyText: _('scheduler.error.noresults')
+        ,paging: false
+        ,grouping: false
+        ,autoExpandColumn: 'key'
+        ,autoHeight: true
+        ,maxHeight: 100
+        ,columns: [{
+			header: _('scheduler.data.key')
+			,dataIndex: 'key'
+			,sortable: true
+		},{
+			header: _('scheduler.data.value')
+			,dataIndex: 'value'
+			,sortable: true
+		}]
+        ,tbar: [{
+            text: _('scheduler.data.add')
+            ,handler: this.create
+            ,scope: this
+        }]
+    });
+    Scheduler.grid.CreateUpdateLocalData.superclass.constructor.call(this,config);
+    this.propRecord = Ext.data.Record.create(config.fields);
+};
+Ext.extend(Scheduler.grid.CreateUpdateLocalData,MODx.grid.LocalProperty,{
+    getMenu: function() {
+        var m = [{
+            text: _('scheduler.data.update')
+            ,handler: this.update
+            ,scope: this
+        },'-',{
+            text: _('scheduler.data.remove')
+            ,handler: this.remove
+            ,scope: this
+        }];
+        return m;
+    }
+    ,create: function(btn,e) {
+        var w = MODx.load({
+			xtype: 'scheduler-window-runs-adddataproperty'
+			,record: this.menu.record
+            ,blankValues: true
+            ,grid: this
+            ,listeners: {
+                'success': { fn: function(r) {
+                    var rec = new this.propRecord({
+                        key: r.key
+                        ,value: r.value
+                    });
+                    this.getStore().add(rec);
+                } ,scope: this }
+            }
+		});
+		w.show(e.target, function() {
+			Ext.isSafari ? w.setPosition(null,30) : w.center();
+		}, this);
+    }
+    ,update: function(btn,e) {
+        var w = MODx.load({
+			xtype: 'scheduler-window-runs-updatedataproperty'
+			,record: this.menu.record
+            ,isUpdate: true
+            ,grid: this
+            ,listeners: {
+                'success': { fn: function(r) {
+                    var s = this.getStore();
+                    var rec = s.getAt(this.menu.recordIndex);
+                        rec.set('key',r.key);
+                        rec.set('value',r.value);
+                    this.getView().refresh();
+                } ,scope: this }
+            }
+		});
+		w.setValues(this.menu.record);
+		w.show(e.target, function() {
+			Ext.isSafari ? w.setPosition(null,30) : w.center();
+		}, this);
+    }
+    /*,remove: function(btn,e) {
+
+    }*/
+});
+Ext.reg('scheduler-grid-future-run-localdata',Scheduler.grid.CreateUpdateLocalData);

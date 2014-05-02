@@ -41,6 +41,7 @@ class Scheduler
         $basePath = $this->modx->getOption('scheduler.core_path', $config, $this->modx->getOption('core_path') . 'components/scheduler/');
         $assetsUrl = $this->modx->getOption('scheduler.assets_url', $config, $this->modx->getOption('assets_url') . 'components/scheduler/');
         $assetsPath = $this->modx->getOption('scheduler.assets_path', $config, $this->modx->getOption('assets_path') . 'components/scheduler/');
+        $managerUrl = $this->modx->getOption('manager_url', $config, $this->modx->getOption('base_url') . 'manager/');
 
         $this->config = array_merge(array(
             'basePath' => $basePath,
@@ -54,6 +55,7 @@ class Scheduler
             'jsUrl' => $assetsUrl . 'js/',
             'cssUrl' => $assetsUrl . 'css/',
             'connectorUrl' => $assetsUrl . 'connector.php',
+            'managerUrl' => $managerUrl,
             'hideLogo' => $this->modx->getOption('scheduler.hideLogo', null, false),
         ), $config);
         $this->modx->addPackage('scheduler', $this->config['modelPath']);
