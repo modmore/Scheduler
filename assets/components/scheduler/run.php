@@ -25,7 +25,7 @@ $c->where(array(
     'status' => sTaskRun::STATUS_SCHEDULED,
     'AND:timing:<=' => time(),
 ));
-$c->sortby('timing', 'asc');
+$c->sortby('timing ASC, id', 'ASC');
 $c->limit($limit);
 
 /**
@@ -33,7 +33,7 @@ $c->limit($limit);
  */
 foreach ($modx->getIterator('sTaskRun', $c) as $taskRun) {
     $task = $taskRun->getOne('Task');
-    if ($task instanceof sTask) {
+    if (!empty($task) && is_object($task) && $task instanceof sTask) {
         $task->run($taskRun);
     }
 }
