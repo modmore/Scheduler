@@ -10,15 +10,15 @@ Scheduler.grid.Tasks = function(config) {
 		,baseParams: { action: 'mgr/tasks/getlist' }
         ,emptyText: _('scheduler.error.noresults')
 		,fields: [
-            {name: 'id', type: 'int'}
-            ,{name: 'class_key', type: 'string'}
-            ,{name: 'content', type: 'string'}
-            ,{name: 'namespace', type: 'string'}
-            ,{name: 'reference', type: 'string'}
-            ,{name: 'description', type: 'string'}
-            ,{name: 'data', type: 'string'}
-            ,{name: 'next_run', type: 'date', dateFormat: 'U'}
-            ,{name: 'runs', type: 'int'}
+            { name: 'id', type: 'int' }
+            ,{ name: 'class_key', type: 'string' }
+            ,{ name: 'content', type: 'string' }
+            ,{ name: 'namespace', type: 'string' }
+            ,{ name: 'reference', type: 'string' }
+            ,{ name: 'description', type: 'string' }
+            ,{ name: 'data', type: 'string' }
+            ,{ name: 'next_run', type: 'date', dateFormat: 'U' }
+            ,{ name: 'runs', type: 'int' }
         ]
         ,paging: true
 		,remoteSort: true
@@ -147,6 +147,7 @@ Ext.extend(Scheduler.grid.Tasks,MODx.grid.Grid,{
 				,'hide': { fn: function() { this.destroy(); }}
 			}
 		});
+		w.setTitle(_('scheduler.task_update'));
 		w.setValues(this.menu.record);
 		w.show(e.target, function() {
 			Ext.isSafari ? w.setPosition(null,30) : w.center();
