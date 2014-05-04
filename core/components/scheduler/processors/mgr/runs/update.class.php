@@ -5,6 +5,9 @@ class SchedulerUpdateTaskRunProcessor extends modObjectUpdateProcessor {
     public $objectType = 'scheduler.staskrun';
     public $languageTopics = array('scheduler:default');
 
+    /** @var sTaskRun $object */
+    public $object;
+
     public function beforeSet() {
 
         $data = array();
@@ -18,6 +21,16 @@ class SchedulerUpdateTaskRunProcessor extends modObjectUpdateProcessor {
         $this->setProperty('data', ((!empty($data)) ? $data : null));
 
         return parent::beforeSet();
+    }
+
+    public function beforeSave() {
+
+        // pass timing
+        $timing = $this->getProperty('timing', 0);
+        if(empty($timing)) { $this->addFieldError('timing', $this->modx->lexicon('scheduler.error.no-timing')); }
+        $this->object->setTiming($timing, false);
+
+        return parent::beforeSave();
     }
 }
 

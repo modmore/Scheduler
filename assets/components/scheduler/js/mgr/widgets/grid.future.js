@@ -1,5 +1,6 @@
 Scheduler.grid.Future = function(config) {
     config = config || {};
+    this.ident = config.ident || Ext.id();
     this.exp = new Ext.grid.RowExpander({
         tpl: new Ext.Template('<p>{task_description}</p> {data}')
     });
@@ -68,12 +69,13 @@ Scheduler.grid.Future = function(config) {
         ,tbar: [{
             text: _('scheduler.run_create')
             ,handler: {
-                xtype: 'scheduler-window-run-createupdate'
+                xtype: 'scheduler-window-run-create'
                 ,blankValues: true
+                ,isUpdate: false
             }
         },'->',{
             xtype: 'modx-combo-namespace'
-            ,id: 'scheduler-filter-run-namespace'
+            ,id: 'scheduler-filter-run-namespace-'+this.ident
             ,emptyText: _('scheduler.filter_namespace...')
             ,allowBlank: true
             ,listeners: {
@@ -81,7 +83,7 @@ Scheduler.grid.Future = function(config) {
             }
         },'-',{
             xtype: 'textfield'
-            ,id: 'scheduler-search-run-field'
+            ,id: 'scheduler-search-run-field-'+this.ident
             ,emptyText: _('scheduler.search...')
             ,listeners: {
                 'change': { fn: this.search ,scope: this }
@@ -100,11 +102,12 @@ Scheduler.grid.Future = function(config) {
         },'-',{
             text: _('scheduler.search_clear')
             ,handler: this.searchClear
+            ,scope: this
         }]
     });
     Scheduler.grid.Future.superclass.constructor.call(this,config);
 };
-Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
+Ext.extend(Scheduler.grid.Future, Scheduler.grid.Tasks, {
     search: function(tf,nv,ov) {
         var s = this.getStore();
             s.baseParams.query = tf.getValue();
@@ -124,8 +127,8 @@ Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
         this.getBottomToolbar().changePage(1);
         this.refresh();
 
-        Ext.getCmp('scheduler-filter-run-namespace').reset();
-        Ext.getCmp('scheduler-search-run-field').reset();
+        Ext.getCmp('scheduler-filter-run-namespace-'+this.ident).reset();
+        Ext.getCmp('scheduler-search-run-field-'+this.ident).reset();
     }
     ,getMenu: function() {
         var m = [{
@@ -139,7 +142,7 @@ Ext.extend(Scheduler.grid.Future,Scheduler.grid.History,{
     }
     ,updateRun: function(btn, e) {
         var w = MODx.load({
-			xtype: 'scheduler-window-run-createupdate'
+			xtype: 'scheduler-window-run-update'
 			,record: this.menu.record
             ,isUpdate: true
             ,listeners: {
@@ -174,11 +177,8 @@ Ext.reg('scheduler-grid-future',Scheduler.grid.Future);
 // Create/update local data grid
 Scheduler.grid.CreateUpdateLocalData = function(config) {
     config = config || {};
-    this.ident = config.ident || Ext.id();
-
 	Ext.applyIf(config,{
-        id: 'scheduler-grid-future-run-localdata-'+this.ident
-        ,fields: ['key','value']
+        fields: ['key','value']
         ,emptyText: _('scheduler.error.noresults')
         ,paging: false
         ,grouping: false
@@ -257,8 +257,5 @@ Ext.extend(Scheduler.grid.CreateUpdateLocalData,MODx.grid.LocalProperty,{
 			Ext.isSafari ? w.setPosition(null,30) : w.center();
 		}, this);
     }
-    /*,remove: function(btn,e) {
-
-    }*/
 });
 Ext.reg('scheduler-grid-future-run-localdata',Scheduler.grid.CreateUpdateLocalData);

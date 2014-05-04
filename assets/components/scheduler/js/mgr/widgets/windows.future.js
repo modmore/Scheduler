@@ -1,4 +1,6 @@
-Scheduler.window.CreateUpdateRun = function(config) {
+// ---------------------------
+// Create window
+Scheduler.window.CreateRun = function(config) {
 	config = config || {};
     this.ident = config.ident || Ext.id();
 
@@ -6,15 +8,15 @@ Scheduler.window.CreateUpdateRun = function(config) {
 		title: _('scheduler.run_create')
         ,cls: 'window-with-grid'
 		,url: Scheduler.config.connectorUrl
-		,baseParams: {
-			action: ((config.isUpdate) ? 'mgr/runs/update' : 'mgr/runs/create')
-		}
-        ,width: 550
+		,baseParams: { action: 'mgr/runs/create' }
+        ,width: 500
         ,modal: true
         ,defaults: { border: false }
         ,fields: [{
-            xtype: 'hidden'
-            ,name: 'id'
+            xtype: 'scheduler-combo-tasklist'
+            ,fieldLabel: _('scheduler.task')
+            ,anchor: '100%'
+            ,allowBlank: false
         },{
             layout: 'column'
             ,border: false
@@ -22,26 +24,17 @@ Scheduler.window.CreateUpdateRun = function(config) {
                 layout: 'form'
                 ,columnWidth: .5
                 ,items: [{
-                    xtype: 'scheduler-combo-tasklist'
-                    ,fieldLabel: _('scheduler.task')
-                    ,anchor: '100%'
-                    ,allowBlank: false
-                }]
-            },{
-                layout: 'form'
-                ,columnWidth: .5
-                ,items: [{
                     xtype: 'compositefield'
-                    ,fieldLabel: 'In about'
+                    ,fieldLabel: _('scheduler.timing.inabout')
                     ,anchor: '100%'
                     ,items: [{
                         xtype: 'numberfield'
-                        ,name: 'timesetup_number'
+                        ,name: 'timing_number'
                         ,allowBlank: false
                         ,allowDecimals: false
                         ,allowNegative: false
                         ,value: ((config.record.timesetup) ? config.record.timesetup.number : 1)
-                        ,width: 70
+                        ,width: 60
                     },{
                         xtype: 'modx-combo'
                         ,store: [
@@ -51,27 +44,41 @@ Scheduler.window.CreateUpdateRun = function(config) {
                             ,['month', _('scheduler.time.mnt')]
                             ,['year', _('scheduler.time.y')]
                         ]
-                        ,name: 'timesetup_interval'
-                        ,hiddenName: 'timesetup_interval'
+                        ,name: 'timing_interval'
+                        ,hiddenName: 'timing_interval'
                         ,allowBlank: false
                         ,value: ((config.record.timesetup) ? config.record.timesetup.interval : 'minute')
                         ,flex: 1
                     }]
                 }]
+            },{
+                layout: 'form'
+                ,columnWidth: .5
+                ,items: [{
+                    xtype: 'xdatetime'
+                    ,name: 'timing'
+                    ,fieldLabel: _('scheduler.timing')
+                    ,anchor: '99%'
+                    ,allowBlank: true
+                }]
             }]
+        },{
+            xtype: 'label'
+            ,html: _('scheduler.timing.desc')
+            ,cls: 'desc-under'
+            ,style: 'padding-top: 5px;'
         },{
             xtype: 'scheduler-grid-future-run-localdata'
             ,id: 'scheduler-grid-future-run-localdata-'+this.ident
             ,preventRender: true
             ,record: config.record
-            ,ident: this.ident
         }]
 	});
-	Scheduler.window.CreateUpdateRun.superclass.constructor.call(this,config);
+	Scheduler.window.CreateRun.superclass.constructor.call(this,config);
     this.on('render', this.initWindow);
     this.on('beforeSubmit', this.beforeSubmit);
 };
-Ext.extend(Scheduler.window.CreateUpdateRun, MODx.Window, {
+Ext.extend(Scheduler.window.CreateRun, MODx.Window, {
     initWindow: function() {
         var grid = Ext.getCmp('scheduler-grid-future-run-localdata-'+this.ident),
             data = this.record && this.record.data ? Ext.util.JSON.decode(this.record.data) : false,
@@ -98,11 +105,78 @@ Ext.extend(Scheduler.window.CreateUpdateRun, MODx.Window, {
         Ext.apply(f.baseParams, { data: dataProperties });
     }
 });
-Ext.reg('scheduler-window-run-createupdate', Scheduler.window.CreateUpdateRun);
+Ext.reg('scheduler-window-run-create', Scheduler.window.CreateRun);
+
+// ---------------------------
+// Update window
+Scheduler.window.UpdateRun = function(config) {
+	config = config || {};
+    this.ident = config.ident || Ext.id();
+
+	Ext.applyIf(config,{
+		title: _('scheduler.run_update')
+        ,cls: 'window-with-grid'
+		,url: Scheduler.config.connectorUrl
+		,baseParams: { action: 'mgr/runs/update' }
+        ,width: 500
+        ,modal: true
+        ,defaults: { border: false }
+        ,fields: [{
+            xtype: 'hidden'
+            ,name: 'id'
+        },{
+            xtype: 'scheduler-combo-tasklist'
+            ,fieldLabel: _('scheduler.task')
+            ,anchor: '100%'
+            ,allowBlank: false
+        },{
+            xtype: 'xdatetime'
+            ,name: 'timing'
+            ,fieldLabel: _('scheduler.timing')
+            ,anchor: '99%'
+            ,allowBlank: true
+        },{
+            xtype: 'scheduler-grid-future-run-localdata'
+            ,id: 'scheduler-grid-future-run-localdata-'+this.ident
+            ,preventRender: true
+        }]
+	});
+	Scheduler.window.UpdateRun.superclass.constructor.call(this,config);
+    this.on('render', this.initWindow);
+    this.on('beforeSubmit', this.beforeSubmit);
+};
+Ext.extend(Scheduler.window.UpdateRun, MODx.Window, {
+    initWindow: function() {
+        var grid = Ext.getCmp('scheduler-grid-future-run-localdata-'+this.ident),
+            data = this.record && this.record.data ? Ext.util.JSON.decode(this.record.data) : false,
+            store = grid.getStore();
+
+        if (data) {
+            Ext.iterate(data, function(k, v) {
+                var rec = new grid.propRecord({ key: k, value: v });
+                store.add(rec);
+            });
+        }
+    }
+    ,beforeSubmit: function() {
+        var f = this.fp.getForm(),
+            dataProperties = [],
+            grid = Ext.getCmp('scheduler-grid-future-run-localdata-'+this.ident),
+            data = grid.getStore().data;
+
+        data.each(function(item) {
+            dataProperties.push(item.data);
+        });
+
+        dataProperties = Ext.encode(dataProperties);
+        Ext.apply(f.baseParams, { data: dataProperties });
+    }
+});
+Ext.reg('scheduler-window-run-update', Scheduler.window.UpdateRun);
 
 // -----------------------
 // Add/update data property windows
-Scheduler.window.AddDataPropertyRun = function(config) {
+Scheduler.window.RunDataPropertyCreate = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
 		title: _('scheduler.data.add')
@@ -122,9 +196,9 @@ Scheduler.window.AddDataPropertyRun = function(config) {
             ,anchor: '100%'
         }]
 	});
-	Scheduler.window.AddDataPropertyRun.superclass.constructor.call(this,config);
+	Scheduler.window.RunDataPropertyCreate.superclass.constructor.call(this,config);
 };
-Ext.extend(Scheduler.window.AddDataPropertyRun, MODx.Window, {
+Ext.extend(Scheduler.window.RunDataPropertyCreate, MODx.Window, {
     submit: function() {
         var v = this.fp.getForm().getValues();
 
@@ -144,15 +218,15 @@ Ext.extend(Scheduler.window.AddDataPropertyRun, MODx.Window, {
         return false;
     }
 });
-Ext.reg('scheduler-window-runs-adddataproperty', Scheduler.window.AddDataPropertyRun);
+Ext.reg('scheduler-window-runs-adddataproperty', Scheduler.window.RunDataPropertyCreate);
 
-Scheduler.window.UpdateDataPropertyRun = function(config) {
+Scheduler.window.RunDataPropertyUpdate = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
         title: _('scheduler.data.update')
         ,forceLayout: true
     });
-	Scheduler.window.UpdateDataPropertyRun.superclass.constructor.call(this,config);
+	Scheduler.window.RunDataPropertyUpdate.superclass.constructor.call(this,config);
 };
-Ext.extend(Scheduler.window.UpdateDataPropertyRun, Scheduler.window.AddDataPropertyRun, {});
-Ext.reg('scheduler-window-runs-updatedataproperty', Scheduler.window.UpdateDataPropertyRun);
+Ext.extend(Scheduler.window.RunDataPropertyUpdate, Scheduler.window.RunDataPropertyCreate, {});
+Ext.reg('scheduler-window-runs-updatedataproperty', Scheduler.window.RunDataPropertyUpdate);

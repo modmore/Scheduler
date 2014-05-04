@@ -2,11 +2,14 @@
 /**
  * Gets a list of sTaskRun objects.
  */
-class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
+class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
     public $classKey = 'sTaskRun';
     public $languageTopics = array('scheduler:default');
     public $defaultSortField = 'timing ASC, id';
     public $defaultSortDirection = 'ASC';
+    public $additionalWhere = array(
+        'status' => sTaskRun::STATUS_SCHEDULED,
+    );
 
     /**
      * Filter on status and add task data
@@ -15,12 +18,22 @@ class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
      * @return xPDOQuery
      */
     public function prepareQueryBeforeCount(xPDOQuery $c) {
-        $c->where(array(
-            'status' => sTaskRun::STATUS_SCHEDULED,
-        ));
+
         $c->innerJoin('sTask', 'Task');
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
         $c->select($this->modx->getSelectColumns('sTask', 'Task', 'task_'));
+        $c->where($this->additionalWhere);
+
+        $query = $this->getProperty('query');
+        if(!empty($query)) {
+            $c->andCondition(array('Task.reference:LIKE' => '%'.$query.'%'));
+        }
+
+        $namespace = $this->getProperty('namespace');
+        if(!empty($namespace)) {
+            $c->andCondition(array('Task.namespace' => $namespace));
+        }
+
         return $c;
     }
 
@@ -42,4 +55,5 @@ class sTaskRunFutureListProcessor extends modObjectGetListProcessor {
         return $array;
     }
 }
-return 'sTaskRunFutureListProcessor';
+
+return 'SchedulerTaskRunFutureListProcessor';

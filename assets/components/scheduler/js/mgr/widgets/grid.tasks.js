@@ -20,6 +20,7 @@ Scheduler.grid.Tasks = function(config) {
             ,{ name: 'next_run', type: 'date', dateFormat: 'U' }
             ,{ name: 'runs', type: 'int' }
         ]
+        ,stateful: true
         ,paging: true
 		,remoteSort: true
         ,plugins: this.exp

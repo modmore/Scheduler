@@ -12,24 +12,14 @@ class sTask extends xPDOSimpleObject
      * @return false|sTask
      */
     public function schedule($when, array $data = array()) {
-        if (strpos($when, '+') !== false) {
-            $when = strtotime($when);
-        }
-
-        // runs can only be applied on whole minutes, because the crontab cannot run in seconds
-        // because of that, a time like 8:26:22 will run at 8:27:00..
-        // To avoid delayed views in the manager, round it up!
-        list($year, $month, $day) = explode('-', date('Y-n-j', $when));
-        list($hour, $minute, $seconds) = explode(':', date('G:i:s', $when));
-        $when = mktime($hour, $minute+1, 0, $month, $day, $year);
 
         /** @var sTaskRun $run */
         $run = $this->xpdo->newObject('sTaskRun');
         $run->fromArray(array(
             'task' => $this->get('id'),
-            'timing' => $when,
             'data' => $data,
         ));
+        $run->setTiming($when);
 
         if ($run->save()) {
             return $this;
