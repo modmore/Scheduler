@@ -33,7 +33,7 @@ Scheduler.window.CreateRun = function(config) {
                         ,allowBlank: false
                         ,allowDecimals: false
                         ,allowNegative: false
-                        ,value: ((config.record.timesetup) ? config.record.timesetup.number : 1)
+                        ,value: 1
                         ,width: 60
                     },{
                         xtype: 'modx-combo'
@@ -47,7 +47,7 @@ Scheduler.window.CreateRun = function(config) {
                         ,name: 'timing_interval'
                         ,hiddenName: 'timing_interval'
                         ,allowBlank: false
-                        ,value: ((config.record.timesetup) ? config.record.timesetup.interval : 'minute')
+                        ,value: 'minute'
                         ,flex: 1
                     }]
                 }]
