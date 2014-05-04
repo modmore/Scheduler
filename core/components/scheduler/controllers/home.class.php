@@ -22,6 +22,7 @@ class SchedulerHomeManagerController extends SchedulerManagerController {
 
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.tasks.js');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.future.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.history.js');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.tasks.js');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.future.js');
         $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.history.js');

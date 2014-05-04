@@ -76,6 +76,8 @@ $_lang['scheduler.time.d'] = "Day(s)";
 $_lang['scheduler.time.mnt'] = "Month(s)";
 $_lang['scheduler.time.y'] = "Year(s)";
 
+$_lang['scheduler.reschedule'] = "Re-Shedule Task";
+
 $_lang['scheduler.error.noresults'] = "No records found.";
 $_lang['scheduler.error.no-file-content'] = "Please enter a file path for this task.";
 $_lang['scheduler.error.no-snippet-content'] = "Please select a snippet from the list for this task.";

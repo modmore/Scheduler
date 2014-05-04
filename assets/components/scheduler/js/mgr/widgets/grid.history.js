@@ -131,7 +131,25 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         Ext.getCmp('scheduler-search-run-field-'+this.ident).reset();
     }
     ,getMenu: function() {
-        return [];
+        return [{
+            text: _('scheduler.reschedule')
+            ,handler: this.reScheduleRun
+            ,scope: this
+        }];
+    }
+    ,reScheduleRun: function(btn,e) {
+        var w = MODx.load({
+			xtype: 'scheduler-window-run-reschedule'
+			,record: this.menu.record
+			,listeners: {
+				'success': { fn: this.refresh, scope: this }
+				,'hide': { fn: function() { this.destroy(); }}
+			}
+		});
+		w.setValues(this.menu.record);
+		w.show(e.target, function() {
+			Ext.isSafari ? w.setPosition(null,30) : w.center();
+		}, this);
     }
     /** RENDERS **/
     ,statusRenderer: function(value) {
