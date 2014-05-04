@@ -130,6 +130,9 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         Ext.getCmp('scheduler-filter-run-namespace-'+this.ident).reset();
         Ext.getCmp('scheduler-search-run-field-'+this.ident).reset();
     }
+    ,getMenu: function() {
+        return [];
+    }
     /** RENDERS **/
     ,statusRenderer: function(value) {
         var v = _('scheduler.status_' + value);
