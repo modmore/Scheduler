@@ -1,28 +1,15 @@
 <?php
+
+require_once dirname(__FILE__).'/future.class.php';
 /**
  * Gets a list of sTaskRun objects.
  */
-class sTaskRunHistoryListProcessor extends modObjectGetListProcessor {
-    public $classKey = 'sTaskRun';
-    public $languageTopics = array('scheduler:default');
+class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListProcessor {
     public $defaultSortField = 'executedon';
     public $defaultSortDirection = 'DESC';
-
-    /**
-     * Filter on status and add task data
-     *
-     * @param xPDOQuery $c
-     * @return xPDOQuery
-     */
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
-        $c->where(array(
-            'status:!=' => sTaskRun::STATUS_SCHEDULED,
-        ));
-        $c->innerJoin('sTask', 'Task');
-        $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
-        $c->select($this->modx->getSelectColumns('sTask', 'Task', 'task_'));
-        return $c;
-    }
+    public $additionalWhere = array(
+        'status:!=' => sTaskRun::STATUS_SCHEDULED,
+    );
 
     /**
      * @param xPDOObject $object
@@ -52,4 +39,5 @@ class sTaskRunHistoryListProcessor extends modObjectGetListProcessor {
         return $array;
     }
 }
-return 'sTaskRunHistoryListProcessor';
+
+return 'SchedulerTaskRunHistoryListProcessor';
