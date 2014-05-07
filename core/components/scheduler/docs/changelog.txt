@@ -1,0 +1,4 @@
+++ Scheduler 1.0.0-pl
+++ Released on 2014-05-07
++++++++++++++++++++++++++
+- Initial release
