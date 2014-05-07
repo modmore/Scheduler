@@ -8,8 +8,8 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
 	case xPDOTransport::ACTION_UPGRADE:
 
         $modx->log(xPDO::LOG_LEVEL_INFO, 'Creating database tables...');
-		$modelPath = $modx->getOption('quickstartbuttons.core_path', null, $modx->getOption('core_path').'components/quickstartbuttons/').'model/';
-		$modx->addPackage('quickstartbuttons', $modelPath);
+		$modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path').'components/scheduler/').'model/';
+		$modx->addPackage('scheduler', $modelPath);
 
 		$manager = $modx->getManager();
 
@@ -28,8 +28,8 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
     case xPDOTransport::ACTION_UNINSTALL:
 
         $modx->log(xPDO::LOG_LEVEL_INFO, 'Removing database tables...');
-        $modelPath = $modx->getOption('quickstartbuttons.core_path', null, $modx->getOption('core_path').'components/quickstartbuttons/').'model/';
-		$modx->addPackage('quickstartbuttons', $modelPath);
+        $modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path').'components/scheduler/').'model/';
+		$modx->addPackage('scheduler', $modelPath);
 
 		$manager = $modx->getManager();
 

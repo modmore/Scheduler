@@ -1,3 +1,9 @@
+++ Scheduler 1.0.1-pl
+++ Released on 2014-05-07
++++++++++++++++++++++++++
+- Fixed: load right package meta data at installation
+
+
 ++ Scheduler 1.0.0-pl
 ++ Released on 2014-05-07
 +++++++++++++++++++++++++
