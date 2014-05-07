@@ -17,7 +17,7 @@ $_lang['scheduler.future'] = "Scheduled Runs";
 $_lang['scheduler.history'] = "Historic Runs";
 
 $_lang['scheduler.tasks_desc'] = "View the tasks you can schedule for a run.";
-$_lang['scheduler.future_desc'] = "Below the list of thasks scheduled for running in the near future.";
+$_lang['scheduler.future_desc'] = "Below the list of tasks scheduled for running in the near future.";
 $_lang['scheduler.history_desc'] = "The list below are tasks which already has been finished and runned in the past.";
 
 $_lang['scheduler.class_key'] = "Type";
@@ -36,7 +36,7 @@ $_lang['scheduler.task'] = "Task";
 $_lang['scheduler.tasks'] = "Tasks";
 $_lang['scheduler.timing'] = "Timing";
 $_lang['scheduler.timing.inabout'] = "In about";
-$_lang['scheduler.timing.desc'] = "Note: when you enter an exact timing, the \"In about\" setting is skipped!";
+$_lang['scheduler.timing.desc'] = "Note: when you enter an exact timing, the \"In about\" setting is ignored!";
 $_lang['scheduler.data'] = "Data";
 $_lang['scheduler.errors'] = "Errors";
 $_lang['scheduler.message'] = "Message";
@@ -52,14 +52,14 @@ $_lang['scheduler.task_remove_confirm'] = "Are you sure you want to remove \"[[+
 $_lang['scheduler.run_create'] = "Schedule new run";
 $_lang['scheduler.run_update'] = "Update scheduled run";
 $_lang['scheduler.run_remove'] = "Remove scheduled run";
-$_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this scheduled run?";
+$_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this from scheduled run?";
 
-$_lang['scheduler.data.add'] = "Add new data property";
-$_lang['scheduler.data.key'] = "Data key";
-$_lang['scheduler.data.value'] = "Data value";
-$_lang['scheduler.data.update'] = "Update data property";
-$_lang['scheduler.data.remove'] = "Remove data property";
-$_lang['scheduler.data.remove_confirm'] = "Are you sure you want to remove this data property?";
+$_lang['scheduler.data.add'] = "Add new property";
+$_lang['scheduler.data.key'] = "Property key";
+$_lang['scheduler.data.value'] = "Property value";
+$_lang['scheduler.data.update'] = "Update property";
+$_lang['scheduler.data.remove'] = "Remove property";
+$_lang['scheduler.data.remove_confirm'] = "Are you sure you want to remove this property?";
 
 $_lang['scheduler.status_0'] = "Pending";
 $_lang['scheduler.status_1'] = "Executing";
@@ -76,7 +76,7 @@ $_lang['scheduler.time.d'] = "Day(s)";
 $_lang['scheduler.time.mnt'] = "Month(s)";
 $_lang['scheduler.time.y'] = "Year(s)";
 
-$_lang['scheduler.reschedule'] = "Re-Shedule Task";
+$_lang['scheduler.reschedule'] = "Re-schedule Task";
 
 $_lang['scheduler.error.noresults'] = "No records found.";
 $_lang['scheduler.error.no-file-content'] = "Please enter a file path for this task.";
