@@ -1,3 +1,8 @@
+++ Scheduler 1.0.2-pl
+++ Released on 2014-05-29
++++++++++++++++++++++++++
+Fix typos in English lexicon, added Dutch and German (Thx Christian Seel!)
+
 ++ Scheduler 1.0.1-pl
 ++ Released on 2014-05-07
 +++++++++++++++++++++++++
