@@ -82,4 +82,4 @@ $_lang['scheduler.error.noresults'] = "No records found.";
 $_lang['scheduler.error.no-file-content'] = "Please enter a file path for this task.";
 $_lang['scheduler.error.no-snippet-content'] = "Please select a snippet from the list for this task.";
 $_lang['scheduler.error.no-processor-content'] = "Please enter a processor name for this task.";
-$_lang['scheduler.error.no-timing'] = "Please specifiy a timing for this task.";
+$_lang['scheduler.error.no-timing'] = "Please specify a timing for this task.";
