@@ -1,3 +1,8 @@
+++ Scheduler 1.1.0-pl
+++ Released on
++++++++++++++++++++++++++
+- sTask->schedule now returns the sTaskRun object
+
 ++ Scheduler 1.0.2-pl
 ++ Released on 2014-05-29
 +++++++++++++++++++++++++

@@ -9,7 +9,7 @@ class sTask extends xPDOSimpleObject
     /**
      * @param int|string $when
      * @param array $data
-     * @return false|sTask
+     * @return false|sTaskRun
      */
     public function schedule($when, array $data = array()) {
 
@@ -22,7 +22,7 @@ class sTask extends xPDOSimpleObject
         $run->setTiming($when);
 
         if ($run->save()) {
-            return $this;
+            return $run;
         }
         return false;
     }
