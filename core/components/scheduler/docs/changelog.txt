@@ -6,6 +6,7 @@
 - Use configured manager_date_format and manager_time_format for the date/time displayed in the component (#16)
 - Fix adding non-snippet tasks due to validation (#13)
 - Fix fields being duplicated in the Tasks window
+- Improve display of (nested) data arrays in grid
 
 ++ Scheduler 1.0.2-pl
 ++ Released on 2014-05-29

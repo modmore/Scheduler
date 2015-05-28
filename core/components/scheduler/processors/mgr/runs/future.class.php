@@ -45,16 +45,31 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
         $array = $object->toArray('', false, true);
 
         // data string
-        $dataStr = '';
+        $dataStr = array();
         if (is_array($array['data'])) {
             foreach ($array['data'] as $key => $value) {
-                $dataStr .= ((!empty($dataStr)) ? ', ' : '') . $key . ': ' . $value;
+                $dataStr[] = $key . ': ' . (is_array($value) ? $this->showArray($value) : $value);
             }
         }
+        $dataStr = implode(', ', $dataStr);
         $array['data_view'] = $dataStr;
         $array['data'] = $this->modx->toJSON($array['data']);
 
         return $array;
+    }
+
+    /**
+     * @param $array
+     * @return string
+     */
+    public function showArray($array)
+    {
+        $return = array();
+        foreach ($array as $key => $value) {
+            $return[] = $key . ': ' . (is_array($value) ? $this->showArray($value) : $value);
+        }
+        $return = implode(', ', $return);
+        return '{ ' . $return . ' }';
     }
 }
 

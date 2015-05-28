@@ -2,7 +2,7 @@ Scheduler.grid.Future = function(config) {
     config = config || {};
     this.ident = config.ident || Ext.id();
     this.exp = new Ext.grid.RowExpander({
-        tpl: new Ext.Template('<p>{task_description}</p> {data}')
+        tpl: new Ext.Template('<p>{task_description}</p> {data_view}')
     });
 
     Ext.applyIf(config,{
@@ -16,6 +16,7 @@ Scheduler.grid.Future = function(config) {
             ,{ name: 'task_namespace', type: 'string' }
             ,{ name: 'task_reference', type: 'string' }
             ,{ name: 'task_content', type: 'string' }
+            ,{ name: 'task_description', type: 'string' }
             ,{ name: 'timing', type: 'date', dateFormat: 'U' }
             ,{ name: 'data', type: 'string' }
             ,{ name: 'data_view', type: 'string' }
