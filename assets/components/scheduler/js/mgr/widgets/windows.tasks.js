@@ -65,7 +65,7 @@ Scheduler.window.CreateUpdateTask = function(config) {
             ,items: [{
                 xtype: 'textarea'
                 ,name: 'file-content'
-                ,id: 'scheduler-task-file-content'
+                ,id: 'scheduler-task-file-content'+this.ident
                 ,fieldLabel: _('scheduler.content.file')
                 ,description: MODx.expandHelp ? '' : _('scheduler.content.file_desc')
                 ,anchor: '100%'
@@ -83,7 +83,7 @@ Scheduler.window.CreateUpdateTask = function(config) {
                 xtype: 'scheduler-combo-snippets'
                 ,name: 'snippet-content'
                 ,hiddenName: 'snippet-content'
-                ,id: 'scheduler-task-snippet-content'
+                ,id: 'scheduler-task-snippet-content'+this.ident
                 ,fieldLabel: _('scheduler.content.snippet')
                 ,description: MODx.expandHelp ? '' : _('scheduler.content.snippet_desc')
                 ,anchor: '100%'
@@ -101,7 +101,7 @@ Scheduler.window.CreateUpdateTask = function(config) {
             ,items: [{
                 xtype: 'textfield'
                 ,name: 'processor-content'
-                ,id: 'scheduler-task-processor-content'
+                ,id: 'scheduler-task-processor-content'+this.ident
                 ,fieldLabel: _('scheduler.content.processor')
                 ,description: MODx.expandHelp ? '' : _('scheduler.content.processor_desc')
                 ,anchor: '100%'
