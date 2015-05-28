@@ -88,6 +88,7 @@ Scheduler.window.CreateUpdateTask = function(config) {
                 ,description: MODx.expandHelp ? '' : _('scheduler.content.snippet_desc')
                 ,anchor: '100%'
                 ,value: config.record.content || ''
+                ,allowBlank: true
             },{
                 xtype: MODx.expandHelp ? 'label' : 'hidden'
                 ,forId: 'scheduler-task-snippet-content'
