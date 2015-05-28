@@ -2,6 +2,7 @@
 ++ Released on
 +++++++++++++++++++++++++
 - sTask->schedule now returns the sTaskRun object on success
+- Add option to schedule a task from the task context menu (#11)
 - Fix several issues when sTaskRun.data isn't an array (#15, #18)
 - Use configured manager_date_format and manager_time_format for the date/time displayed in the component (#16)
 - Fix adding non-snippet tasks due to validation (#13)

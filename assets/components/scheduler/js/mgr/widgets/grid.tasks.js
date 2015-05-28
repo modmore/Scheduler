@@ -129,14 +129,16 @@ Ext.extend(Scheduler.grid.Tasks,MODx.grid.Grid,{
     }
 
     ,getMenu: function() {
-        var m = [{
+        return [{
+            text: _('scheduler.run_create')
+            ,handler: this.createRun
+        },{
             text: _('scheduler.task_update')
             ,handler: this.updateTask
         },'-',{
             text: _('scheduler.task_remove')
             ,handler: this.removeTask
         }];
-        return m;
     }
     ,updateTask: function(btn, e) {
         var w = MODx.load({
@@ -168,6 +170,19 @@ Ext.extend(Scheduler.grid.Tasks,MODx.grid.Grid,{
 			}
 		});
     }
+
+    ,createRun: function() {
+        var win = MODx.load({
+            xtype: 'scheduler-window-run-create'
+            ,blankValues: true
+            ,isUpdate: false
+        });
+        win.setValues({
+            task: this.menu.record.id
+        });
+        win.show();
+    }
+
     /** RENDERS **/
     ,renderClassKey: function(value) {
         return _('scheduler.class.' + value);
