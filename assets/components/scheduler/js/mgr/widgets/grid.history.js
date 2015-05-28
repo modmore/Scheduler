@@ -53,13 +53,13 @@ Scheduler.grid.History = function(config) {
 			,dataIndex: 'timing'
 		    ,sortable: true
 			,width: 15
-            ,renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+            ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.executedon')
 			,dataIndex: 'executedon'
 		    ,sortable: true
 			,width: 15
-            ,renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+            ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.status')
 			,dataIndex: 'status'

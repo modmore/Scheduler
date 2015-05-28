@@ -53,7 +53,7 @@ Scheduler.grid.Future = function(config) {
 			,dataIndex: 'timing'
 		    ,sortable: true
 			,width: 15
-            ,renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+            ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.content')
 			,dataIndex: 'task_content'
