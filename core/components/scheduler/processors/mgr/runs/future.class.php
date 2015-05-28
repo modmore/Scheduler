@@ -46,8 +46,10 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
 
         // data string
         $dataStr = '';
-        foreach($array['data'] as $key => $value) {
-            $dataStr .= ((!empty($dataStr)) ? ', ': '').$key.': '.$value;
+        if (is_array($array['data'])) {
+            foreach ($array['data'] as $key => $value) {
+                $dataStr .= ((!empty($dataStr)) ? ', ' : '') . $key . ': ' . $value;
+            }
         }
         $array['data_view'] = $dataStr;
         $array['data'] = $this->modx->toJSON($array['data']);

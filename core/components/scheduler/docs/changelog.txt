@@ -2,7 +2,7 @@
 ++ Released on
 +++++++++++++++++++++++++
 - sTask->schedule now returns the sTaskRun object on success
-- Fix potential issue when sTaskRun.data isn't an array (#15)
+- Fix several issues when sTaskRun.data isn't an array (#15, #18)
 
 ++ Scheduler 1.0.2-pl
 ++ Released on 2014-05-29
