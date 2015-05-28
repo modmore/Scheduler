@@ -12,10 +12,14 @@ class sProcessorTask extends sTask
     {
         $action = $this->get('content');
         $path = $this->getOption('core_path') . 'model/modx/processors/';
-        $data = array_merge(array (
+        $data = array (
             'task' => &$this,
             'run' => &$run,
-        ), $run->get('data'));
+        );
+        $runData = $run->get('data');
+        if (is_array($runData)) {
+            $data = array_merge($runData, $data);
+        }
 
         $namespace = $this->_getNamespace();
         if ($namespace && $namespace->name != 'core') {

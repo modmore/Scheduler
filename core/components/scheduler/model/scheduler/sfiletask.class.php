@@ -52,6 +52,9 @@ class sFileTask extends sTask
                 $task =& $this;
                 $modx =& $this->xpdo;
                 $scriptProperties = $run->get('data');
+                if (!is_array($scriptProperties)) {
+                    $scriptProperties = array();
+                }
 
                 // Include the file. Sorta ugly but open to better approaches.
                 $result = include $file;
