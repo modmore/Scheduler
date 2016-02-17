@@ -16,18 +16,18 @@ $_lang['scheduler.upcoming'] = "Bevorstehende Aufgaben";
 $_lang['scheduler.future'] = "Geplante Durchläufe";
 $_lang['scheduler.history'] = "Erledigte Durchläufe";
 
-$_lang['scheduler.tasks_desc'] = "Aufgaben die Sie für einen Durchlauf nutzen können.";
+$_lang['scheduler.tasks_desc'] = "Aufgaben, die Sie für einen Durchlauf nutzen können.";
 $_lang['scheduler.future_desc'] = "Hier sehen Sie eine Liste von Aufgaben, die in Kürze ausgeführt werden.";
 $_lang['scheduler.history_desc'] = "Hier sehen Sie eine Liste von Aufgaben, die bereits erledigt und in der Vergangenheit durchlaufen wurden.";
 
 $_lang['scheduler.class_key'] = "Typ";
 $_lang['scheduler.content'] = "Inhalt";
 $_lang['scheduler.content.file'] = "Relativer Dateipfad";
-$_lang['scheduler.content.file_desc'] = "Geben Sie hier den Pfad zu der Datei an die für diese Aufgabe ausgeführt werden soll. Der Pfad muss relativ zum Core-Pfad des gewählten Namensraum sein.";
+$_lang['scheduler.content.file_desc'] = "Geben Sie hier den Pfad zu der Datei an, die für diese Aufgabe ausgeführt werden soll. Der Pfad muss relativ zum Core-Pfad des gewählten Namensraums sein.";
 $_lang['scheduler.content.snippet'] = "Wählen Sie ein Snippet";
-$_lang['scheduler.content.snippet_desc'] = "Wählen Sie ein Snippet aus der Liste das für diese Aufgabe ausgeführt werden soll.";
+$_lang['scheduler.content.snippet_desc'] = "Wählen Sie ein Snippet aus der Liste, das für diese Aufgabe ausgeführt werden soll.";
 $_lang['scheduler.content.processor'] = "Name des Prozessors";
-$_lang['scheduler.content.processor_desc'] = "Geben Sie den Namen des Prozessors ein der für diese Aufgabe ausgeführt werden soll. Dies ist relativ zum Prozessor-Ordner innerhalb des gewählten Namensraum und ohne (.class).php Endung.";
+$_lang['scheduler.content.processor_desc'] = "Geben Sie den Namen des Prozessors ein, der für diese Aufgabe ausgeführt werden soll. Dies ist relativ zum Prozessor-Ordner innerhalb des gewählten Namensraums und ohne (.class).php Endung.";
 $_lang['scheduler.namespace'] = "Namensraum";
 $_lang['scheduler.reference'] = "Referenz";
 $_lang['scheduler.description'] = "Beschreibung";
@@ -35,7 +35,7 @@ $_lang['scheduler.status'] = "Status";
 $_lang['scheduler.task'] = "Aufgabe";
 $_lang['scheduler.tasks'] = "Aufgaben";
 $_lang['scheduler.timing'] = "Zeit";
-$_lang['scheduler.timing.inabout'] = "In ungefährt";
+$_lang['scheduler.timing.inabout'] = "In ungefähr";
 $_lang['scheduler.timing.desc'] = "Hinweis: Wenn Sie eine exakte Zeit eingeben wird die \"In ungefähr\" Einstellung ignoriert!";
 $_lang['scheduler.data'] = "Daten";
 $_lang['scheduler.errors'] = "Fehler";
@@ -51,7 +51,7 @@ $_lang['scheduler.task_remove_confirm'] = "Sind Sie sicher, dass Sie die Aufgabe
 
 $_lang['scheduler.run_create'] = "Neuen Durchlauf planen";
 $_lang['scheduler.run_update'] = "Geplanten Durchlauf bearbeiten";
-$_lang['scheduler.run_remove'] = "Geplanten Durchlauf  löschen";
+$_lang['scheduler.run_remove'] = "Geplanten Durchlauf löschen";
 $_lang['scheduler.run_remove_confirm'] = "Sind Sie sicher, dass Sie diesen Durchlauf planen möchten?";
 
 $_lang['scheduler.data.add'] = "Neue Eigenschaft hinzufügen";
