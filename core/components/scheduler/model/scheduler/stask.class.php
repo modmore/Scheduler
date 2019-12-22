@@ -61,10 +61,14 @@ class sTask extends xPDOSimpleObject
         }
 
         // All done! Update status, completed date and save.
-        $run->set('status', ($run->hasErrors()) ? sTaskRun::STATUS_FAILURE : sTaskRun::STATUS_SUCCESS);
+        $run->set('status', $run->hasErrors() ? sTaskRun::STATUS_FAILURE : sTaskRun::STATUS_SUCCESS);
         $run->set('message', $return);
         $run->set('executedon', time());
         $run->save();
+
+        if ($run->hasErrors()) {
+            $this->notifyFailure($run);
+        }
 
         return $this;
     }
@@ -98,5 +102,51 @@ class sTask extends xPDOSimpleObject
             'message' => 'Not allowed to run the sTask::_run() method directly!',
         ));
         return false;
+    }
+
+    protected function notifyFailure(sTaskRun $run)
+    {
+        $recipients = $this->xpdo->getOption('scheduler.email_failure');
+        $recipients = array_filter(array_map('trim', explode(',', $recipients)));
+        if (count($recipients) === 0) {
+            return;
+        }
+
+        $task = $run->getOne('Task');
+        if (!$task) {
+            $this->xpdo->log(xPDO::LOG_LEVEL_ERROR, 'Error notifying about failed task; could not find task for run ' . $run->get('id'));
+            return;
+        }
+
+        $message = <<<HTML
+<p>Hi there,</p>
+
+<p>An error occurred running <code>{$task->get('namespace')} :: {$task->get('reference')}</code>, run {$run->get('id')}, on {$this->xpdo->getOption('site_name')}.</p>
+HTML;
+        
+        if ($msg = $run->get('message')) {
+            $message .= '<blockquote>' . $msg . '</blockquote>';
+        }
+        
+        if ($run->hasErrors()) {
+            $errors = $run->get('errors');
+            $message .= '<p>Errors:</p><pre><code>' . print_r($errors, true) . '</code></pre>';
+        }
+
+
+        /** @var modMail|\MODX\Revolution\Mail\modMail $mail */
+        $mail = $this->xpdo->getService('mail', 'mail.modPHPMailer');
+        $mail->set('mail_body', $message);
+        $mail->set('mail_from', $this->xpdo->getOption('emailsender'));
+        $mail->set('mail_from_name', 'Scheduler at ' . $this->xpdo->getOption('site_name'));
+        $mail->set('mail_subject', "Error running {$task->get('namespace')} :: {$task->get('reference')}");
+        foreach ($recipients as $recipient) {
+            $mail->address('to', $recipient);
+        }
+        $mail->setHTML(true);
+        if (!$mail->send()) {
+            $this->xpdo->log(modX::LOG_LEVEL_ERROR,'An error occurred while trying to send email: '.$mail->mailer->ErrorInfo);
+        }
+        $mail->reset();
     }
 }

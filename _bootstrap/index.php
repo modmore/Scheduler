@@ -78,6 +78,17 @@ if (!createObject('modSystemSetting', array(
     echo "Error creating scheduler.assets_url setting.\n";
 }
 
+if (!createObject('modSystemSetting', array(
+    'key' => 'scheduler.email_failure',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'scheduler',
+    'area' => 'Failures',
+    'editedon' => time(),
+), 'key', false)) {
+    echo "Error creating setting.\n";
+}
+
 
 if (!createObject('modMenu', array(
     'text' => 'scheduler',
