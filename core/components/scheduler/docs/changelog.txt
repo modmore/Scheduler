@@ -1,15 +1,17 @@
-++ Scheduler 1.2.0-pl
-++ Released on 2019-12-22
-+++++++++++++++++++++++++
+Scheduler 1.2.0-pl
+------------------
+Released on 2019-12-22
+
 - Fix use of old modAction-based routing, removed in 3.0
 - Fix incorrect processor names with new case sensitivity in 3.0
 - Improve display of grids in MODX3 to better fit with the gear icon
 - Better handle Error/Exceptions triggered by a task
 - Make sure modError service is loaded
 
-++ Scheduler 1.1.0-pl
-++ Released on 2015-05-29
-+++++++++++++++++++++++++
+Scheduler 1.1.0-pl
+------------------
+Released on 2015-05-29
+
 - sTask->schedule now returns the sTaskRun object on success
 - Add option to schedule a task from the task context menu (#11)
 - Fix several issues when sTaskRun.data isn't an array (#15, #18)
@@ -18,18 +20,21 @@
 - Fix fields being duplicated in the Tasks window
 - Improve display of (nested) data arrays in grid
 
-++ Scheduler 1.0.2-pl
-++ Released on 2014-05-29
-+++++++++++++++++++++++++
+Scheduler 1.0.2-pl
+------------------
+Released on 2014-05-29
+
 Fix typos in English lexicon, added Dutch and German (Thx Christian Seel!)
 
-++ Scheduler 1.0.1-pl
-++ Released on 2014-05-07
-+++++++++++++++++++++++++
+Scheduler 1.0.1-pl
+------------------
+Released on 2014-05-07
+
 - Fixed: load right package meta data at installation
 
 
-++ Scheduler 1.0.0-pl
-++ Released on 2014-05-07
-+++++++++++++++++++++++++
+Scheduler 1.0.0-pl
+------------------
+Released on 2014-05-07
+
 - Initial release
