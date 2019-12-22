@@ -38,7 +38,27 @@ class sTask extends xPDOSimpleObject
         $run->save();
 
         // Run the task
-        $return = $this->_run($run);
+        try {
+            $return = $this->_run($run);
+        }
+        catch (Exception $e) {
+            $run->addError(get_class($e), [
+                'exception' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+            $return = '';
+        }
+        catch (Error $e) {
+            $run->addError(get_class($e), [
+                'exception' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+            $return = '';
+        }
 
         // All done! Update status, completed date and save.
         $run->set('status', ($run->hasErrors()) ? sTaskRun::STATUS_FAILURE : sTaskRun::STATUS_SUCCESS);

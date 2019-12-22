@@ -4,6 +4,7 @@
 - Fix use of old modAction-based routing, removed in 3.0
 - Fix incorrect processor names with new case sensitivity in 3.0
 - Improve display of grids in MODX3 to better fit with the gear icon
+- Better handle Error/Exceptions triggered by a task
 
 ++ Scheduler 1.1.0-pl
 ++ Released on 2015-05-29
