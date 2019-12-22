@@ -78,32 +78,18 @@ if (!createObject('modSystemSetting', array(
     echo "Error creating scheduler.assets_url setting.\n";
 }
 
-if (!createObject('modAction', array(
+
+if (!createObject('modMenu', array(
+    'text' => 'scheduler',
+    'parent' => 'components',
+    'description' => 'scheduler.menu_desc',
+    'icon' => 'images/icons/plugin.gif',
+    'menuindex' => '0',
+    'action' => 'index',
     'namespace' => 'scheduler',
-    'parent' => '0',
-    'controller' => 'controllers/index',
-    'haslayout' => '1',
-    'lang_topics' => 'scheduler:default',
-), 'namespace', true)) {
-    echo "Error creating action.\n";
+), 'text', false)) {
+    echo "Error creating menu.\n";
 }
-$action = $modx->getObject('modAction', array(
-    'namespace' => 'scheduler'
-));
-
-if ($action) {
-    if (!createObject('modMenu', array(
-        'text' => 'scheduler',
-        'parent' => 'components',
-        'description' => 'scheduler.menu_desc',
-        'icon' => 'images/icons/plugin.gif',
-        'menuindex' => '0',
-        'action' => $action->get('id')
-    ), 'text', false)) {
-        echo "Error creating menu.\n";
-    }
-}
-
 $manager = $modx->getManager();
 
 /* Create the tables */
@@ -117,7 +103,8 @@ foreach ($objectContainers as $oC) {
     $manager->createObjectContainer($oC);
 }
 
-echo "Done.";
+$modx->getCacheManager()->refresh();
+echo "Done.\n";
 
 
 /**
