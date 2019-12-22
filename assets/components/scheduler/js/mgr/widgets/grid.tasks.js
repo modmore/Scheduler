@@ -28,42 +28,42 @@ Scheduler.grid.Tasks = function(config) {
 			header: _('id')
 			,dataIndex: 'id'
 			,sortable: true
-			,width: 5
+			,width: 50
             ,hidden: true
 		},{
 			header: _('scheduler.class_key')
 			,dataIndex: 'class_key'
 		    ,sortable: true
-			,width: 15
+			,width: 150
             ,hidden: true
             ,renderer: this.renderClassKey
 		},{
 			header: _('scheduler.namespace')
 			,dataIndex: 'namespace'
 		    ,sortable: true
-			,width: 15
+			,width: 150
 		},{
 			header: _('scheduler.reference')
 			,dataIndex: 'reference'
 		    ,sortable: true
-			,width: 20
+			,width: 200
 		},{
 			header: _('scheduler.content')
 			,dataIndex: 'content'
 		    ,sortable: true
-			,width: 20
+			,width: 200
             ,hidden: true
 		},{
 			header: _('scheduler.next_run')
 			,dataIndex: 'next_run'
 		    ,sortable: true
-			,width: 15
+			,width: 150
             ,renderer: this.renderNextRun
 		},{
 			header: _('scheduler.runs')
 			,dataIndex: 'runs'
 		    ,sortable: false
-			,width: 5
+			,width: 50
 		}]
         ,tbar: [{
             text: _('scheduler.task_create')

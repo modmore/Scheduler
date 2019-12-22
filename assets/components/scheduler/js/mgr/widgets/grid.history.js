@@ -30,47 +30,47 @@ Scheduler.grid.History = function(config) {
 			header: _('id')
 			,dataIndex: 'id'
 			,sortable: true
-			,width: 5
+			,width: 50
             ,hidden: true
 		},{
 			header: _('scheduler.task')
 			,dataIndex: 'task'
 			,sortable: true
-			,width: 5
+			,width: 50
             ,hidden: true
 		},{
 			header: _('scheduler.namespace')
 			,dataIndex: 'task_namespace'
 		    ,sortable: true
-			,width: 20
+			,width: 200
 		},{
 			header: _('scheduler.reference')
 			,dataIndex: 'task_reference'
 		    ,sortable: true
-			,width: 20
+			,width: 200
 		},{
 			header: _('scheduler.timing')
 			,dataIndex: 'timing'
 		    ,sortable: true
-			,width: 15
+			,width: 150
             ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.executedon')
 			,dataIndex: 'executedon'
 		    ,sortable: true
-			,width: 15
+			,width: 150
             ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.status')
 			,dataIndex: 'status'
 		    ,sortable: false
-			,width: 10
+			,width: 100
             ,renderer: this.statusRenderer
 		},{
 			header: _('scheduler.content')
 			,dataIndex: 'task_content'
 		    ,sortable: true
-			,width: 25
+			,width: 250
             ,hidden: true
 		}]
         ,tbar: ['->',{

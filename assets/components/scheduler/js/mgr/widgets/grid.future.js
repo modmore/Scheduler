@@ -31,41 +31,41 @@ Scheduler.grid.Future = function(config) {
 			header: _('id')
 			,dataIndex: 'id'
 			,sortable: true
-			,width: 5
+			,width: 50
             ,hidden: true
 		},{
 			header: _('scheduler.task')
 			,dataIndex: 'task'
 			,sortable: true
-			,width: 5
+			,width: 50
             ,hidden: true
 		},{
 			header: _('scheduler.namespace')
 			,dataIndex: 'task_namespace'
 		    ,sortable: true
-			,width: 15
+			,width: 150
 		},{
 			header: _('scheduler.reference')
 			,dataIndex: 'task_reference'
 		    ,sortable: true
-			,width: 15
+			,width: 150
 		},{
 			header: _('scheduler.timing')
 			,dataIndex: 'timing'
 		    ,sortable: true
-			,width: 15
+			,width: 150
             ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
 			header: _('scheduler.content')
 			,dataIndex: 'task_content'
 		    ,sortable: true
-			,width: 25
+			,width: 250
             ,hidden: true
 		},{
 			header: _('scheduler.data')
 			,dataIndex: 'data_view'
 		    ,sortable: false
-			,width: 25
+			,width: 250
 		}]
         ,tbar: [{
             text: _('scheduler.run_create')
