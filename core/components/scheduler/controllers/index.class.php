@@ -1,66 +1,34 @@
 <?php
 
+require_once dirname(__DIR__) . '/index.class.php';
 /**
- * The main Scheduler Manager Controller.
+ * Scheduler Home controller
  */
-abstract class SchedulerManagerController extends modExtraManagerController {
-    /** @var Scheduler $scheduler */
-    public $scheduler = null;
-
+class SchedulerIndexManagerController extends SchedulerManagerController {
     /**
-     * Initializes the main manager controller.
+     * The pagetitle to put in the <title> attribute.
+     * @return null|string
      */
-    public function initialize() {
-        /* Instantiate the Scheduler class in the controller */
-        $path = $this->modx->getOption('scheduler.core_path', null, $this->modx->getOption('core_path').'components/scheduler/') . 'model/scheduler/';
-        $this->scheduler = $this->modx->getService('scheduler', 'Scheduler', $path);
-
-        /* Add the main javascript class and our configuration */
-        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/scheduler.class.js');
-        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/combos.js');
-        $this->addHtml('<script type="text/javascript">
-        Ext.onReady(function() {
-            Scheduler.config = '.$this->modx->toJSON($this->scheduler->config).';
-        });
-        </script>');
+    public function getPageTitle() {
+        return $this->modx->lexicon('scheduler');
     }
 
     /**
-     * Defines the lexicon topics to load in our controller.
-     * @return array
+     * Register all the needed javascript files.
      */
-    public function getLanguageTopics() {
-        return array('scheduler:default');
-    }
+    public function loadCustomCssJs() {
+        $this->addCss($this->scheduler->config['cssUrl'].'mgr.css');
+        $this->addJavascript($this->scheduler->config['managerUrl'].'assets/modext/widgets/core/modx.grid.local.property.js');
+        $this->addJavascript($this->scheduler->config['managerUrl'].'assets/modext/util/datetime.js');
 
-    /**
-     * We can use this to check if the user has permission to see this
-     * controller. We'll apply this in the admin section.
-     * @return bool
-     */
-    public function checkPermissions() {
-        return true;
-    }
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.tasks.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.future.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/windows.history.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.tasks.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.future.js');
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/widgets/grid.history.js');
 
-    /**
-     * The name for the template file to load.
-     * @return string
-     */
-    public function getTemplateFile() {
-        return $this->scheduler->config['templatesPath'].'mgr.tpl';
-    }
-}
-
-/**
- * The Index Manager Controller is the default one that gets called when no
- * action is present.
- */
-class ControllersIndexManagerController extends SchedulerManagerController {
-    /**
-     * Defines the name or path to the default controller to load.
-     * @return string
-     */
-    public static function getDefaultController() {
-        return 'home';
+        $this->addJavascript($this->scheduler->config['jsUrl'].'mgr/panels/home.js');
+        $this->addLastJavascript($this->scheduler->config['jsUrl'].'mgr/sections/home.js');
     }
 }

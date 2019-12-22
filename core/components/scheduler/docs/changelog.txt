@@ -1,3 +1,8 @@
+++ Scheduler 2.0.0-pl
+++ Released on 2019-12-22
++++++++++++++++++++++++++
+- Fix use of old modAction-based routing, removed in 3.0
+
 ++ Scheduler 1.1.0-pl
 ++ Released on 2015-05-29
 +++++++++++++++++++++++++
