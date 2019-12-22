@@ -5,6 +5,7 @@
 - Fix incorrect processor names with new case sensitivity in 3.0
 - Improve display of grids in MODX3 to better fit with the gear icon
 - Better handle Error/Exceptions triggered by a task
+- Make sure modError service is loaded
 
 ++ Scheduler 1.1.0-pl
 ++ Released on 2015-05-29
