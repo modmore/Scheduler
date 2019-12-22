@@ -13,7 +13,7 @@ Scheduler.combo.ClassKeyList = function(config) {
 		,autocomplete: false
 		,url: Scheduler.config.connectorUrl
 		,baseParams: {
-            action: 'mgr/common/classes/getList'
+            action: 'mgr/common/classes/getlist'
 			,combo: true
         }
     });
@@ -39,7 +39,7 @@ Scheduler.combo.SnippetList = function(config) {
         ,pageSize: 10
 		,url: Scheduler.config.connectorUrl
 		,baseParams: {
-            action: 'mgr/common/snippets/getList'
+            action: 'mgr/common/snippets/getlist'
 			,combo: true
         }
     });
@@ -65,7 +65,7 @@ Scheduler.combo.TaskList = function(config) {
         ,pageSize: 10
 		,url: Scheduler.config.connectorUrl
 		,baseParams: {
-            action: 'mgr/tasks/getList'
+            action: 'mgr/tasks/getlist'
 			,combo: true
         }
         ,tpl: new Ext.XTemplate(
