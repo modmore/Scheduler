@@ -83,3 +83,6 @@ $_lang['scheduler.error.no-file-content'] = "Please enter a file path for this t
 $_lang['scheduler.error.no-snippet-content'] = "Please select a snippet from the list for this task.";
 $_lang['scheduler.error.no-processor-content'] = "Please enter a processor name for this task.";
 $_lang['scheduler.error.no-timing'] = "Please specify a timing for this task.";
+
+$_lang['setting_scheduler.email_failure'] = "Email failures to";
+$_lang['setting_scheduler.email_failure_desc'] = "Enter an email address, or multiple comma separated email address, to send an notification when a task fails.";

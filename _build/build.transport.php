@@ -8,7 +8,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     /* define version */
     define('PKG_NAME','Scheduler');
     define('PKG_NAME_LOWER',strtolower(PKG_NAME));
-    define('PKG_VERSION','1.1.0');
+    define('PKG_VERSION','1.3.0');
     define('PKG_RELEASE','pl');
 
     /* load modx */
@@ -51,7 +51,32 @@ $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
 $builder->directory = $targetDirectory;
 $builder->createPackage(PKG_NAME_LOWER,PKG_VERSION,PKG_RELEASE);
-$builder->registerNamespace(PKG_NAME_LOWER, false, true, '{core_path}components/'.PKG_NAME_LOWER.'/');
+$builder->registerNamespace(PKG_NAME_LOWER, false, true, '{core_path}components/'.PKG_NAME_LOWER.'/', '{assets_path}components/'.PKG_NAME_LOWER.'/');
+
+$builder->package->put(
+    array(
+        'source' => $sources['source_core'],
+        'target' => "return MODX_CORE_PATH . 'components/';",
+    ),
+    array(
+        'vehicle_class' => 'xPDOFileVehicle',
+        'validate' => array(
+            array(
+                'type' => 'php',
+                'source' => $sources['validators'] . 'requirements.script.php'
+            )
+        )
+    )
+);
+$builder->package->put(
+    array(
+        'source' => $sources['source_assets'],
+        'target' => "return MODX_ASSETS_PATH . 'components/';",
+    ),
+    array(
+        'vehicle_class' => 'xPDOFileVehicle',
+    )
+);
 
 /* menu action */
 $modx->log(modX::LOG_LEVEL_INFO,'Packaging in menu...');
@@ -63,34 +88,33 @@ $vehicle = $builder->createVehicle($menu, array(
     xPDOTransport::UNIQUE_KEY => 'text',
     xPDOTransport::RELATED_OBJECTS => true,
 ));
-
-/* file resolvers */
-$modx->log(modX::LOG_LEVEL_INFO, 'Adding core/assets file resolvers to category...');
-$vehicle->resolve('file',array(
-    'source' => $sources['source_assets'],
-    'target' => "return MODX_ASSETS_PATH . 'components/';",
-));
-$vehicle->resolve('file',array(
-    'source' => $sources['source_core'],
-    'target' => "return MODX_CORE_PATH . 'components/';",
-));
-
-$modx->log(modX::LOG_LEVEL_INFO, 'Adding other resolvers...');
+$modx->log(modX::LOG_LEVEL_INFO, 'Adding resolvers...');
 $vehicle->resolve('php', array('source' => $sources['resolvers'].'resolve.tables.php'));
 $vehicle->resolve('php', array('source' => $sources['resolvers'].'resolve.dbchanges.php'));
-
 $builder->putVehicle($vehicle);
 unset($vehicle, $menu);
 
+$modx->log(modX::LOG_LEVEL_INFO, 'Adding settings...');
+$settings = include $sources['data'].'transport.settings.php';
+$attributes= array(
+    xPDOTransport::UNIQUE_KEY => 'key',
+    xPDOTransport::PRESERVE_KEYS => true,
+    xPDOTransport::UPDATE_OBJECT => false,
+);
+if (is_array($settings)) {
+    foreach ($settings as $setting) {
+        $vehicle = $builder->createVehicle($setting,$attributes);
+        $builder->putVehicle($vehicle);
+    }
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($settings).' system settings.'); flush();
+}
+
 /* zip up package */
-$modx->log(modX::LOG_LEVEL_INFO,'Adding package attributes and setup options...');
+$modx->log(modX::LOG_LEVEL_INFO,'Adding package attributes...');
 $builder->setPackageAttributes(array(
     'license' => file_get_contents($sources['docs'].'license.txt'),
     'readme' => file_get_contents($sources['docs'].'readme.txt'),
     'changelog' => file_get_contents($sources['docs'].'changelog.txt'),
-    /*'setup-options' => array(
-        'source' => $sources['build'].'setup.options.php',
-    ),*/
 ));
 
 $modx->log(modX::LOG_LEVEL_INFO,'Packing up transport package zip...');
