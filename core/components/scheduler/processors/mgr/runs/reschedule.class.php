@@ -28,6 +28,9 @@ class SchedulerRescheduleTaskRunProcessor extends modObjectDuplicateProcessor {
         if(empty($timing)) { $this->addFieldError('timing', $this->modx->lexicon('scheduler.error.no-timing')); }
         $this->newObject->setTiming($timing, false);
 
+        $taskKey = $this->getProperty('task_key', "");
+        $this->newObject->set('task_key', $taskKey);
+
         return parent::beforeSave();
     }
 }
