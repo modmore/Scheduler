@@ -26,7 +26,10 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
 
         $query = $this->getProperty('query');
         if(!empty($query)) {
-            $c->andCondition(array('Task.reference:LIKE' => '%'.$query.'%'));
+            $c->where(array(
+              'Task.reference:LIKE' => '%'.$query.'%',
+              'OR:sTaskRun.task_key:LIKE' => '%'.$query.'%',
+            ));
         }
 
         $namespace = $this->getProperty('namespace');
