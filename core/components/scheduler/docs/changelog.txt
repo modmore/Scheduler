@@ -1,3 +1,11 @@
+Scheduler 1.2.1-pl
+------------------
+Released on 2021-02-xx
+
+- Add task_key field to sTaskRun, to allow setting/searching/indexing of small pieces of data. Among other things,
+  this allows outside extras to retrieve and act on task runs more easily.
+
+
 Scheduler 1.2.0-pl
 ------------------
 Released on 2020-01-03
