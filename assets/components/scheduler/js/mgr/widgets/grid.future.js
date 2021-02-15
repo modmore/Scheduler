@@ -15,6 +15,7 @@ Scheduler.grid.Future = function(config) {
             ,{ name: 'task', type: 'string' }
             ,{ name: 'task_namespace', type: 'string' }
             ,{ name: 'task_reference', type: 'string' }
+            ,{ name: 'task_key', type: 'string' }
             ,{ name: 'task_content', type: 'string' }
             ,{ name: 'task_description', type: 'string' }
             ,{ name: 'timing', type: 'date', dateFormat: 'U' }
@@ -34,6 +35,12 @@ Scheduler.grid.Future = function(config) {
 			,width: 50
             ,hidden: true
 		},{
+            header: _('scheduler.task_key')
+            ,dataIndex: 'task_key'
+            ,sortable: true
+            ,width: 50
+            ,hidden: true
+        },{
 			header: _('scheduler.task')
 			,dataIndex: 'task'
 			,sortable: true
