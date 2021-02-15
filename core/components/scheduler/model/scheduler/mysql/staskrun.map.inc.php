@@ -3,12 +3,17 @@ $xpdo_meta_map['sTaskRun']= array (
   'package' => 'scheduler',
   'version' => '1.1',
   'table' => 'scheduler_run',
+  'tableMeta' => 
+  array (
+    'engine' => 'MyISAM',
+  ),
   'fields' => 
   array (
     'status' => 0,
     'task' => 0,
     'timing' => 0,
     'data' => NULL,
+    'task_key' => '',
     'executedon' => NULL,
     'errors' => NULL,
     'message' => NULL,
@@ -45,6 +50,14 @@ $xpdo_meta_map['sTaskRun']= array (
       'phptype' => 'array',
       'null' => true,
     ),
+    'task_key' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '128',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
     'executedon' => 
     array (
       'dbtype' => 'int',
@@ -63,6 +76,25 @@ $xpdo_meta_map['sTaskRun']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+  ),
+  'indexes' => 
+  array (
+    'task_key' => 
+    array (
+      'alias' => 'task_key',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'task_key' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
     ),
   ),
   'aggregates' => 

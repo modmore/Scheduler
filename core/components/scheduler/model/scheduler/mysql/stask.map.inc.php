@@ -3,6 +3,10 @@ $xpdo_meta_map['sTask']= array (
   'package' => 'scheduler',
   'version' => '1.1',
   'table' => 'scheduler_task',
+  'tableMeta' => 
+  array (
+    'engine' => 'MyISAM',
+  ),
   'fields' => 
   array (
     'class_key' => 'sSnippetTask',
