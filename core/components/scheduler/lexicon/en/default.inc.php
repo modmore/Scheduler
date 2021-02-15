@@ -30,6 +30,7 @@ $_lang['scheduler.content.processor'] = "The name of the processor";
 $_lang['scheduler.content.processor_desc'] = "Enter the name of the processor which should be executed each run. This is relative to the processors folder inside the selected namespace and without (.class).php extension.";
 $_lang['scheduler.namespace'] = "Namespace";
 $_lang['scheduler.reference'] = "Reference";
+$_lang['scheduler.task_key'] = "Task key";
 $_lang['scheduler.description'] = "Description";
 $_lang['scheduler.status'] = "Status";
 $_lang['scheduler.task'] = "Task";
