@@ -15,6 +15,7 @@ $xpdo_meta_map['sTaskRun']= array (
     'data' => NULL,
     'task_key' => '',
     'executedon' => NULL,
+    'processing_time' => NULL,
     'errors' => NULL,
     'message' => NULL,
   ),
@@ -63,6 +64,13 @@ $xpdo_meta_map['sTaskRun']= array (
       'dbtype' => 'int',
       'precision' => '20',
       'phptype' => 'int',
+      'null' => true,
+    ),
+    'processing_time' => 
+    array (
+      'dbtype' => 'decimal',
+      'precision' => '20,4',
+      'phptype' => 'float',
       'null' => true,
     ),
     'errors' => 
@@ -153,6 +161,22 @@ $xpdo_meta_map['sTaskRun']= array (
       'columns' => 
       array (
         'executedon' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'processing_time' => 
+    array (
+      'alias' => 'processing_time',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'processing_time' => 
         array (
           'length' => '',
           'collation' => 'A',

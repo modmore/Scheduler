@@ -2,9 +2,9 @@ Scheduler 1.2.1-pl
 ------------------
 Released on 2021-02-xx
 
-- Add indices for various fields used for searching and filtering, should improve performance on sites with a large history substantially
+- Add indices for various fields used for searching and filtering, should improve performance on sites with a large history substantially [#25]
 - Add task_key field to sTaskRun, to allow setting/searching/indexing of small pieces of data. Among other things, this allows outside extras to retrieve and act on task runs more easily.
-
+- Track the processing time of task runs [#20]
 
 Scheduler 1.2.0-pl
 ------------------

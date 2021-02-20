@@ -124,6 +124,8 @@ $manager->addIndex(sTaskRun::class, 'status');
 $manager->addIndex(sTaskRun::class, 'task');
 $manager->addIndex(sTaskRun::class, 'timing');
 $manager->addIndex(sTaskRun::class, 'executedon');
+$manager->addField(sTaskRun::class, 'processing_time', ['after' => 'executedon']);
+$manager->addIndex(sTaskRun::class, 'processing_time');
 
 $modx->getCacheManager()->refresh();
 echo "Done.\n";

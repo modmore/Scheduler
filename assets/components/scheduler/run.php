@@ -34,7 +34,11 @@ $c->limit($limit);
 foreach ($modx->getIterator('sTaskRun', $c) as $taskRun) {
     $task = $taskRun->getOne('Task');
     if (!empty($task) && is_object($task) && $task instanceof sTask) {
+        $startTime = microtime(true);
         $task->run($taskRun);
+        $processingTime = microtime(true) - $startTime;
+        $taskRun->set('processing_time', $processingTime);
+        $taskRun->save();
     }
 }
 

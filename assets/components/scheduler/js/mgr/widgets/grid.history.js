@@ -23,6 +23,7 @@ Scheduler.grid.History = function(config) {
             ,{ name: 'timing', type: 'date', dateFormat: 'U' }
             ,{ name: 'data', type: 'string' }
             ,{ name: 'executedon', type: 'date', dateFormat: 'U' }
+            ,{ name: 'processing_time', type: 'float' }
             ,{ name: 'errors', type: 'string' }
             ,{ name: 'message', type: 'string' }
         ]
@@ -73,6 +74,14 @@ Scheduler.grid.History = function(config) {
 		    ,sortable: false
 			,width: 100
             ,renderer: this.statusRenderer
+		},{
+			header: _('scheduler.processing_time')
+			,dataIndex: 'processing_time'
+		    ,sortable: true
+			,width: 100
+            ,renderer: function (v) {
+			    return v.toFixed(2) + 's';
+            }
 		},{
 			header: _('scheduler.content')
 			,dataIndex: 'task_content'

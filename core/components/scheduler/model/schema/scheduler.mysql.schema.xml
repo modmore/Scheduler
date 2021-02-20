@@ -41,6 +41,7 @@
 
         <!-- Results from running the task -->
         <field key="executedon" dbtype="int" precision="20" phptype="int" null="true" />
+        <field key="processing_time" dbtype="decimal" precision="20,4" phptype="float" null="true" />
         <field key="errors" dbtype="text" phptype="array" null="true" />
         <field key="message" dbtype="text" phptype="string" null="true" />
 
@@ -60,6 +61,9 @@
         </index>
         <index alias="executedon" name="executedon" primary="false" unique="false" type="BTREE">
             <column key="executedon" length="" collation="A" null="false" />
+        </index>
+        <index alias="processing_time" name="processing_time" primary="false" unique="false" type="BTREE">
+            <column key="processing_time" length="" collation="A" null="false" />
         </index>
     </object>
 </model>

@@ -19,7 +19,7 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
 
         // changes here
         /* 2021-02-15 - add field/index for sTaskRun->task_key */
-        $manager->addField('sTaskRun', 'task_key');
+        $manager->addField('sTaskRun', 'task_key', ['after' => 'data']);
         $manager->addIndex('sTaskRun', 'task_key');
 
         // 2021-02-20
@@ -29,6 +29,8 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
         $manager->addIndex(sTaskRun::class, 'task');
         $manager->addIndex(sTaskRun::class, 'timing');
         $manager->addIndex(sTaskRun::class, 'executedon');
+        $manager->addField(sTaskRun::class, 'processing_time', ['after' => 'executedon']);
+        $manager->addIndex(sTaskRun::class, 'processing_time');
 
         // set back console logging
         $modx->setLogLevel($oldLogLevel);

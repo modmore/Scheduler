@@ -43,6 +43,7 @@ $_lang['scheduler.message'] = "Nachricht";
 $_lang['scheduler.next_run'] = "Nächster Durchlauf";
 $_lang['scheduler.runs'] = "Durchläufe";
 $_lang['scheduler.executedon'] = "Ausgeführt am";
+$_lang['scheduler.processing_time'] = "Bearbeitungszeit";
 
 $_lang['scheduler.task_create'] = "Neue Aufgabe anlegen";
 $_lang['scheduler.task_update'] = "Aufgabe bearbeiten";

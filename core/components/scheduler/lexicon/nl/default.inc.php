@@ -43,6 +43,7 @@ $_lang['scheduler.message'] = "Bericht";
 $_lang['scheduler.next_run'] = "Volgende Activiteit";
 $_lang['scheduler.runs'] = "Activiteiten";
 $_lang['scheduler.executedon'] = "Uitgevoerd op";
+$_lang['scheduler.processing_time'] = "Verwerkingstijd";
 
 $_lang['scheduler.task_create'] = "Nieuwe taak toevoegen";
 $_lang['scheduler.task_update'] = "Taak bewerken";
