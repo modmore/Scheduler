@@ -5,7 +5,7 @@ $xpdo_meta_map['sFileTask']= array (
   'extends' => 'sTask',
   'tableMeta' => 
   array (
-    'engine' => 'MyISAM',
+    'engine' => 'InnoDB',
   ),
   'fields' => 
   array (

@@ -5,7 +5,7 @@ $xpdo_meta_map['sTaskRun']= array (
   'table' => 'scheduler_run',
   'tableMeta' => 
   array (
-    'engine' => 'MyISAM',
+    'engine' => 'InnoDB',
   ),
   'fields' => 
   array (

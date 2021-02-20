@@ -5,7 +5,7 @@ $xpdo_meta_map['sTask']= array (
   'table' => 'scheduler_task',
   'tableMeta' => 
   array (
-    'engine' => 'MyISAM',
+    'engine' => 'InnoDB',
   ),
   'fields' => 
   array (
