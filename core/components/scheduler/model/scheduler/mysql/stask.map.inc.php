@@ -56,6 +56,41 @@ $xpdo_meta_map['sTask']= array (
       'null' => true,
     ),
   ),
+  'indexes' => 
+  array (
+    'namespace' => 
+    array (
+      'alias' => 'namespace',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'namespace' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'reference' => 
+    array (
+      'alias' => 'reference',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'reference' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+  ),
   'composites' => 
   array (
     'Runs' => 

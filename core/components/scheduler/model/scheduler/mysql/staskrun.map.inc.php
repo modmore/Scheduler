@@ -80,6 +80,54 @@ $xpdo_meta_map['sTaskRun']= array (
   ),
   'indexes' => 
   array (
+    'status' => 
+    array (
+      'alias' => 'status',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'status' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'task' => 
+    array (
+      'alias' => 'task',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'task' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'timing' => 
+    array (
+      'alias' => 'timing',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'timing' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
     'task_key' => 
     array (
       'alias' => 'task_key',
@@ -89,6 +137,22 @@ $xpdo_meta_map['sTaskRun']= array (
       'columns' => 
       array (
         'task_key' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'executedon' => 
+    array (
+      'alias' => 'executedon',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'executedon' => 
         array (
           'length' => '',
           'collation' => 'A',

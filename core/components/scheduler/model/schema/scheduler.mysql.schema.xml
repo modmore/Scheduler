@@ -13,6 +13,14 @@
         <!-- Used in the CMP to explain the user what a task does -->
         <field key="description" dbtype="text" phptype="string" null="true" />
 
+
+        <index alias="namespace" name="namespace" primary="false" unique="false" type="BTREE">
+            <column key="namespace" length="" collation="A" null="false" />
+        </index>
+        <index alias="reference" name="reference" primary="false" unique="false" type="BTREE">
+            <column key="reference" length="" collation="A" null="false" />
+        </index>
+
         <composite alias="Runs" class="sTaskRun" local="id" foreign="task" cardinality="many" owner="local" />
     </object>
 
@@ -38,8 +46,20 @@
 
         <aggregate alias="Task" class="sTask" local="task" foreign="id" cardinality="one" owner="foreign" />
 
+        <index alias="status" name="status" primary="false" unique="false" type="BTREE">
+            <column key="status" length="" collation="A" null="false" />
+        </index>
+        <index alias="task" name="task" primary="false" unique="false" type="BTREE">
+            <column key="task" length="" collation="A" null="false" />
+        </index>
+        <index alias="timing" name="timing" primary="false" unique="false" type="BTREE">
+            <column key="timing" length="" collation="A" null="false" />
+        </index>
         <index alias="task_key" name="task_key" primary="false" unique="false" type="BTREE">
             <column key="task_key" length="" collation="A" null="false" />
+        </index>
+        <index alias="executedon" name="executedon" primary="false" unique="false" type="BTREE">
+            <column key="executedon" length="" collation="A" null="false" />
         </index>
     </object>
 </model>
