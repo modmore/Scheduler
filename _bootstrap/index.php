@@ -114,6 +114,10 @@ foreach ($objectContainers as $oC) {
     $manager->createObjectContainer($oC);
 }
 
+/* 2021-02-15 - add field/index for sTaskRun->task_key */
+$manager->addField('sTaskRun', 'task_key');
+$manager->addIndex('sTaskRun', 'task_key');
+
 $modx->getCacheManager()->refresh();
 echo "Done.\n";
 

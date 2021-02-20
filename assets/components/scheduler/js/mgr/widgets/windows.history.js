@@ -66,6 +66,11 @@ Scheduler.window.ReScheduleRun = function(config) {
             ,html: _('scheduler.timing.desc')
             ,cls: 'desc-under'
             ,style: 'padding-top: 5px;'
+        },{
+            xtype: 'textfield'
+            ,name: 'task_key'
+            ,fieldLabel: _('scheduler.task_key')
+            ,anchor: '100%'
         }]
 	});
 	Scheduler.window.ReScheduleRun.superclass.constructor.call(this,config);

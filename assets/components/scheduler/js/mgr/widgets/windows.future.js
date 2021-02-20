@@ -68,6 +68,11 @@ Scheduler.window.CreateRun = function(config) {
             ,cls: 'desc-under'
             ,style: 'padding-top: 5px;'
         },{
+            xtype: 'textfield'
+            ,name: 'task_key'
+            ,fieldLabel: _('scheduler.task_key')
+            ,anchor: '100%'
+        },{
             xtype: 'scheduler-grid-future-run-localdata'
             ,id: 'scheduler-grid-future-run-localdata-'+this.ident
             ,preventRender: true
@@ -135,6 +140,11 @@ Scheduler.window.UpdateRun = function(config) {
             ,fieldLabel: _('scheduler.timing')
             ,anchor: '99%'
             ,allowBlank: true
+        },{
+            xtype: 'textfield'
+            ,name: 'task_key'
+            ,fieldLabel: _('scheduler.task_key')
+            ,anchor: '100%'
         },{
             xtype: 'scheduler-grid-future-run-localdata'
             ,id: 'scheduler-grid-future-run-localdata-'+this.ident

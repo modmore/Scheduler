@@ -28,6 +28,8 @@
         <field key="timing" dbtype="int" precision="20" phptype="int" null="false" default="0" />
         <!-- Data to pass to the task -->
         <field key="data" dbtype="text" phptype="array" null="true" />
+        <!-- optional key to pass to the task run; can be used to look up and modify tasks associated with other modx objects programatically -->
+        <field key="task_key" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
 
         <!-- Results from running the task -->
         <field key="executedon" dbtype="int" precision="20" phptype="int" null="true" />
@@ -35,6 +37,10 @@
         <field key="message" dbtype="text" phptype="string" null="true" />
 
         <aggregate alias="Task" class="sTask" local="task" foreign="id" cardinality="one" owner="foreign" />
+
+        <index alias="task_key" name="task_key" primary="false" unique="false" type="BTREE">
+            <column key="task_key" length="" collation="A" null="false" />
+        </index>
     </object>
 </model>
 

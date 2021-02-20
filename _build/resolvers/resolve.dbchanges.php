@@ -18,6 +18,9 @@ switch($options[xPDOTransport::PACKAGE_ACTION]) {
         $modx->setLogLevel(0);
 
         // changes here
+        /* 2021-02-15 - add field/index for sTaskRun->task_key */
+        $manager->addField('sTaskRun', 'task_key');
+        $manager->addIndex('sTaskRun', 'task_key');
 
         // set back console logging
         $modx->setLogLevel($oldLogLevel);
