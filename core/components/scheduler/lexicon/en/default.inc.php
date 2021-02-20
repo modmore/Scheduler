@@ -88,3 +88,5 @@ $_lang['scheduler.error.no-timing'] = "Please specify a timing for this task.";
 
 $_lang['setting_scheduler.email_failure'] = "Email failures to";
 $_lang['setting_scheduler.email_failure_desc'] = "Enter an email address, or multiple comma separated email address, to send an notification when a task fails.";
+$_lang['setting_scheduler.delete_tasks_after'] = "Delete task runs after";
+$_lang['setting_scheduler.delete_tasks_after_desc'] = 'Set to a strtotime() compatible time string (such as "-1 year" or "-2 weeks") to automatically remove completed or failed tasks older than that cut-off time. This runs automatically every 30th minute through the run.php cron job.';

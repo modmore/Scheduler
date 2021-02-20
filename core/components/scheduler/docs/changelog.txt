@@ -1,10 +1,11 @@
-Scheduler 1.2.1-pl
+Scheduler 1.3.0-pl
 ------------------
-Released on 2021-02-xx
+Released on 2021-02-20
 
 - Add indices for various fields used for searching and filtering, should improve performance on sites with a large history substantially [#25]
 - Add task_key field to sTaskRun, to allow setting/searching/indexing of small pieces of data. Among other things, this allows outside extras to retrieve and act on task runs more easily.
 - Track the processing time of task runs [#20]
+- Add optional automatic cleanup of old tasks. Set the scheduler.delete_tasks_after system setting to a value like "-1 year" or "-2 weeks" to remove completed and failed tasks older than that.
 
 Scheduler 1.2.0-pl
 ------------------
