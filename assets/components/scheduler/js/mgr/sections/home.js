@@ -14,7 +14,7 @@ Scheduler.page.Home = function(config) {
             xtype: 'scheduler-panel-home'
         }
         ,Scheduler.attribution()]
-        ,buttons: ['<b>' + _('scheduler.tbar.queued') + ':</b>',{
+        ,buttons: ['<b style="padding-left: 1rem;">' + _('scheduler.tbar.queued') + ':</b>',{
             xtype: 'tbtext'
             ,text: '0'
             ,id: 'scheduler-upcoming-queued'
