@@ -16,6 +16,10 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
      */
     public function prepareQueryBeforeCount(xPDOQuery $c) {
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
+        $c->select([
+            "(SELECT AVG(processing_time) FROM {$this->modx->getTableName(sTaskRun::class)} WHERE `task` = sTask.id AND `status` IN (2,3) AND `processing_time` != 0.0000) AS avg_processing_time",
+            "(SELECT COUNT(`id`) FROM {$this->modx->getTableName(sTaskRun::class)} WHERE `task` = sTask.id) AS runs",
+        ]);
 
         // search
         $query = $this->getProperty('query');
@@ -52,7 +56,6 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
 
     public function prepareRow(xPDOObject $object) {
         $a = $object->toArray('', false, true);
-        $a['runs'] = $this->modx->getCount('sTaskRun', array('task' => $a['id']));
         $a['data'] = (!empty($a['data'])) ? $this->modx->toJSON($a['data']) : '';
         return $a;
     }

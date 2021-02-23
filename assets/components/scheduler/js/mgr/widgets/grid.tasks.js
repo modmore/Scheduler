@@ -19,6 +19,7 @@ Scheduler.grid.Tasks = function(config) {
             ,{ name: 'data', type: 'string' }
             ,{ name: 'next_run', type: 'date', dateFormat: 'U' }
             ,{ name: 'runs', type: 'int' }
+            ,{ name: 'avg_processing_time', type: 'float' }
         ]
         ,stateful: true
         ,paging: true
@@ -64,7 +65,15 @@ Scheduler.grid.Tasks = function(config) {
 			,dataIndex: 'runs'
 		    ,sortable: false
 			,width: 50
-		}]
+		},{
+            header: _('scheduler.avg_processing_time')
+            ,dataIndex: 'avg_processing_time'
+            ,sortable: true
+            ,width: 100
+            ,renderer: function (v) {
+                return v.toFixed(2) + 's';
+            }
+        }]
         ,tbar: [{
             text: _('scheduler.task_create')
             ,handler: {
@@ -176,6 +185,20 @@ Ext.extend(Scheduler.grid.Tasks,MODx.grid.Grid,{
             xtype: 'scheduler-window-run-create'
             ,blankValues: true
             ,isUpdate: false
+            ,listeners: {
+                'success': {fn: function() {
+                    this.refresh();
+                    var scheduled = Ext.getCmp('scheduler-grid-future');
+                    if (scheduled) {
+                        scheduled.refresh();
+                    }
+
+                    var section = Ext.getCmp('scheduler-page-home');
+                    if (section) {
+                        section.loadStats();
+                    }
+                }, scope: this}
+            }
         });
         win.setValues({
             task: this.menu.record.id

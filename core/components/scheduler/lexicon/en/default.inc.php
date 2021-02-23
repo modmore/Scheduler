@@ -45,6 +45,7 @@ $_lang['scheduler.next_run'] = "Next Run";
 $_lang['scheduler.runs'] = "Runs";
 $_lang['scheduler.executedon'] = "Executed on";
 $_lang['scheduler.processing_time'] = "Processing time";
+$_lang['scheduler.avg_processing_time'] = "Average processing time";
 
 $_lang['scheduler.task_create'] = "Create new task";
 $_lang['scheduler.task_update'] = "Update task";
