@@ -13,6 +13,7 @@ Scheduler.grid.Future = function(config) {
             { name: 'id', type: 'int' }
             ,{ name: 'status', type: 'string' }
             ,{ name: 'task', type: 'string' }
+            ,{ name: 'task_string', type: 'string' }
             ,{ name: 'task_namespace', type: 'string' }
             ,{ name: 'task_reference', type: 'string' }
             ,{ name: 'task_key', type: 'string' }
@@ -35,44 +36,38 @@ Scheduler.grid.Future = function(config) {
 			,width: 50
             ,hidden: true
 		},{
-            header: _('scheduler.task_key')
-            ,dataIndex: 'task_key'
-            ,sortable: true
-            ,width: 50
-            ,hidden: true
-        },{
 			header: _('scheduler.task')
-			,dataIndex: 'task'
-			,sortable: true
-			,width: 50
-            ,hidden: true
+			,dataIndex: 'task_string'
+			,sortable: false
+			,width: 125
 		},{
 			header: _('scheduler.namespace')
 			,dataIndex: 'task_namespace'
 		    ,sortable: true
-			,width: 150
+			,width: 100
+            ,hidden: true
 		},{
 			header: _('scheduler.reference')
 			,dataIndex: 'task_reference'
 		    ,sortable: true
-			,width: 150
+			,width: 100
+            ,hidden: true
 		},{
 			header: _('scheduler.timing')
 			,dataIndex: 'timing'
 		    ,sortable: true
-			,width: 150
+			,width: 100
             ,renderer: Ext.util.Format.dateRenderer(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format)
 		},{
-			header: _('scheduler.content')
-			,dataIndex: 'task_content'
-		    ,sortable: true
-			,width: 250
-            ,hidden: true
+            header: _('scheduler.task_key')
+            ,dataIndex: 'task_key'
+            ,sortable: true
+            ,width: 50
 		},{
 			header: _('scheduler.data')
 			,dataIndex: 'data_view'
 		    ,sortable: false
-			,width: 250
+			,width: 150
 		}]
         ,tbar: [{
             text: _('scheduler.run_create')
@@ -82,6 +77,14 @@ Scheduler.grid.Future = function(config) {
                 ,isUpdate: false
             }
         },'->',{
+            xtype: 'scheduler-combo-tasklist'
+            ,id: 'scheduler-filter-run-task-'+this.ident
+            ,emptyText: _('scheduler.filter_task')
+            ,allowBlank: true
+            ,listeners: {
+                'select': { fn: this.searchTask ,scope: this }
+            }
+        },'-',{
             xtype: 'modx-combo-namespace'
             ,id: 'scheduler-filter-run-namespace-'+this.ident
             ,emptyText: _('scheduler.filter_namespace...')
@@ -128,15 +131,23 @@ Ext.extend(Scheduler.grid.Future, Scheduler.grid.Tasks, {
         this.getBottomToolbar().changePage(1);
         this.refresh();
     }
+    ,searchTask: function(tf,nv,ov) {
+        var s = this.getStore();
+            s.baseParams.task = tf.getValue();
+        this.getBottomToolbar().changePage(1);
+        this.refresh();
+    }
     ,searchClear: function(tf,nv,ov) {
         var s = this.getStore();
             s.baseParams.query = '';
             s.baseParams.namespace = '';
+            s.baseParams.task = '';
         this.getBottomToolbar().changePage(1);
         this.refresh();
 
         Ext.getCmp('scheduler-filter-run-namespace-'+this.ident).reset();
         Ext.getCmp('scheduler-search-run-field-'+this.ident).reset();
+        Ext.getCmp('scheduler-filter-run-task-'+this.ident).reset();
     }
     ,getMenu: function() {
         var m = [{

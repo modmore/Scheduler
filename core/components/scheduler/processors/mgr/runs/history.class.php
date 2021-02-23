@@ -17,6 +17,7 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
      */
     public function prepareRow(xPDOObject $object) {
         $array = $object->toArray('', false, true);
+        $array['task_string'] = $array['task_namespace'] . ' : ' . $array['task_reference'];
 
         if (!empty($array['errors'])) {
             $errors = array();
@@ -24,7 +25,7 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
                 $error = array();
                 foreach ($e as $key => $value) {
                     if (in_array($key, array('type', 'timestamp'))) continue;
-                    $error[] = '<li><b>' . $key . '</b>: ' . $value . '</li>';
+                    $error[] = '<li><b>' . htmlentities($key, ENT_QUOTES, 'UTF-8') . '</b>: ' . htmlentities($value, ENT_QUOTES, 'UTF-8') . '</li>';
                 }
                 $error = '<h4>' . $e['type'] . ' - ' . date('Y-m-d H:i:s', $e['timestamp']) . '</h4>'
                     . '<ul class="scheduler-list">' . implode('', $error) . '</ul>';

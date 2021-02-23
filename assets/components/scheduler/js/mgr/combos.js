@@ -53,9 +53,9 @@ Scheduler.combo.TaskList = function(config) {
     Ext.applyIf(config, {
         name: 'task'
 		,hiddenName: 'task'
-		,displayField: 'reference'
+		,displayField: 'task_string'
 		,valueField: 'id'
-		,fields: ['id','reference','namespace']
+		,fields: ['id','reference','namespace', 'task_string']
 		,forceSelection: true
 		,typeAhead: true
         ,minChars: 1

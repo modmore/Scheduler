@@ -3,8 +3,9 @@
 $_lang['scheduler'] = "Scheduler";
 $_lang['scheduler.menu_desc'] = "Upcoming and historical tasks executed in the background.";
 $_lang['scheduler.search...'] = "Search...";
-$_lang['scheduler.filter_type...'] = "Filter tasks...";
-$_lang['scheduler.filter_namespace...'] = "Filter namespace...";
+$_lang['scheduler.filter_task'] = "Filter on task";
+$_lang['scheduler.filter_type...'] = "Filter on type";
+$_lang['scheduler.filter_namespace...'] = "Filter namespace";
 $_lang['scheduler.search_clear'] = "Clear filter";
 
 $_lang['scheduler.tbar.queued'] = "Queued";

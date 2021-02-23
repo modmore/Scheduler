@@ -1,6 +1,8 @@
 - Apply some left padding to the stats bar in the component
 - Apply formatting to the stats bar to make it easier to read thousands/millions
 - Show average processing time on the tasks list
+- Update grids to allow filtering on specific tasks instead of only the namespace, adjust visible columns
+- Only show row expander in historic runs if there is a message or an error for the task
 
 Scheduler 1.3.0-pl
 ------------------

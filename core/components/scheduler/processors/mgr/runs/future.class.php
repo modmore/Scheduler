@@ -37,6 +37,11 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
             $c->andCondition(array('Task.namespace' => $namespace));
         }
 
+        $task = (int)$this->getProperty('task');
+        if(!empty($task)) {
+            $c->andCondition(array('sTaskRun.task' => $task));
+        }
+
         return $c;
     }
 
@@ -46,6 +51,7 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
      */
     public function prepareRow(xPDOObject $object) {
         $array = $object->toArray('', false, true);
+        $array['task_string'] = $array['task_namespace'] . ' : ' . $array['task_reference'];
 
         // data string
         $dataStr = array();
