@@ -1,4 +1,5 @@
 - Apply some left padding to the stats bar in the component
+- Apply formatting to the stats bar to make it easier to read thousands/millions
 
 Scheduler 1.3.0-pl
 ------------------
