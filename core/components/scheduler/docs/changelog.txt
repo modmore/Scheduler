@@ -1,3 +1,7 @@
+Scheduler 1.4.0-pl
+------------------
+Released on 2021-06-25
+
 - Apply some left padding to the stats bar in the component
 - Apply formatting to the stats bar to make it easier to read thousands/millions
 - Show average processing time on the tasks list
