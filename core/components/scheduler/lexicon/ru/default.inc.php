@@ -89,6 +89,6 @@ $_lang['scheduler.error.no-processor-content'] = "Нужно указать на
 $_lang['scheduler.error.no-timing'] = "Нужно указать время запуска для задания.";
 
 $_lang['setting_scheduler.email_failure'] = "Адреса Email для уведомлений";
-$_lang['setting_scheduler.email_failure_desc'] = "Введите адрес, или несколько, через запятую, для отправки уведомлений о проваленных задяниях.";
+$_lang['setting_scheduler.email_failure_desc'] = "Введите адрес, или несколько, через запятую, для отправки уведомлений о проваленных заданиях.";
 $_lang['setting_scheduler.delete_tasks_after'] = "Удалять записи о старых запусках после";
 $_lang['setting_scheduler.delete_tasks_after_desc'] = 'Укажите strtotime() — совместимую строку (например "-1 year" или "-2 weeks") для автоматического удаления выполненных и проваленных заданий старше, чем указанный временной отрезок. Очистка запускается автоматически раз в 30 минут через cron-задание run.php.';
