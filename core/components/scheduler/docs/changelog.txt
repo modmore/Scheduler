@@ -1,8 +1,8 @@
 Scheduler 1.4.1-pl
 ------------------
-Released on 2022-12-15
+Released on 2022-12-16
 
-- Add russian translation
+- Add russian translation [#27]
 
 Scheduler 1.4.0-pl
 ------------------
