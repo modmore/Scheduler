@@ -1,10 +1,11 @@
 <?php
 
-require_once dirname(__FILE__).'/future.class.php';
+require_once dirname(__FILE__) . '/future.class.php';
 /**
  * Gets a list of sTaskRun objects.
  */
-class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListProcessor {
+class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListProcessor
+{
     public $defaultSortField = 'executedon';
     public $defaultSortDirection = 'DESC';
     public $additionalWhere = array(
@@ -15,7 +16,8 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
      * @param xPDOObject $object
      * @return array
      */
-    public function prepareRow(xPDOObject $object) {
+    public function prepareRow(xPDOObject $object)
+    {
         $array = $object->toArray('', false, true);
         $array['task_string'] = $array['task_namespace'] . ' : ' . $array['task_reference'];
 
@@ -32,10 +34,33 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
                 $errors[] = $error;
             }
             $array['errors'] = implode('', $errors);
-        }
-        else {
+        } else {
             $array['errors'] = '';
         }
+
+        $array['actions'] = [];
+
+        $array['actions'][] = [
+            'cls' => '',
+            'icon' => 'icon icon-edit',
+            'title' => $this->modx->lexicon('scheduler.reschedule'),
+            'action' => 'rescheduleRun',
+            'button' => true,
+            'menu' => true,
+        ];
+
+        $array['actions'][] = [
+            'cls' => [
+                'menu' => 'red',
+                'button' => 'red',
+            ],
+            'icon' => 'icon icon-trash-o',
+            'title' => $this->modx->lexicon('scheduler.run_remove'),
+            'multiple' => $this->modx->lexicon('scheduler.runs_remove'),
+            'action' => 'removeRun',
+            'button' => true,
+            'menu' => true,
+        ];
 
         return $array;
     }

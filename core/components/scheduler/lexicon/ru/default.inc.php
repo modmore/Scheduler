@@ -29,7 +29,7 @@ $_lang['scheduler.content.snippet'] = "Выбор сниппета";
 $_lang['scheduler.content.snippet_desc'] = "Выберите сниппет из списка. Он будет выполнен при запуске задания.";
 $_lang['scheduler.content.processor'] = "Название процессора";
 $_lang['scheduler.content.processor_desc'] = "Введите название процессора, который будет выполнен при каждом запуске. Относительно папки процессора выбранной категории (namespace) и без расширения (.class).php.";
-$_lang['scheduler.namespace'] = "Категория";
+$_lang['scheduler.namespace'] = "Пространство имен";
 $_lang['scheduler.reference'] = "Название";
 $_lang['scheduler.task_key'] = "Признак (key)";
 $_lang['scheduler.description'] = "Описание задания";
@@ -47,6 +47,7 @@ $_lang['scheduler.runs'] = "Запуски";
 $_lang['scheduler.executedon'] = "Запущено";
 $_lang['scheduler.processing_time'] = "Время работы";
 $_lang['scheduler.avg_processing_time'] = "Среднее время работы";
+$_lang['scheduler.actions'] = "Действия";
 
 $_lang['scheduler.task_create'] = "Создать задание";
 $_lang['scheduler.task_update'] = "Обновить задание";
@@ -54,9 +55,10 @@ $_lang['scheduler.task_remove'] = "Удалить задание";
 $_lang['scheduler.task_remove_confirm'] = "Вы уверены, что хотите удалить задание «[[+reference]]»?";
 
 $_lang['scheduler.run_create'] = "Запланировать запуск";
-$_lang['scheduler.run_update'] = "Обновить плановый запуск";
-$_lang['scheduler.run_remove'] = "Удалить плановый запуск";
-$_lang['scheduler.run_remove_confirm'] = "Вы уверены, что хотите удалить этот плановый запуск?";
+$_lang['scheduler.run_update'] = "Обновить  запуск";
+$_lang['scheduler.run_remove'] = "Удалить  запуск";
+$_lang['scheduler.runs_remove'] = "Удалить  запуски";
+$_lang['scheduler.run_remove_confirm'] = "Вы уверены, что хотите удалить этот  запуск?";
 
 $_lang['scheduler.data.add'] = "Добавить параметр";
 $_lang['scheduler.data.key'] = "Имя параметра";
