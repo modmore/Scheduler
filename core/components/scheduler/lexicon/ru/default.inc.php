@@ -59,6 +59,7 @@ $_lang['scheduler.run_update'] = "Обновить  запуск";
 $_lang['scheduler.run_remove'] = "Удалить  запуск";
 $_lang['scheduler.runs_remove'] = "Удалить  запуски";
 $_lang['scheduler.run_remove_confirm'] = "Вы уверены, что хотите удалить этот  запуск?";
+$_lang['scheduler.run_multiple_remove_confirm'] = "Вы уверены, что хотите удалить эти запуски?";
 
 $_lang['scheduler.data.add'] = "Добавить параметр";
 $_lang['scheduler.data.key'] = "Имя параметра";

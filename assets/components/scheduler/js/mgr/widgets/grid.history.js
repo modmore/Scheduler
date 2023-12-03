@@ -13,7 +13,12 @@ Scheduler.grid.History = function (config) {
         tpl: new Ext.Template('<pre><code style="width: 100%; overflow-x: scroll; white-space: pre-wrap;">{message:htmlEncode}</code></pre> {errors}')
     })
 
+
+    config.sm = new Ext.grid.CheckboxSelectionModel();
+
     Ext.applyIf(config, {
+        stateful: true,
+        stateId: config.id,
         id: 'scheduler-grid-history'
         , baseParams: { action: 'mgr/runs/history' }
         , emptyText: _('scheduler.error.noresults')
@@ -241,6 +246,19 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         }
         return this.processEvent('click', e);
     }
+    ,_getSelectedIds: function () {
+        var ids = [];
+        var selected = this.getSelectionModel().getSelections();
+
+        for (var i in selected) {
+            if (!selected.hasOwnProperty(i)) {
+                continue;
+            }
+            ids.push(selected[i]['id']);
+        }
+
+        return ids;
+    }
     , reScheduleRun: function (btn, e) {
         var w = MODx.load({
             xtype: 'scheduler-window-run-reschedule'
@@ -256,16 +274,46 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         }, this)
     }
     , removeRun: function (btn, e) {
-        MODx.msg.confirm({
-            title: _('scheduler.run_remove')
-            , text: _('scheduler.run_remove_confirm', { reference: this.menu.record.reference })
-            , url: this.config.url
-            , params: {
-                action: 'mgr/runs/remove'
-                , id: this.menu.record.id
-            }
-            , listeners: {
-                'success': { fn: this.refresh, scope: this }
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        Ext.MessageBox.confirm(
+            _('ms2_menu_remove_title'),
+            ids.length > 1
+                ? _('scheduler.run_multiple_remove_confirm')
+                : _('scheduler.run_remove_confirm'),
+            function (val) {
+                if (val === 'yes') {
+                    this.runAction('remove');
+                }
+            }, this
+        );
+    },
+    runAction(method) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/runs/multiple',
+                method: method,
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        //noinspection JSUnresolvedFunction
+                        this.refresh();
+                    }, scope: this
+                },
+                failure: {
+                    fn: function (response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    }, scope: this
+                },
             }
         })
     }
@@ -280,5 +328,8 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         }
         return v
     }
+    , refresh: function () {
+        this.getStore().reload();
+    },
 })
 Ext.reg('scheduler-grid-history', Scheduler.grid.History)

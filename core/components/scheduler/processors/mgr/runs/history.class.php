@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/future.class.php';
+
 /**
  * Gets a list of sTaskRun objects.
  */
@@ -8,9 +9,9 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
 {
     public $defaultSortField = 'executedon';
     public $defaultSortDirection = 'DESC';
-    public $additionalWhere = array(
+    public $additionalWhere = [
         'status:!=' => sTaskRun::STATUS_SCHEDULED,
-    );
+    ];
 
     /**
      * @param xPDOObject $object
@@ -22,11 +23,13 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
         $array['task_string'] = $array['task_namespace'] . ' : ' . $array['task_reference'];
 
         if (!empty($array['errors'])) {
-            $errors = array();
+            $errors = [];
             foreach ($array['errors'] as $e) {
-                $error = array();
+                $error = [];
                 foreach ($e as $key => $value) {
-                    if (in_array($key, array('type', 'timestamp'))) continue;
+                    if (in_array($key, ['type', 'timestamp'])) {
+                        continue;
+                    }
                     $error[] = '<li><b>' . htmlentities($key, ENT_QUOTES, 'UTF-8') . '</b>: ' . htmlentities($value, ENT_QUOTES, 'UTF-8') . '</li>';
                 }
                 $error = '<h4>' . $e['type'] . ' - ' . date('Y-m-d H:i:s', $e['timestamp']) . '</h4>'
@@ -42,9 +45,9 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
 
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'icon icon-edit',
+            'icon' => 'icon icon-repeat',
             'title' => $this->modx->lexicon('scheduler.reschedule'),
-            'action' => 'rescheduleRun',
+            'action' => 'reScheduleRun',
             'button' => true,
             'menu' => true,
         ];
