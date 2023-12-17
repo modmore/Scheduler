@@ -47,6 +47,7 @@ $_lang['scheduler.runs'] = "Runs";
 $_lang['scheduler.executedon'] = "Executed on";
 $_lang['scheduler.processing_time'] = "Processing time";
 $_lang['scheduler.avg_processing_time'] = "Average processing time";
+$_lang['scheduler.actions'] = "Actions";
 
 $_lang['scheduler.task_create'] = "Create new task";
 $_lang['scheduler.task_update'] = "Update task";
@@ -56,7 +57,9 @@ $_lang['scheduler.task_remove_confirm'] = "Are you sure you want to remove \"[[+
 $_lang['scheduler.run_create'] = "Schedule new run";
 $_lang['scheduler.run_update'] = "Update scheduled run";
 $_lang['scheduler.run_remove'] = "Remove scheduled run";
+$_lang['scheduler.runs_remove'] = "Remove  scheduled runs";
 $_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this from scheduled run?";
+$_lang['scheduler.run_multiple_remove_confirm'] = "Are you sure you want to remove these from scheduled runs?";
 
 $_lang['scheduler.data.add'] = "Add new property";
 $_lang['scheduler.data.key'] = "Property key";

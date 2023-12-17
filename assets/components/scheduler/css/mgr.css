@@ -4,3 +4,70 @@
 }
 
 .window-with-grid .x-panel-mc .x-panel-tbar .x-toolbar { background-color: transparent; }
+
+
+.action-red {
+    color: darkred !important;
+}
+
+.x-btn-over .action-red {
+    color: white !important;
+}
+
+.action-green {
+    color: darkgreen !important;
+}
+
+.x-btn-over .action-green {
+    color: white !important;
+}
+
+.action-blue {
+    color: cadetblue !important;
+}
+
+.x-btn-over .action-blue {
+    color: white !important;
+}
+
+.action-yellow {
+    color: goldenrod !important;
+}
+
+.x-btn-over .action-yellow {
+    color: white !important;
+}
+
+.action-gray {
+    color: dimgray !important;
+}
+
+.x-btn-over .action-gray {
+    color: white !important;
+}
+
+
+/* Grid actions and menu */
+ul.scheduler-row-actions {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.scheduler-row-actions li {
+    float: left;
+}
+
+ul.scheduler-row-actions .btn {
+    min-width: 26px;
+    margin-right: 2px;
+    padding: 2px;
+}
+
+ul.scheduler-row-actions .btn.actions-menu {
+    width: 40px;
+}
+
+ul.scheduler-row-actions .btn.actions-menu::after {
+    content: " \f107";
+}

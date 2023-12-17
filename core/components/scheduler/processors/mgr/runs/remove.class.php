@@ -1,9 +1,10 @@
 <?php
 
-class SchedulerRemoveTaskProcessor extends modObjectRemoveProcessor {
+class SchedulerRemoveTaskProcessor extends modObjectRemoveProcessor
+{
     public $classKey = 'sTaskRun';
     public $objectType = 'scheduler.staskrun';
-    public $languageTopics = array('scheduler:default');
+    public $languageTopics = ['scheduler:default'];
 }
 
 return 'SchedulerRemoveTaskProcessor';
