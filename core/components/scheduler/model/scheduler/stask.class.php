@@ -11,13 +11,14 @@ class sTask extends xPDOSimpleObject
      * @param array $data
      * @return false|sTaskRun
      */
-    public function schedule($when, array $data = array()) {
+    public function schedule($when, array $data = array(), string $task_key = '') {
 
         /** @var sTaskRun $run */
         $run = $this->xpdo->newObject('sTaskRun');
         $run->fromArray(array(
             'task' => $this->get('id'),
             'data' => $data,
+            'task_key' => $task_key,
         ));
         $run->setTiming($when);
 
