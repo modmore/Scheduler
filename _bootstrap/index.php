@@ -1,20 +1,20 @@
 <?php
 /* Get the core config */
-if (!file_exists(dirname(dirname(__FILE__)).'/config.core.php')) {
-    die('ERROR: missing '.dirname(dirname(__FILE__)).'/config.core.php file defining the MODX core path.');
+if (!file_exists(dirname(__FILE__, 2) .'/config.core.php')) {
+    die('ERROR: missing '. dirname(__FILE__, 2) .'/config.core.php file defining the MODX core path.');
 }
 
 echo "<pre>";
 /* Boot up MODX */
 echo "Loading modX...\n";
-require_once dirname(dirname(__FILE__)).'/config.core.php';
+require_once dirname(__FILE__, 2) .'/config.core.php';
 require_once MODX_CORE_PATH.'model/modx/modx.class.php';
 $modx = new modX();
 echo "Initializing manager...\n";
 $modx->initialize('mgr');
 $modx->getService('error','error.modError', '', '');
 
-$componentPath = dirname(dirname(__FILE__));
+$componentPath = dirname(__FILE__, 2);
 
 $Scheduler = $modx->getService('scheduler','Scheduler', $componentPath.'/core/components/scheduler/model/scheduler/', array(
     'scheduler.core_path' => $componentPath.'/core/components/scheduler/',
