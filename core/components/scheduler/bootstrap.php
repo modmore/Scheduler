@@ -6,8 +6,8 @@
  */
 
 // Load the classes
-$modx->addPackage('Scheduler\Model', $namespace['path'] . 'src/', null, 'Scheduler\\');
-
+require_once $namespace['path'] . 'model/scheduler/scheduler.class.php';
+$modx->addPackage('scheduler', $namespace['path'] . 'model/');
 $modx->services->add('scheduler', function ($c) use ($modx) {
-    return new Scheduler\Scheduler($modx);
+    return new Scheduler($modx);
 });
