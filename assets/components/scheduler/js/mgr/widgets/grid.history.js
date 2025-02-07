@@ -13,8 +13,12 @@ Scheduler.grid.History = function(config) {
         tpl : new Ext.Template('<pre><code style="width: 100%; overflow-x: scroll; white-space: pre-wrap;">{message:htmlEncode}</code></pre> {errors}')
     });
 
+    config.sm = new Ext.grid.CheckboxSelectionModel();
+
     Ext.applyIf(config,{
-        id: 'scheduler-grid-history'
+        stateful: true
+        ,stateId: config.id
+        ,id: 'scheduler-grid-history'
         ,baseParams: { action: 'mgr/runs/history' }
         ,emptyText: _('scheduler.error.noresults')
 		,fields: [
@@ -35,6 +39,7 @@ Scheduler.grid.History = function(config) {
             ,{ name: 'processing_time', type: 'float' }
             ,{ name: 'errors', type: 'string' }
             ,{ name: 'message', type: 'string' }
+            ,{ name: 'action'}
         ]
         ,plugins: this.exp
 		,columns: [this.exp, {
@@ -97,7 +102,12 @@ Scheduler.grid.History = function(config) {
 		    ,sortable: true
 			,width: 250
             ,hidden: true
-		}]
+		},{
+            header: _('scheduler.actions')
+            ,dataIndex: 'actions'
+            ,width: 50
+            ,renderer: Scheduler.utils.renderActions
+        }]
         ,tbar: ['->',{
             xtype: 'scheduler-combo-tasklist'
             ,id: 'scheduler-filter-run-task-'+this.ident
@@ -176,7 +186,50 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
             text: _('scheduler.reschedule')
             ,handler: this.reScheduleRun
             ,scope: this
+        },{
+            text: _('scheduler.run_remove')
+            ,handler: this.removeRun
+            ,scope: this
         }];
+    }
+    ,onClick: function (e) {
+        var elem = e.getTarget();
+        if (elem.nodeName === 'BUTTON') {
+            var row = this.getSelectionModel().getSelected();
+            if (typeof(row) != 'undefined') {
+                var action = elem.getAttribute('action');
+                if (action === 'showMenu') {
+                    var ri = this.getStore().find('id', row.id);
+                    return this._showMenu(this, ri, e);
+                } else if (typeof this[action] === 'function') {
+                    this.menu.record = row.data;
+                    return this[action](this, e);
+                }
+            }
+        } else if (elem.nodeName === 'A' && elem.href.match(/(\?|\&)a=resource/)) {
+            if (e.button == 1 || (e.button == 0 && e.ctrlKey == true)) {
+                // Bypass
+            } else if (elem.target && elem.target === '_blank') {
+                // Bypass
+            } else {
+                e.preventDefault();
+                MODx.loadPage('', elem.href);
+            }
+        }
+        return this.processEvent('click', e);
+    }
+    ,_getSelectedIds: function () {
+        var ids = [];
+        var selected = this.getSelectionModel().getSelections();
+
+        for (var i in selected) {
+            if (!selected.hasOwnProperty(i)) {
+                continue;
+            }
+            ids.push(selected[i]['id']);
+        }
+
+        return ids;
     }
     ,reScheduleRun: function(btn,e) {
         var w = MODx.load({
@@ -192,6 +245,50 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
 			Ext.isSafari ? w.setPosition(null,30) : w.center();
 		}, this);
     }
+    ,removeRun: function (btn, e) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        Ext.MessageBox.confirm(
+            _('ms2_menu_remove_title'),
+            ids.length > 1
+                ? _('scheduler.run_multiple_remove_confirm')
+                : _('scheduler.run_remove_confirm'),
+            function (val) {
+                if (val === 'yes') {
+                    this.runAction('remove');
+                }
+            }, this
+        );
+    }
+    ,runAction(method) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/runs/multiple',
+                method: method,
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        //noinspection JSUnresolvedFunction
+                        this.refresh();
+                    }, scope: this
+                },
+                failure: {
+                    fn: function (response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    }, scope: this
+                },
+            }
+        })
+    }
     /** RENDERS **/
     ,statusRenderer: function(value) {
         var v = _('scheduler.status_' + value);
@@ -203,5 +300,8 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         }
         return v;
     }
+    ,refresh: function () {
+        this.getStore().reload();
+    },
 });
 Ext.reg('scheduler-grid-history',Scheduler.grid.History);
