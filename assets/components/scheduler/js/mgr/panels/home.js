@@ -5,6 +5,7 @@ Scheduler.panel.Home = function(config) {
 		,baseCls: 'modx-formpanel'
 		,cls: 'container'
         ,border: false
+        ,layout: 'anchor'
         ,items: [{
             xtype: 'panel'
             ,html: '<h2>' + _('scheduler') + '</h2>'
@@ -27,6 +28,7 @@ Scheduler.panel.Home = function(config) {
             ,defaults: {
                 border: false
                 ,autoHeight: true
+                ,layout: 'anchor'
                 ,defaults: { border: false }
             }
             ,items: [{
