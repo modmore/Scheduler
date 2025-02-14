@@ -2,7 +2,6 @@ Scheduler.panel.Home = function(config) {
     config = config || {};
     Ext.apply(config, {
 		id: 'scheduler-home-panel'
-		,baseCls: 'modx-formpanel'
 		,cls: 'container'
         ,border: false
         ,layout: 'anchor'
