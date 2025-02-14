@@ -45,7 +45,7 @@ class SchedulerTaskRunHistoryListProcessor extends SchedulerTaskRunFutureListPro
 
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'icon icon-repeat',
+            'icon' => 'icon icon-edit',
             'title' => $this->modx->lexicon('scheduler.reschedule'),
             'action' => 'reScheduleRun',
             'button' => true,

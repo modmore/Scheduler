@@ -21,6 +21,7 @@ Scheduler.grid.History = function(config) {
         ,id: 'scheduler-grid-history'
         ,baseParams: { action: 'mgr/runs/history' }
         ,emptyText: _('scheduler.error.noresults')
+        ,showActionsColumn: false
 		,fields: [
              { name: 'task_id', type: 'int' }
             ,{ name: 'task_string', type: 'string' }
