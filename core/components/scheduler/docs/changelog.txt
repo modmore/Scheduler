@@ -1,3 +1,14 @@
+Scheduler 1.5.0-pl
+------------------
+Released on 2025-02-14
+
+- Historic runs can now be removed (@biz87) [#30, #36]
+- Historic runs grid now has an actions column with buttons (@biz87) [#30, #36]
+- Batch removal now possible on the historic runs grid by holding Ctrl when selecting a row, then right click and remove (@biz87) [#30, #36]
+- Relative file path field upgraded to now use the MODX file browser for file based tasks, in the task window (@biz87) [#32, #37]
+- Remove padding on container panel to look better in MODX 3 [51313f4]
+- Switch to anchor layout for grid containers to force fit when screen size changes [1696735]
+
 Scheduler 1.4.1-pl
 ------------------
 Released on 2022-12-16
