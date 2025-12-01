@@ -327,6 +327,50 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
             }
         })
     }
+    ,removeRun: function (btn, e) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        Ext.MessageBox.confirm(
+            _('ms2_menu_remove_title'),
+            ids.length > 1
+                ? _('scheduler.run_multiple_remove_confirm')
+                : _('scheduler.run_remove_confirm'),
+            function (val) {
+                if (val === 'yes') {
+                    this.runAction('remove');
+                }
+            }, this
+        );
+    }
+    ,runAction(method) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/runs/multiple',
+                method: method,
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        //noinspection JSUnresolvedFunction
+                        this.refresh();
+                    }, scope: this
+                },
+                failure: {
+                    fn: function (response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    }, scope: this
+                },
+            }
+        })
+    }
     /** RENDERS **/
     , statusRenderer: function (value) {
         var v = _('scheduler.status_' + value)
