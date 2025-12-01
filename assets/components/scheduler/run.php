@@ -31,15 +31,38 @@ $c->limit($limit);
 /**
  * @var sTaskRun $taskRun
  */
+$table = $modx->getTableName('sTaskRun');
 foreach ($modx->getIterator('sTaskRun', $c) as $taskRun) {
+    // Atomic status update to prevent race condition
+    // If another process already took this task, affected = 0
+    $taskRunId = $taskRun->get('id');
+    $stmt = $modx->prepare("UPDATE {$table} SET status = :executing WHERE id = :id AND status = :scheduled");
+    $stmt->execute([
+        ':executing' => sTaskRun::STATUS_EXECUTING,
+        ':id' => $taskRunId,
+        ':scheduled' => sTaskRun::STATUS_SCHEDULED
+    ]);
+
+    if ($stmt->rowCount() === 0) {
+        // Task already taken by another process, skip
+        $modx->log(modX::LOG_LEVEL_DEBUG, "[Scheduler] Task run {$taskRunId} already taken by another process, skipping");
+        continue;
+    }
+
+    // Reload object with updated status
+    $taskRun = $modx->getObject('sTaskRun', $taskRunId);
     $task = $taskRun->getOne('Task');
-    if (!empty($task) && is_object($task) && $task instanceof sTask) {
+
+    if ($task instanceof sTask) {
         $startTime = microtime(true);
-        $task->run($taskRun);
+        $task->run($taskRun, true); // true = status is already EXECUTING
         $processingTime = microtime(true) - $startTime;
         $taskRun->set('processing_time', $processingTime);
         $taskRun->save();
     }
+
+    // Memory cleanup after each task
+    unset($task, $taskRun);
 }
 
 $modx->log(modX::LOG_LEVEL_INFO, '[Scheduler] Done!');

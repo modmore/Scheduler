@@ -1,3 +1,20 @@
+Scheduler 1.7.0-pl
+------------------
+Released on 2024-12-01
+
+- Fix race condition in run.php with atomic status update
+- Add retry logic for failed tasks (max_retries, retry_delay fields)
+- Add composite index (status, timing) for optimal task selection
+- Fix time rounding - no longer rounds up when seconds = 0
+- Add customizable email templates via scheduler.email_failure_tpl setting
+- Add customizable email subject via scheduler.email_failure_subject setting
+- Add scheduler.tasks_per_run setting to system settings
+- Improve exception handling with Throwable (catches both Exception and Error)
+- Add forward-compatible support for MODX 3 namespaced processors
+- Add retry_count column to history grid
+- Add max_retries and retry_delay fields to task edit window
+- Memory cleanup after each task execution
+
 Scheduler 1.6.0-pl
 ------------------
 Released on 2025-01-16

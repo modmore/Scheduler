@@ -40,6 +40,7 @@ Scheduler.grid.History = function (config) {
             , { name: 'processing_time', type: 'float' }
             , { name: 'errors', type: 'string' }
             , { name: 'message', type: 'string' }
+            , { name: 'retry_count', type: 'int' }
             , { name: 'action' }
         ]
         , plugins: this.exp
@@ -107,6 +108,15 @@ Scheduler.grid.History = function (config) {
                 , dataIndex: 'task_key'
                 , sortable: true
                 , width: 50
+            },
+            {
+                header: _('scheduler.retry_count')
+                , dataIndex: 'retry_count'
+                , sortable: true
+                , width: 50
+                , renderer: function (v) {
+                    return v > 0 ? '<span style="color:orange;">#' + v + '</span>' : ''
+                }
             },
             {
                 header: _('scheduler.content')

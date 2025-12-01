@@ -8,7 +8,7 @@ if (!defined('MOREPROVIDER_BUILD')) {
     /* define version */
     define('PKG_NAME','Scheduler');
     define('PKG_NAME_LOWER',strtolower(PKG_NAME));
-    define('PKG_VERSION','1.6.0');
+    define('PKG_VERSION','1.7.0');
     define('PKG_RELEASE','pl');
 
     /* load modx */

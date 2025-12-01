@@ -93,5 +93,17 @@ $_lang['scheduler.error.no-timing'] = "Нужно указать время за
 
 $_lang['setting_scheduler.email_failure'] = "Адреса Email для уведомлений";
 $_lang['setting_scheduler.email_failure_desc'] = "Введите адрес, или несколько, через запятую, для отправки уведомлений о проваленных заданиях.";
+$_lang['setting_scheduler.email_failure_tpl'] = "Чанк шаблона письма об ошибке";
+$_lang['setting_scheduler.email_failure_tpl_desc'] = "Имя чанка для писем об ошибках. Оставьте пустым для встроенного шаблона. Доступные плейсхолдеры: [[+task_namespace]], [[+task_reference]], [[+run_id]], [[+run_message]], [[+run_errors_formatted]], [[+site_name]], [[+executed_on]], [[+run_retry_count]].";
+$_lang['setting_scheduler.email_failure_subject'] = "Тема письма об ошибке";
+$_lang['setting_scheduler.email_failure_subject_desc'] = "Своя тема для писем об ошибках. Оставьте пустым для темы по умолчанию. Поддерживает плейсхолдеры: [[+task_namespace]], [[+task_reference]], [[+site_name]].";
 $_lang['setting_scheduler.delete_tasks_after'] = "Удалять записи о старых запусках после";
 $_lang['setting_scheduler.delete_tasks_after_desc'] = 'Укажите strtotime() — совместимую строку (например "-1 year" или "-2 weeks") для автоматического удаления выполненных и проваленных заданий старше, чем указанный временной отрезок. Очистка запускается автоматически раз в 30 минут через cron-задание run.php.';
+$_lang['setting_scheduler.tasks_per_run'] = "Заданий за один запуск";
+$_lang['setting_scheduler.tasks_per_run_desc'] = "Максимальное количество заданий за один запуск cron. По умолчанию 1. Увеличьте для большей пропускной способности, но учитывайте возможные таймауты.";
+
+$_lang['scheduler.max_retries'] = "Макс. повторов";
+$_lang['scheduler.max_retries_desc'] = "Максимальное количество повторных попыток при неудаче. Установите 0 для отключения повторов.";
+$_lang['scheduler.retry_delay'] = "Задержка повтора (сек)";
+$_lang['scheduler.retry_delay_desc'] = "Задержка в секундах перед повторной попыткой. По умолчанию 60 секунд.";
+$_lang['scheduler.retry_count'] = "Попытка повтора";

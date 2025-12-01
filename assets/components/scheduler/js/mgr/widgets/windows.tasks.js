@@ -60,7 +60,25 @@ Scheduler.window.CreateUpdateTask = function (config) {
                         , name: 'description'
                         , fieldLabel: _('scheduler.description')
                         , anchor: '100%'
-                        , height: 145
+                        , height: 80
+                    }, {
+                        xtype: 'numberfield'
+                        , name: 'max_retries'
+                        , fieldLabel: _('scheduler.max_retries')
+                        , description: _('scheduler.max_retries_desc')
+                        , anchor: '100%'
+                        , allowNegative: false
+                        , allowDecimals: false
+                        , value: config.record.max_retries || 0
+                    }, {
+                        xtype: 'numberfield'
+                        , name: 'retry_delay'
+                        , fieldLabel: _('scheduler.retry_delay')
+                        , description: _('scheduler.retry_delay_desc')
+                        , anchor: '100%'
+                        , allowNegative: false
+                        , allowDecimals: false
+                        , value: config.record.retry_delay || 60
                     }]
                 }]
             },
