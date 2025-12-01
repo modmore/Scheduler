@@ -93,5 +93,17 @@ $_lang['scheduler.error.no-timing'] = "Please specify a timing for this task.";
 
 $_lang['setting_scheduler.email_failure'] = "Email failures to";
 $_lang['setting_scheduler.email_failure_desc'] = "Enter an email address, or multiple comma separated email address, to send an notification when a task fails.";
+$_lang['setting_scheduler.email_failure_tpl'] = "Failure email template chunk";
+$_lang['setting_scheduler.email_failure_tpl_desc'] = "Name of the chunk to use for failure notification emails. Leave empty to use the built-in template. Available placeholders: [[+task_namespace]], [[+task_reference]], [[+run_id]], [[+run_message]], [[+run_errors_formatted]], [[+site_name]], [[+executed_on]], [[+run_retry_count]].";
+$_lang['setting_scheduler.email_failure_subject'] = "Failure email subject";
+$_lang['setting_scheduler.email_failure_subject_desc'] = "Custom subject for failure notification emails. Leave empty for default. Supports placeholders: [[+task_namespace]], [[+task_reference]], [[+site_name]].";
 $_lang['setting_scheduler.delete_tasks_after'] = "Delete task runs after";
 $_lang['setting_scheduler.delete_tasks_after_desc'] = 'Set to a strtotime() compatible time string (such as "-1 year" or "-2 weeks") to automatically remove completed or failed tasks older than that cut-off time. This runs automatically every 30th minute through the run.php cron job.';
+$_lang['setting_scheduler.tasks_per_run'] = "Tasks per cron run";
+$_lang['setting_scheduler.tasks_per_run_desc'] = "Maximum number of tasks to execute per cron run. Default is 1. Increase for higher throughput, but be aware of potential timeout issues.";
+
+$_lang['scheduler.max_retries'] = "Max retries";
+$_lang['scheduler.max_retries_desc'] = "Maximum number of retry attempts if task fails. Set to 0 to disable retries.";
+$_lang['scheduler.retry_delay'] = "Retry delay (seconds)";
+$_lang['scheduler.retry_delay_desc'] = "Delay in seconds before retrying a failed task. Default is 60 seconds.";
+$_lang['scheduler.retry_count'] = "Retry attempt";

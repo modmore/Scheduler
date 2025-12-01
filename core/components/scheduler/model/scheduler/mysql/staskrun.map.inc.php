@@ -7,13 +7,14 @@ $xpdo_meta_map['sTaskRun']= array (
   array (
     'engine' => 'InnoDB',
   ),
-  'fields' => 
+  'fields' =>
   array (
     'status' => 0,
     'task' => 0,
     'timing' => 0,
     'data' => NULL,
     'task_key' => '',
+    'retry_count' => 0,
     'executedon' => NULL,
     'processing_time' => NULL,
     'errors' => NULL,
@@ -51,13 +52,21 @@ $xpdo_meta_map['sTaskRun']= array (
       'phptype' => 'array',
       'null' => true,
     ),
-    'task_key' => 
+    'task_key' =>
     array (
       'dbtype' => 'varchar',
       'precision' => '128',
       'phptype' => 'string',
       'null' => false,
       'default' => '',
+    ),
+    'retry_count' =>
+    array (
+      'dbtype' => 'int',
+      'precision' => '11',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
     ),
     'executedon' => 
     array (
@@ -86,17 +95,39 @@ $xpdo_meta_map['sTaskRun']= array (
       'null' => true,
     ),
   ),
-  'indexes' => 
+  'indexes' =>
   array (
-    'status' => 
+    'status_timing' =>
+    array (
+      'alias' => 'status_timing',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' =>
+      array (
+        'status' =>
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+        'timing' =>
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'status' =>
     array (
       'alias' => 'status',
       'primary' => false,
       'unique' => false,
       'type' => 'BTREE',
-      'columns' => 
+      'columns' =>
       array (
-        'status' => 
+        'status' =>
         array (
           'length' => '',
           'collation' => 'A',

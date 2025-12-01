@@ -13,6 +13,10 @@
         <!-- Used in the CMP to explain the user what a task does -->
         <field key="description" dbtype="text" phptype="string" null="true" />
 
+        <!-- Retry configuration -->
+        <field key="max_retries" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
+        <field key="retry_delay" dbtype="int" precision="11" phptype="integer" null="false" default="60" />
+
 
         <index alias="namespace" name="namespace" primary="false" unique="false" type="BTREE">
             <column key="namespace" length="" collation="A" null="false" />
@@ -39,6 +43,9 @@
         <!-- optional key to pass to the task run; can be used to look up and modify tasks associated with other modx objects programatically -->
         <field key="task_key" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
 
+        <!-- Retry tracking -->
+        <field key="retry_count" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
+
         <!-- Results from running the task -->
         <field key="executedon" dbtype="int" precision="20" phptype="int" null="true" />
         <field key="processing_time" dbtype="decimal" precision="20,4" phptype="float" null="true" />
@@ -47,6 +54,11 @@
 
         <aggregate alias="Task" class="sTask" local="task" foreign="id" cardinality="one" owner="foreign" />
 
+        <!-- Composite index for optimal task selection in run.php -->
+        <index alias="status_timing" name="status_timing" primary="false" unique="false" type="BTREE">
+            <column key="status" length="" collation="A" null="false" />
+            <column key="timing" length="" collation="A" null="false" />
+        </index>
         <index alias="status" name="status" primary="false" unique="false" type="BTREE">
             <column key="status" length="" collation="A" null="false" />
         </index>

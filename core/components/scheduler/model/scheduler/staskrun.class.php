@@ -1,6 +1,20 @@
 <?php
 /**
  * Class sTaskRun
+ *
+ * @package Scheduler
+ *
+ * @property int $id
+ * @property int $status
+ * @property int $task
+ * @property int $timing
+ * @property array $data
+ * @property string $task_key
+ * @property int $retry_count
+ * @property int $executedon
+ * @property float $processing_time
+ * @property array $errors
+ * @property string $message
  */
 class sTaskRun extends xPDOSimpleObject
 {
@@ -42,21 +56,32 @@ class sTaskRun extends xPDOSimpleObject
     /**
      * Schedules task run based on timing
      *
-     * @param mixed $when
-     * @param bool $roundUp
+     * @param mixed $when Unix timestamp, strtotime string, or relative time like '+5 minutes'
+     * @param bool $roundUp Round up to next minute (only if seconds > 0)
      * @return bool
      */
-    public function setTiming($when, $roundUp=true) {
-        if (strpos($when, '+') !== false || (strpos($when, '-') !== false && strpos($when, ':'))) {
+    public function setTiming($when, $roundUp = true)
+    {
+        // Convert string to timestamp if needed
+        if (is_string($when)) {
             $when = strtotime($when);
         }
 
-        // runs can only be applied on whole minutes, because the crontab cannot run in seconds
-        // because of that, a time like 8:26:22 will run at 8:27:00..
-        // To avoid delayed views in the manager, round it up!
-        list($year, $month, $day) = explode('-', date('Y-n-j', $when));
-        list($hour, $minute, $seconds) = explode(':', date('G:i:s', $when));
-        $when = mktime($hour, (($roundUp) ? $minute+1 : $minute), 0, $month, $day, $year);
+        if ($when === false || $when <= 0) {
+            return false;
+        }
+
+        // Cron only works with minutes, not seconds
+        // Round up only if there are seconds (not 00)
+        $seconds = (int) date('s', $when);
+
+        if ($seconds > 0 && $roundUp) {
+            // Round up to next minute
+            $when = strtotime(date('Y-m-d H:i:00', $when)) + 60;
+        } else {
+            // Strip seconds without rounding up
+            $when = strtotime(date('Y-m-d H:i:00', $when));
+        }
 
         $this->set('timing', $when);
         return true;

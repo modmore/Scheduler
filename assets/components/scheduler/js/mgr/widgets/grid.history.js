@@ -40,6 +40,7 @@ Scheduler.grid.History = function (config) {
             , { name: 'processing_time', type: 'float' }
             , { name: 'errors', type: 'string' }
             , { name: 'message', type: 'string' }
+            , { name: 'retry_count', type: 'int' }
             , { name: 'action' }
         ]
         , plugins: this.exp
@@ -107,6 +108,15 @@ Scheduler.grid.History = function (config) {
                 , dataIndex: 'task_key'
                 , sortable: true
                 , width: 50
+            },
+            {
+                header: _('scheduler.retry_count')
+                , dataIndex: 'retry_count'
+                , sortable: true
+                , width: 50
+                , renderer: function (v) {
+                    return v > 0 ? '<span style="color:orange;">#' + v + '</span>' : ''
+                }
             },
             {
                 header: _('scheduler.content')
@@ -291,6 +301,50 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
         );
     },
     runAction(method) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/runs/multiple',
+                method: method,
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        //noinspection JSUnresolvedFunction
+                        this.refresh();
+                    }, scope: this
+                },
+                failure: {
+                    fn: function (response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    }, scope: this
+                },
+            }
+        })
+    }
+    ,removeRun: function (btn, e) {
+        const ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        Ext.MessageBox.confirm(
+            _('ms2_menu_remove_title'),
+            ids.length > 1
+                ? _('scheduler.run_multiple_remove_confirm')
+                : _('scheduler.run_remove_confirm'),
+            function (val) {
+                if (val === 'yes') {
+                    this.runAction('remove');
+                }
+            }, this
+        );
+    }
+    ,runAction(method) {
         const ids = this._getSelectedIds();
         if (!ids.length) {
             return false;

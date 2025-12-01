@@ -7,13 +7,15 @@ $xpdo_meta_map['sTask']= array (
   array (
     'engine' => 'InnoDB',
   ),
-  'fields' => 
+  'fields' =>
   array (
     'class_key' => 'sSnippetTask',
     'content' => '',
     'namespace' => 'core',
     'reference' => 'Untitled Task',
     'description' => NULL,
+    'max_retries' => 0,
+    'retry_delay' => 60,
   ),
   'fieldMeta' => 
   array (
@@ -49,11 +51,27 @@ $xpdo_meta_map['sTask']= array (
       'null' => false,
       'default' => 'Untitled Task',
     ),
-    'description' => 
+    'description' =>
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+    'max_retries' =>
+    array (
+      'dbtype' => 'int',
+      'precision' => '11',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
+    ),
+    'retry_delay' =>
+    array (
+      'dbtype' => 'int',
+      'precision' => '11',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 60,
     ),
   ),
   'indexes' => 

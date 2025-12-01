@@ -1,49 +1,71 @@
 <?php
-
-/** @var xPDO|modX $modx */
+/**
+ * Resolver for creating/removing database tables
+ * Supports both MODX 2.x and MODX 3.x
+ *
+ * @var xPDO|modX $modx
+ * @var array $options
+ */
 $modx =& $object->xpdo;
 
-switch($options[xPDOTransport::PACKAGE_ACTION]) {
-	case xPDOTransport::ACTION_INSTALL:
-	case xPDOTransport::ACTION_UPGRADE:
+// Detect MODX version for proper constant usage
+$isModx3 = class_exists('MODX\Revolution\modX');
 
-        $modx->log(xPDO::LOG_LEVEL_INFO, 'Creating database tables...');
-		$modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path').'components/scheduler/').'model/';
-		$modx->addPackage('scheduler', $modelPath);
+if ($isModx3) {
+    $logLevelInfo = \xPDO\xPDO::LOG_LEVEL_INFO;
+    $actionInstall = \xPDO\Transport\xPDOTransport::ACTION_INSTALL;
+    $actionUpgrade = \xPDO\Transport\xPDOTransport::ACTION_UPGRADE;
+    $actionUninstall = \xPDO\Transport\xPDOTransport::ACTION_UNINSTALL;
+    $packageAction = \xPDO\Transport\xPDOTransport::PACKAGE_ACTION;
+} else {
+    $logLevelInfo = xPDO::LOG_LEVEL_INFO;
+    $actionInstall = xPDOTransport::ACTION_INSTALL;
+    $actionUpgrade = xPDOTransport::ACTION_UPGRADE;
+    $actionUninstall = xPDOTransport::ACTION_UNINSTALL;
+    $packageAction = xPDOTransport::PACKAGE_ACTION;
+}
 
-		$manager = $modx->getManager();
+switch ($options[$packageAction]) {
+    case $actionInstall:
+    case $actionUpgrade:
 
-        // to not report table creation in the console
+        $modx->log($logLevelInfo, 'Creating database tables...');
+        $modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path') . 'components/scheduler/') . 'model/';
+        $modx->addPackage('scheduler', $modelPath);
+
+        $manager = $modx->getManager();
+
+        // Suppress table creation logging
         $oldLogLevel = $modx->getLogLevel();
         $modx->setLogLevel(0);
 
-		$manager->createObjectContainer('sTask');
+        $manager->createObjectContainer('sTask');
         $manager->createObjectContainer('sTaskRun');
 
-        // set back console logging
+        // Restore logging
         $modx->setLogLevel($oldLogLevel);
 
-	break;
+        break;
 
-    case xPDOTransport::ACTION_UNINSTALL:
+    case $actionUninstall:
 
-        $modx->log(xPDO::LOG_LEVEL_INFO, 'Removing database tables...');
-        $modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path').'components/scheduler/').'model/';
-		$modx->addPackage('scheduler', $modelPath);
+        $modx->log($logLevelInfo, 'Removing database tables...');
+        $modelPath = $modx->getOption('scheduler.core_path', null, $modx->getOption('core_path') . 'components/scheduler/') . 'model/';
+        $modx->addPackage('scheduler', $modelPath);
 
-		$manager = $modx->getManager();
+        $manager = $modx->getManager();
 
-        // to not report table creation in the console
+        // Suppress table removal logging
         $oldLogLevel = $modx->getLogLevel();
         $modx->setLogLevel(0);
 
         $manager->removeObjectContainer('sTask');
         $manager->removeObjectContainer('sTaskRun');
 
-        // set back console logging
+        // Restore logging
         $modx->setLogLevel($oldLogLevel);
 
-	break;
+        break;
 }
 
 return true;
