@@ -66,10 +66,30 @@ class sTask extends xPDOSimpleObject
         }
 
         // All done! Update status, completed date and save.
-        $run->set('status', $run->hasErrors() ? sTaskRun::STATUS_FAILURE : sTaskRun::STATUS_SUCCESS);
+        $finalStatus = $run->hasErrors() ? sTaskRun::STATUS_FAILURE : sTaskRun::STATUS_SUCCESS;
+        $run->set('status', $finalStatus);
         $run->set('message', $return);
         $run->set('executedon', time());
         $run->save();
+
+        // Schedule next run for recurring tasks
+        if ($this->get('recurring')) {
+            $continueOnFailure = (bool) $this->xpdo->getOption(
+                'scheduler.recurring_on_failure',
+                null,
+                false
+            );
+
+            if ($finalStatus === sTaskRun::STATUS_SUCCESS || $continueOnFailure) {
+                $this->scheduleNext($run);
+            } else {
+                $this->xpdo->log(
+                    xPDO::LOG_LEVEL_WARN,
+                    "[Scheduler] Recurring task '{$this->get('reference')}' stopped due to failure. " .
+                    "Set scheduler.recurring_on_failure=true to continue on errors."
+                );
+            }
+        }
 
         if ($run->hasErrors()) {
             $this->notifyFailure($run);
@@ -108,6 +128,49 @@ class sTask extends xPDOSimpleObject
                 );
             }
         }
+    }
+
+    /**
+     * Schedule next run for recurring task
+     *
+     * @param sTaskRun $completedRun The completed run
+     * @return sTaskRun|null The new scheduled run or null
+     */
+    public function scheduleNext(sTaskRun $completedRun)
+    {
+        if (!$this->get('recurring')) {
+            return null;
+        }
+
+        $interval = $this->get('interval');
+        if (empty($interval)) {
+            $this->xpdo->log(
+                xPDO::LOG_LEVEL_WARN,
+                "[Scheduler] Recurring task '{$this->get('reference')}' has no interval set"
+            );
+            return null;
+        }
+
+        $nextTime = strtotime($interval);
+        if ($nextTime === false || $nextTime <= time()) {
+            $this->xpdo->log(
+                xPDO::LOG_LEVEL_ERROR,
+                "[Scheduler] Invalid interval '{$interval}' for task '{$this->get('reference')}'"
+            );
+            return null;
+        }
+
+        $nextRun = $this->schedule($interval);
+
+        if ($nextRun) {
+            $this->xpdo->log(
+                xPDO::LOG_LEVEL_INFO,
+                "[Scheduler] Recurring task '{$this->get('reference')}' scheduled next run at " .
+                date('Y-m-d H:i:s', $nextRun->get('timing'))
+            );
+        }
+
+        return $nextRun;
     }
 
     /**

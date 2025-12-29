@@ -84,3 +84,14 @@ $_lang['scheduler.error.no-file-content'] = "Bitte geben Sie einen Dateipfad fü
 $_lang['scheduler.error.no-snippet-content'] = "Bitte wählen Sie für diese Aufgabe ein Snippet aus der Liste.";
 $_lang['scheduler.error.no-processor-content'] = "Bitte geben Sie für diese Aufgabe einen Prozessor an.";
 $_lang['scheduler.error.no-timing'] = "Bitte geben Sie eine Zeit für die geplante Ausführung der Aufgabe an.";
+
+// Recurring tasks (English fallback - translation needed)
+$_lang['scheduler.recurring'] = 'Recurring';
+$_lang['scheduler.recurring_desc'] = 'Enable to automatically reschedule this task after each successful run';
+$_lang['scheduler.interval'] = 'Interval';
+$_lang['scheduler.interval_desc'] = 'Time interval between runs in strtotime format (e.g., "+30 minutes", "+1 hour", "+1 day")';
+$_lang['scheduler.error.no-interval'] = 'Please specify an interval for recurring task.';
+$_lang['scheduler.error.invalid-interval'] = 'Invalid interval format. Use strtotime format like "+30 minutes" or "+1 hour".';
+$_lang['setting_scheduler.recurring_on_failure'] = 'Continue recurring on failure';
+$_lang['setting_scheduler.recurring_on_failure_desc'] = 'If enabled, recurring tasks will continue to be scheduled even after a failed run. Default: disabled (stops on failure).';
+$_lang['area_recurring'] = 'Recurring Tasks';

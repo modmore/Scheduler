@@ -1,3 +1,16 @@
+Scheduler 1.8.0-pl
+------------------
+Released on 2024-12-28
+
+- Add recurring tasks support: tasks can automatically reschedule after successful execution
+- Add new fields to sTask: `recurring` (boolean) and `interval` (strtotime format string)
+- Add system setting `scheduler.recurring_on_failure` to control behavior on failed runs
+- Add `scheduleNext()` method to sTask for automatic rescheduling
+- Add UI support: recurring checkbox and interval field in task create/edit window
+- Add recurring column to tasks grid showing interval for recurring tasks
+- Add validation for interval format in processors
+- Add lexicon entries for recurring tasks (en, ru)
+
 Scheduler 1.7.0-pl
 ------------------
 Released on 2024-12-01

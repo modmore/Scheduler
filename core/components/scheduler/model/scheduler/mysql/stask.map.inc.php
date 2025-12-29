@@ -16,6 +16,8 @@ $xpdo_meta_map['sTask']= array (
     'description' => NULL,
     'max_retries' => 0,
     'retry_delay' => 60,
+    'recurring' => 0,
+    'interval' => '',
   ),
   'fieldMeta' => 
   array (
@@ -72,6 +74,22 @@ $xpdo_meta_map['sTask']= array (
       'phptype' => 'integer',
       'null' => false,
       'default' => 60,
+    ),
+    'recurring' =>
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 0,
+    ),
+    'interval' =>
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '64',
+      'phptype' => 'string',
+      'null' => true,
+      'default' => '',
     ),
   ),
   'indexes' => 

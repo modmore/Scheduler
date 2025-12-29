@@ -35,6 +35,22 @@ class SchedulerUpdateTaskProcessor extends modObjectUpdateProcessor {
         }
 
         $this->setProperty('content', $content);
+
+        // Validate recurring task settings
+        $recurring = (bool) $this->getProperty('recurring');
+        if ($recurring) {
+            $interval = $this->getProperty('interval');
+            if (empty($interval)) {
+                $this->addFieldError('interval', $this->modx->lexicon('scheduler.error.no-interval'));
+                return false;
+            }
+            $nextTime = strtotime($interval);
+            if ($nextTime === false || $nextTime <= time()) {
+                $this->addFieldError('interval', $this->modx->lexicon('scheduler.error.invalid-interval'));
+                return false;
+            }
+        }
+
         return parent::beforeSet();
     }
 }
