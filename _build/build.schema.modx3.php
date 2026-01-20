@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Build Schema script for MODX 3
  *
  * @package scheduler
  * @subpackage build
  */
+
 $mtime = microtime();
 $mtime = explode(" ", $mtime);
 $mtime = $mtime[1] + $mtime[0];

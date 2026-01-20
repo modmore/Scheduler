@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scheduler
  *
@@ -60,8 +61,8 @@ class Scheduler
         ), $config);
         $this->modx->addPackage('scheduler', $this->config['modelPath']);
 
-        $this->modx->loadClass('sTask', $this->config['modelPath'].'scheduler/');
-        $this->modx->loadClass('sTaskRun', $this->config['modelPath'].'scheduler/');
+        $this->modx->loadClass('sTask', $this->config['modelPath'] . 'scheduler/');
+        $this->modx->loadClass('sTaskRun', $this->config['modelPath'] . 'scheduler/');
     }
 
     /**
@@ -75,8 +76,7 @@ class Scheduler
     {
         if (is_numeric($namespaceOrId) && empty($reference)) {
             $condition = $namespaceOrId;
-        }
-        else {
+        } else {
             $condition = array(
                 'namespace' => $namespaceOrId,
                 'reference' => $reference,
@@ -94,14 +94,12 @@ class Scheduler
      *
      * @return string
      */
-    public function escape($value) 
+    public function escape($value)
     {
         return str_replace(array(
                 '[', ']', '`'
             ), array(
                 '&#91;', '&#93;', '&#96;'
-            ), htmlentities($value, ENT_QUOTES, $this->modx->getOption('modx_charset', null, 'UTF-8'))
-        );
+            ), htmlentities($value, ENT_QUOTES, $this->modx->getOption('modx_charset', null, 'UTF-8')));
     }
 }
-

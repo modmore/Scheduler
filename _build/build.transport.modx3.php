@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scheduler Build Script for MODX 3
  *

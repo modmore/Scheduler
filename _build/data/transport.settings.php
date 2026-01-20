@@ -1,6 +1,6 @@
 <?php
 
-$settingSource = include __DIR__ .'/settings.php';
+$settingSource = include __DIR__ . '/settings.php';
 
 $settings = [];
 
@@ -10,10 +10,15 @@ $settings = [];
 foreach ($settingSource as $key => $options) {
     $val = $options['value'];
 
-    if (isset($options['xtype'])) $xtype = $options['xtype'];
-    elseif (is_int($val)) $xtype = 'numberfield';
-    elseif (is_bool($val)) $xtype = 'modx-combo-boolean';
-    else $xtype = 'textfield';
+    if (isset($options['xtype'])) {
+        $xtype = $options['xtype'];
+    } elseif (is_int($val)) {
+        $xtype = 'numberfield';
+    } elseif (is_bool($val)) {
+        $xtype = 'modx-combo-boolean';
+    } else {
+        $xtype = 'textfield';
+    }
 
     /** @var modSystemSetting */
     $settings[$key] = $modx->newObject('modSystemSetting');

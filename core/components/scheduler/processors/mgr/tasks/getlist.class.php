@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Gets a list of sTask objects.
  */
-class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
+class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor
+{
     public $classKey = 'sTask';
     public $languageTopics = array('scheduler:default');
     public $defaultSortField = 'namespace';
@@ -14,7 +16,8 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
      * @param xPDOQuery $c
      * @return xPDOQuery
      */
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
         if (!$this->getProperty('combo')) {
             $c->select([
@@ -25,17 +28,17 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
 
         // search
         $query = $this->getProperty('query');
-        if(!empty($query)) {
+        if (!empty($query)) {
             $c->andCondition(array(
-                'reference:LIKE' => '%'.$query.'%',
-                'OR:description:LIKE' => '%'.$query.'%',
-                'OR:namespace:LIKE' => '%'.$query.'%',
+                'reference:LIKE' => '%' . $query . '%',
+                'OR:description:LIKE' => '%' . $query . '%',
+                'OR:namespace:LIKE' => '%' . $query . '%',
             ));
         }
 
         // filter on class key
         $classKey = $this->getProperty('class_key');
-        if(!empty($classKey)) {
+        if (!empty($classKey)) {
             $c->andCondition(array(
                 'class_key' => $classKey,
             ));
@@ -56,7 +59,8 @@ class sTaskGetUpcomingListProcessor extends modObjectGetListProcessor {
         return $c;
     }
 
-    public function prepareRow(xPDOObject $object) {
+    public function prepareRow(xPDOObject $object)
+    {
         $a = $object->toArray('', false, true);
         $a['task_string'] = $a['namespace'] . ' : ' . $a['reference'];
         $a['data'] = (!empty($a['data'])) ? $this->modx->toJSON($a['data']) : '';

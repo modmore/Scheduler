@@ -3,8 +3,8 @@
 /**
  * Class getTaskStatsProcessor
  */
-class getTaskStatsProcessor extends modProcessor {
-
+class getTaskStatsProcessor extends modProcessor
+{
     /**
      * Fetches the stats
      *

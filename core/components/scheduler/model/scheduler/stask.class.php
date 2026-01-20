@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class sTask
  *
@@ -124,7 +125,8 @@ class sTask extends xPDOSimpleObject
             $newRun->setTiming('+' . $retryDelay . ' seconds');
 
             if ($newRun->save()) {
-                $this->xpdo->log(\xPDO::LOG_LEVEL_INFO,
+                $this->xpdo->log(
+                    \xPDO::LOG_LEVEL_INFO,
                     "[Scheduler] Retry {$newRun->get('retry_count')}/{$maxRetries} scheduled for task {$this->get('namespace')}::{$this->get('reference')}"
                 );
             }
@@ -195,7 +197,8 @@ class sTask extends xPDOSimpleObject
      * @param sTaskRun $run
      * @return mixed
      */
-    protected function _run(&$run) {
+    protected function _run(&$run)
+    {
 
         /* This method should be abstract, but because of using xPDO::loadClass() in the main model, it cannot handle it */
 

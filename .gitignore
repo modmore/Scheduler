@@ -1,3 +1,5 @@
 .idea/
 config.core.php
+vendor/
+composer.lock
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Requirements validator for Scheduler
  * Supports both MODX 2.x and MODX 3.x
@@ -98,22 +99,26 @@ switch ($options[$packageAction]) {
         $modxVersion = $modx->getVersionData();
 
         // Check MODX version - support both 2.7+ and 3.0+
-        if (!checkSchedulerVersion('MODX', $modxVersion['full_version'], [
+        if (
+            !checkSchedulerVersion('MODX', $modxVersion['full_version'], [
             '2019-11-27 12:00:00' => '2.7',
             '2024-01-01 12:00:00' => '2.8',
-        ], $modx, $logLevelInfo, $logLevelWarn, $logLevelError)) {
+            ], $modx, $logLevelInfo, $logLevelWarn, $logLevelError)
+        ) {
             $success = false;
         }
 
         // Check PHP version - updated requirements for 2024+
-        if (!checkSchedulerVersion('PHP', PHP_VERSION, [
+        if (
+            !checkSchedulerVersion('PHP', PHP_VERSION, [
             '2019-07-01 12:00:00' => '7.1',
             '2020-03-01 12:00:00' => '7.2',
             '2020-11-30 12:00:00' => '7.3',
             '2022-01-01 12:00:00' => '7.4',
             '2023-01-01 12:00:00' => '8.0',
             '2024-01-01 12:00:00' => '8.1',
-        ], $modx, $logLevelInfo, $logLevelWarn, $logLevelError)) {
+            ], $modx, $logLevelInfo, $logLevelWarn, $logLevelError)
+        ) {
             $success = false;
         }
 

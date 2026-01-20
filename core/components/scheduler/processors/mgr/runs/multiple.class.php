@@ -2,7 +2,6 @@
 
 class SchedulerTaskRunMultipleListProcessor extends modProcessor
 {
-
     /**
      * @return array|string
      */
@@ -41,7 +40,6 @@ class SchedulerTaskRunMultipleListProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'SchedulerTaskRunMultipleListProcessor';

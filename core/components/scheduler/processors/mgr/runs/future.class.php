@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Gets a list of sTaskRun objects.
  */
-class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
+class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor
+{
     public $classKey = 'sTaskRun';
     public $languageTopics = array('scheduler:default');
     public $defaultSortField = 'timing ASC, id';
@@ -17,7 +19,8 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
      * @param xPDOQuery $c
      * @return xPDOQuery
      */
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
 
         $c->innerJoin('sTask', 'Task');
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
@@ -25,20 +28,20 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
         $c->where($this->additionalWhere);
 
         $query = $this->getProperty('query');
-        if(!empty($query)) {
+        if (!empty($query)) {
             $c->where(array(
-              'Task.reference:LIKE' => '%'.$query.'%',
-              'OR:sTaskRun.task_key:LIKE' => '%'.$query.'%',
+              'Task.reference:LIKE' => '%' . $query . '%',
+              'OR:sTaskRun.task_key:LIKE' => '%' . $query . '%',
             ));
         }
 
         $namespace = $this->getProperty('namespace');
-        if(!empty($namespace)) {
+        if (!empty($namespace)) {
             $c->andCondition(array('Task.namespace' => $namespace));
         }
 
         $task = (int)$this->getProperty('task');
-        if(!empty($task)) {
+        if (!empty($task)) {
             $c->andCondition(array('sTaskRun.task' => $task));
         }
 
@@ -49,7 +52,8 @@ class SchedulerTaskRunFutureListProcessor extends modObjectGetListProcessor {
      * @param xPDOObject $object
      * @return array
      */
-    public function prepareRow(xPDOObject $object) {
+    public function prepareRow(xPDOObject $object)
+    {
         $array = $object->toArray('', false, true);
         $array['task_string'] = $array['task_namespace'] . ' : ' . $array['task_reference'];
 

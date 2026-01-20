@@ -1,0 +1,11 @@
+{
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*",
+    "phpcompatibility/php-compatibility": "^9.3"
+  },
+  "scripts": {
+    "bootstrap": "php _bootstrap/index.php",
+    "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+    "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml"
+  }
+}

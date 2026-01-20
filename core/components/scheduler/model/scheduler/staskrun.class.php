@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class sTaskRun
  *
@@ -18,10 +19,10 @@
  */
 class sTaskRun extends xPDOSimpleObject
 {
-    const STATUS_SCHEDULED = 0;
-    const STATUS_EXECUTING = 1;
-    const STATUS_SUCCESS = 2;
-    const STATUS_FAILURE = 3;
+    public const STATUS_SCHEDULED = 0;
+    public const STATUS_EXECUTING = 1;
+    public const STATUS_SUCCESS = 2;
+    public const STATUS_FAILURE = 3;
 
     /**
      * Adds an error to the error stack
@@ -32,7 +33,9 @@ class sTaskRun extends xPDOSimpleObject
     public function addError($type, array $details = array())
     {
         $errors = $this->get('errors');
-        if (!is_array($errors) || empty($errors)) $errors = array();
+        if (!is_array($errors) || empty($errors)) {
+            $errors = array();
+        }
 
         $errors[] = array_merge(array(
             'type' => $type,
@@ -47,9 +50,12 @@ class sTaskRun extends xPDOSimpleObject
      *
      * @return bool
      */
-    public function hasErrors() {
+    public function hasErrors()
+    {
         $errors = $this->get('errors');
-        if (is_array($errors) && !empty($errors)) return true;
+        if (is_array($errors) && !empty($errors)) {
+            return true;
+        }
         return false;
     }
 

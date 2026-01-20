@@ -1,16 +1,17 @@
 <?php
 
-class SchedulerClassKeysGetListProcessor extends modProcessor {
-
+class SchedulerClassKeysGetListProcessor extends modProcessor
+{
     protected $coreKeys = array('sFileTask','sSnippetTask','sProcessorTask');
 
-    public function process() {
+    public function process()
+    {
 
         $list = array();
-        foreach($this->coreKeys as $classKey) {
+        foreach ($this->coreKeys as $classKey) {
             $list[] = array(
                 'key' => $classKey,
-                'value' => $this->modx->lexicon('scheduler.class.'.$classKey),
+                'value' => $this->modx->lexicon('scheduler.class.' . $classKey),
             );
         }
 

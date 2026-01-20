@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruleset name="MODX Extra ruleset">
+    <description>MODX Extra ruleset</description>
+
+    <arg name="extensions" value="php" />
+    <arg name="colors" />
+    <arg value="ps" />
+
+    <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility" />
+    <config name="testVersion" value="7.4-"/>
+
+    <file>_build/</file>
+    <file>core/components/scheduler/controllers/</file>
+    <file>core/components/scheduler/model/</file>
+    <file>core/components/scheduler/processors/</file>
+
+    <!-- Exclude paths -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>core/components/scheduler/model/scheduler/metadata.mysql.php</exclude-pattern>
+    <exclude-pattern>core/components/scheduler/model/scheduler/mysql/*</exclude-pattern>
+
+    <!-- Our base rule: set to PSR12-->
+    <rule ref="PSR12">
+        <exclude name="Generic.Files.LineLength.TooLong" />
+    </rule>
+
+    <!-- PHP compatibility checks -->
+    <rule ref="PHPCompatibility"/>
+
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <!-- Modules have side effects because they include an autoloader; that's fine -->
+        <exclude-pattern>core/components/scheduler/controllers/index.class.php</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/processors/</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/model/scheduler/scheduler.class.php</exclude-pattern>
+        <exclude-pattern>_build/build.schema.php</exclude-pattern>
+        <exclude-pattern>_build/build.schema.modx3.php</exclude-pattern>
+        <exclude-pattern>_build/build.transport.php</exclude-pattern>
+        <exclude-pattern>_build/build.transport.modx3.php</exclude-pattern>
+        <exclude-pattern>_build/validators/requirements.script.php</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>core/components/scheduler/model/</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/processors/</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/controllers/index.class.php</exclude-pattern>
+    </rule>
+
+    <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+        <exclude-pattern>core/components/scheduler/model/</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/processors/</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern>core/components/scheduler/model/scheduler/ssnippettask.class.php</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/model/scheduler/sprocessortask.class.php</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/model/scheduler/stask.class.php</exclude-pattern>
+        <exclude-pattern>core/components/scheduler/model/scheduler/sfiletask.class.php</exclude-pattern>
+    </rule>
+</ruleset>
