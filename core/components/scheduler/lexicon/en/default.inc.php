@@ -57,7 +57,7 @@ $_lang['scheduler.task_remove_confirm'] = "Are you sure you want to remove \"[[+
 $_lang['scheduler.run_create'] = "Schedule new run";
 $_lang['scheduler.run_update'] = "Update scheduled run";
 $_lang['scheduler.run_remove'] = "Remove scheduled run";
-$_lang['scheduler.runs_remove'] = "Remove  scheduled runs";
+$_lang['scheduler.runs_remove'] = "Remove scheduled runs";
 $_lang['scheduler.run_remove_confirm'] = "Are you sure you want to remove this from scheduled run?";
 $_lang['scheduler.run_multiple_remove_confirm'] = "Are you sure you want to remove these from scheduled runs?";
 
