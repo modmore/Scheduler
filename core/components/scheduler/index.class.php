@@ -24,9 +24,9 @@ abstract class SchedulerManagerController extends modExtraManagerController
                     try {
                         $this->scheduler = $this->modx->services->get('scheduler');
                     } catch (\Psr\Container\NotFoundExceptionInterface $e) {
-                        $this->modx->log(1, $e->getMessage());
+                        $this->modx->log(modX::LOG_LEVEL_ERROR, $e->getMessage());
                     } catch (\Psr\Container\ContainerExceptionInterface $e) {
-                        $this->modx->log(1, $e->getMessage());
+                        $this->modx->log(modX::LOG_LEVEL_ERROR, $e->getMessage());
                     }
                 }
                 break;
