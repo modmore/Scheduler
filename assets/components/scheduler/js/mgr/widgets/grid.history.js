@@ -289,7 +289,7 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
             return false;
         }
         Ext.MessageBox.confirm(
-            _('ms2_menu_remove_title'),
+            _('scheduler.run_remove'),
             ids.length > 1
                 ? _('scheduler.run_multiple_remove_confirm')
                 : _('scheduler.run_remove_confirm'),
@@ -333,7 +333,7 @@ Ext.extend(Scheduler.grid.History, Scheduler.grid.Tasks, {
             return false;
         }
         Ext.MessageBox.confirm(
-            _('ms2_menu_remove_title'),
+            _('scheduler.run_remove'),
             ids.length > 1
                 ? _('scheduler.run_multiple_remove_confirm')
                 : _('scheduler.run_remove_confirm'),
