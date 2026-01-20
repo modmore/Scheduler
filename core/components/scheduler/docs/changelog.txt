@@ -1,6 +1,6 @@
 Scheduler 1.9.0-pl
 ------------------
-Released on 2026-01-22
+Released on 2026-01-20
 
 This release combines all changes from the separate versions previously maintained by modmore and @biz87 (found on Modstore) into a single codebase.
 
