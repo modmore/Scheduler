@@ -17,6 +17,9 @@
         <field key="max_retries" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
         <field key="retry_delay" dbtype="int" precision="11" phptype="integer" null="false" default="60" />
 
+        <!-- Recurring task settings -->
+        <field key="recurring" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0" />
+        <field key="interval" dbtype="varchar" precision="64" phptype="string" null="true" default="" />
 
         <index alias="namespace" name="namespace" primary="false" unique="false" type="BTREE">
             <column key="namespace" length="" collation="A" null="false" />

@@ -16,6 +16,8 @@ Scheduler.grid.Tasks = function(config) {
             ,{ name: 'namespace', type: 'string' }
             ,{ name: 'reference', type: 'string' }
             ,{ name: 'description', type: 'string' }
+            ,{ name: 'recurring', type: 'boolean' }
+            ,{ name: 'interval', type: 'string' }
             ,{ name: 'data', type: 'string' }
             ,{ name: 'next_run', type: 'date', dateFormat: 'U' }
             ,{ name: 'runs', type: 'int' }
@@ -54,6 +56,12 @@ Scheduler.grid.Tasks = function(config) {
 		    ,sortable: true
 			,width: 200
             ,hidden: true
+		},{
+			header: _('scheduler.recurring')
+			,dataIndex: 'recurring'
+		    ,sortable: true
+			,width: 100
+            ,renderer: this.renderRecurring
 		},{
 			header: _('scheduler.next_run')
 			,dataIndex: 'next_run'
@@ -215,6 +223,13 @@ Ext.extend(Scheduler.grid.Tasks,MODx.grid.Grid,{
             now = new Date();
         if (value < now) { v = '<span style="color: red;">'+v+'</span>' }
         return v;
+    }
+    ,renderRecurring: function(value, meta, record) {
+        if (value) {
+            var interval = record.get('interval') || '';
+            return '<span class="scheduler-recurring-yes" title="' + interval + '">' + interval + '</span>';
+        }
+        return '<span class="scheduler-recurring-no">—</span>';
     }
 });
 Ext.reg('scheduler-grid-upcomingtasks',Scheduler.grid.Tasks);

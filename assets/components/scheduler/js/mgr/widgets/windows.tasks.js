@@ -83,6 +83,52 @@ Scheduler.window.CreateUpdateTask = function (config) {
                 }]
             },
             {
+                layout: 'form'
+                , items: [{
+                    xtype: 'xcheckbox'
+                    , fieldLabel: _('scheduler.recurring')
+                    , description: MODx.expandHelp ? '' : _('scheduler.recurring_desc')
+                    , name: 'recurring'
+                    , id: 'scheduler-task-recurring-' + this.ident
+                    , inputValue: 1
+                    , listeners: {
+                        check: { fn: function(cb, checked) {
+                            var intervalField = Ext.getCmp('scheduler-task-interval-' + this.ident);
+                            if (intervalField) {
+                                intervalField.setVisible(checked);
+                                intervalField.allowBlank = !checked;
+                            }
+                            var intervalDesc = Ext.getCmp('scheduler-task-interval-desc-' + this.ident);
+                            if (intervalDesc) {
+                                intervalDesc.setVisible(checked);
+                            }
+                        }, scope: this }
+                    }
+                }, {
+                    xtype: MODx.expandHelp ? 'label' : 'hidden'
+                    , forId: 'scheduler-task-recurring-' + this.ident
+                    , html: _('scheduler.recurring_desc')
+                    , cls: 'desc-under'
+                }, {
+                    xtype: 'textfield'
+                    , fieldLabel: _('scheduler.interval')
+                    , description: MODx.expandHelp ? '' : _('scheduler.interval_desc')
+                    , name: 'interval'
+                    , id: 'scheduler-task-interval-' + this.ident
+                    , anchor: '100%'
+                    , hidden: true
+                    , emptyText: '+30 minutes'
+                    , value: config.record.interval || ''
+                }, {
+                    xtype: MODx.expandHelp ? 'label' : 'hidden'
+                    , id: 'scheduler-task-interval-desc-' + this.ident
+                    , forId: 'scheduler-task-interval-' + this.ident
+                    , html: _('scheduler.interval_desc')
+                    , cls: 'desc-under'
+                    , hidden: true
+                }]
+            },
+            {
                 id: 'scheduler-file-content-fields-' + this.ident
                 , layout: 'form'
                 , items: [
@@ -163,6 +209,18 @@ Scheduler.window.CreateUpdateTask = function (config) {
         this.procCntElm.setVisible(false)
 
         this.showHideContents((config.record.class_key || 'sFileTask'))
+
+        // Show interval field if recurring is enabled
+        var isRecurring = config.record.recurring || false;
+        var intervalField = Ext.getCmp('scheduler-task-interval-' + this.ident);
+        var intervalDesc = Ext.getCmp('scheduler-task-interval-desc-' + this.ident);
+        if (intervalField) {
+            intervalField.setVisible(isRecurring);
+            intervalField.allowBlank = !isRecurring;
+        }
+        if (intervalDesc && MODx.expandHelp) {
+            intervalDesc.setVisible(isRecurring);
+        }
     })
 }
 Ext.extend(Scheduler.window.CreateUpdateTask, MODx.Window, {

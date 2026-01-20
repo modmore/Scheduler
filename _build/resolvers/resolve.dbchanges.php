@@ -56,6 +56,10 @@ switch ($options[$packageAction]) {
         // 2024-12-01 - Composite index for optimal task selection
         $manager->addIndex('sTaskRun', 'status_timing');
 
+        // 2024-12-28 - Recurring tasks fields
+        $manager->addField('sTask', 'recurring', ['after' => 'retry_delay']);
+        $manager->addField('sTask', 'interval', ['after' => 'recurring']);
+
         // Restore logging
         $modx->setLogLevel($oldLogLevel);
 

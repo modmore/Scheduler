@@ -24,4 +24,10 @@ return [
         'area' => 'general',
         'value' => '1',
     ],
+
+    'recurring_on_failure' => [
+        'area' => 'recurring',
+        'value' => false,
+        'xtype' => 'combo-boolean',
+    ],
 ];

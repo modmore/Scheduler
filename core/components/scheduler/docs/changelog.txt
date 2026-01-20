@@ -2,6 +2,8 @@ Scheduler 1.9.0-pl
 ------------------
 Released on 2026-01-22
 
+- Add recurring tasks support: tasks can automatically reschedule after successful execution
+- Add `scheduleNext()` method to sTask for automatic rescheduling
 - Fix race condition in run.php with atomic status update
 - Add retry logic for failed tasks (max_retries, retry_delay fields)
 - Add composite index (status, timing) for optimal task selection

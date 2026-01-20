@@ -71,3 +71,13 @@ ul.scheduler-row-actions .btn.actions-menu {
 ul.scheduler-row-actions .btn.actions-menu::after {
     content: " \f107";
 }
+
+/* Recurring tasks */
+.scheduler-recurring-yes {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.scheduler-recurring-no {
+    color: #9e9e9e;
+}
