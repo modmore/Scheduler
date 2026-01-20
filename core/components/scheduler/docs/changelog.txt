@@ -2,29 +2,34 @@ Scheduler 1.9.0-pl
 ------------------
 Released on 2026-01-22
 
-- Make sTaskRun constants public, and standardise code style
-- Add $task_key property to the sTask::schedule method to more easily set that [#40]
-- Add recurring tasks support: tasks can automatically reschedule after successful execution
-- Add `scheduleNext()` method to sTask for automatic rescheduling
-- Fix race condition in run.php with atomic status update
-- Add retry logic for failed tasks (max_retries, retry_delay fields)
-- Add composite index (status, timing) for optimal task selection
-- Fix time rounding - no longer rounds up when seconds = 0
-- Add customizable email templates via scheduler.email_failure_tpl setting
-- Add customizable email subject via scheduler.email_failure_subject setting
-- Add scheduler.tasks_per_run setting to system settings
-- Improve exception handling with Throwable (catches both Exception and Error)
-- Add forward-compatible support for MODX 3 namespaced processors
-- Add retry_count column to history grid
-- Add max_retries and retry_delay fields to task edit window
-- Memory cleanup after each task execution
-- Add correct icon to menu
+This release combines all changes from the separate versions previously maintained by modmore and @biz87 (found on Modstore) into a single codebase.
 
-Notes on versions:
-- The past few years, @biz87 has maintained a different version of Scheduler on their own, and released versions of Scheduler under the same name in the modstore package manager.
-- On modstore, there were releases for a v1.5 on 2023-12-17, a v1.6 on 2025-01-16, v1.7 on 2024-12-01, and v1.8 on 2025-12-30.
-- On modmore, there was a v1.5 release on 2025-02-14 that included some of the patches that @biz87 provided, but not all of them.
-- v1.9 includes all the changes of both forks up to 2026-01-20.
+Version 1.9 includes all updates from both forks up to January 20, 2026.
+
+Major Changes:
+
+* **Fork Unification:** Merged all features and fixes from the modmore and @biz87 forks to ensure a single, consistent version moving forward.
+* **Recurring Tasks:** Tasks can now be set to repeat automatically after a successful run using the new automatic rescheduling feature. This was already possible in code, now also in the UI.
+* **Retry System:** Added the ability for failed tasks to retry automatically. This includes new settings for the maximum number of retries and the delay between attempts.
+* **Custom Notifications:** You can now customize the email template and subject line used for task failure alerts via system settings.
+
+### General Improvements
+
+* Fixed a race condition issue to ensure task statuses update correctly and safely if you have multiple triggers.
+* Added database indexes to help the system select and run pending tasks faster.
+* Improved memory management by cleaning up resources after every task execution.
+* Updated error handling to be more robust, catching both system errors and basic exceptions.
+* Improved compatibility with MODX 3 namespaced processors.
+* Fixed a timing bug where tasks were occasionally rounded up to the next minute incorrectly.
+* Added a new setting to limit how many tasks are processed in a single run.
+
+### Interface and Developer Updates
+
+* Added the retry count to the task history grid.
+* Added fields for max retries and retry delay to the task edit window.
+* Fixed the component icon in the main menu.
+* Made sTaskRun constants public and standardized the code style across the package.
+* Added a simpler way to set task keys when scheduling tasks through code.
 
 Scheduler 1.5.0-pl (modmore)
 ------------------
