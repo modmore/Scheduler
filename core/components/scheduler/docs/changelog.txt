@@ -1,6 +1,6 @@
-Scheduler 1.7.0-pl
+Scheduler 1.9.0-pl
 ------------------
-Released on 2024-12-01
+Released on 2026-01-22
 
 - Fix race condition in run.php with atomic status update
 - Add retry logic for failed tasks (max_retries, retry_delay fields)
@@ -14,20 +14,24 @@ Released on 2024-12-01
 - Add retry_count column to history grid
 - Add max_retries and retry_delay fields to task edit window
 - Memory cleanup after each task execution
-
-Scheduler 1.6.0-pl
-------------------
-Released on 2025-01-16
-
-- Add support MODX 3
-
-Scheduler 1.5.0-pl
-------------------
-Released on 2023-12-17
-
 - Add correct icon to menu
-- Add posibility to remove old runs
-- Add file browser for task with type as file
+
+Notes on versions:
+- The past few years, @biz87 has maintained a different version of Scheduler on their own, and released versions of Scheduler under the same name in the modstore package manager.
+- On modstore, there were releases for a v1.5 on 2023-12-17, a v1.6 on 2025-01-16, v1.7 on 2024-12-01, and v1.8 on 2025-12-30.
+- On modmore, there was a v1.5 release on 2025-02-14 that included some of the patches that @biz87 provided, but not all of them.
+- v1.9 includes all the changes of both forks up to 2026-01-20.
+
+Scheduler 1.5.0-pl (modmore)
+------------------
+Released on 2025-02-14
+
+- Historic runs can now be removed (@biz87) [#30, #36]
+- Historic runs grid now has an actions column with buttons (@biz87) [#30, #36]
+- Batch removal now possible on the historic runs grid by holding Ctrl when selecting a row, then right click and remove (@biz87) [#30, #36]
+- Relative file path field upgraded to now use the MODX file browser for file based tasks, in the task window (@biz87) [#32, #37]
+- Remove padding on container panel to look better in MODX 3 [51313f4]
+- Switch to anchor layout for grid containers to force fit when screen size changes [1696735]
 
 Scheduler 1.4.1-pl
 ------------------
