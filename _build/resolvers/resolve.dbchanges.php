@@ -48,7 +48,7 @@ switch ($options[$packageAction]) {
         $manager->addField('sTaskRun', 'processing_time', ['after' => 'executedon']);
         $manager->addIndex('sTaskRun', 'processing_time');
 
-        // 2024-12-01 - Retry logic fields
+        // 1.8 - Retry logic fields
         $manager->addField('sTask', 'max_retries', ['after' => 'description']);
         $manager->addField('sTask', 'retry_delay', ['after' => 'max_retries']);
         $manager->addField('sTaskRun', 'retry_count', ['after' => 'task_key']);
